@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import user.user;
+import user.Startupuser;
 
 
 
@@ -238,7 +238,7 @@ public class Login extends javax.swing.JFrame {
             if (dbRole.equalsIgnoreCase("Admin")) {
                 new admin().setVisible(true);
             } else {
-                new user().setVisible(true);
+                new Startupuser().setVisible(true);
             }
             this.dispose();
         } else {

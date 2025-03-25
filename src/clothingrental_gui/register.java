@@ -46,10 +46,10 @@ public class register extends javax.swing.JFrame {
         login = new javax.swing.JLabel();
         register = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         registerback = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 400));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 400));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -58,13 +58,13 @@ public class register extends javax.swing.JFrame {
         parent.setMaximumSize(new java.awt.Dimension(800, 400));
         parent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setText("Create Your Account");
         parent.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("PASSWORD ");
         jLabel2.setIconTextGap(0);
         parent.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
@@ -106,27 +106,27 @@ public class register extends javax.swing.JFrame {
         parent.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 220, -1));
 
         jLabel3.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setText("FIRSTNAME");
         parent.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("USERNAME");
         parent.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("EMAIL");
         parent.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, 10));
 
         jLabel7.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("CONTACT");
         parent.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 50, -1));
 
         jLabel9.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("LASTNAME");
         jLabel9.setAlignmentY(0.0F);
         jLabel9.setIconTextGap(1);
@@ -152,7 +152,8 @@ public class register extends javax.swing.JFrame {
         });
         parent.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, -1, -1));
 
-        register.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        register.setBackground(new java.awt.Color(204, 204, 204));
+        register.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         register.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 registerMouseClicked(evt);
@@ -165,7 +166,8 @@ public class register extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+        jLabel8.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel8.setFont(new java.awt.Font("Consolas", 1, 10)); // NOI18N
         jLabel8.setText("REGISTER");
 
         javax.swing.GroupLayout registerLayout = new javax.swing.GroupLayout(register);
@@ -174,17 +176,33 @@ public class register extends javax.swing.JFrame {
             registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(registerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                 .addContainerGap())
         );
         registerLayout.setVerticalGroup(
             registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registerLayout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
+                .addGap(0, 3, Short.MAX_VALUE)
                 .addComponent(jLabel8))
         );
 
         parent.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 80, 20));
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0,80));
+        jPanel1.setForeground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 340, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 320, Short.MAX_VALUE)
+        );
+
+        parent.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 340, 320));
 
         registerback.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         registerback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/register.png"))); // NOI18N
@@ -355,6 +373,7 @@ public class register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lname;
     private javax.swing.JLabel login;
     private javax.swing.JPanel parent;

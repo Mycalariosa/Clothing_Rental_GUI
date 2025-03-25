@@ -1,8 +1,10 @@
 
 package admin;
 
+import clothingrental_gui.Login;
 import config.session;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 
@@ -17,12 +19,19 @@ public class admin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Logout1 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        Logout2 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         Productmanagement = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         accountmanagement = new javax.swing.JPanel();
@@ -38,6 +47,27 @@ public class admin extends javax.swing.JFrame {
         Dashboard = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
+
+        Logout1.setBackground(new java.awt.Color(51, 51, 51));
+        Logout1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Logout1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Logout1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Logout1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Logout1MouseExited(evt);
+            }
+        });
+
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
+        Logout1.add(jLabel20);
+
+        jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Logout");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 400));
@@ -73,6 +103,45 @@ public class admin extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("MANAGE");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+
+        Logout2.setBackground(new java.awt.Color(51, 51, 51));
+        Logout2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Logout2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Logout2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Logout2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Logout2MouseExited(evt);
+            }
+        });
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
+        Logout2.add(jLabel21);
+
+        jPanel1.add(Logout2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 30, 40));
+
+        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Logout");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 10));
 
         Productmanagement.setBackground(new java.awt.Color(51, 51, 51));
         Productmanagement.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -413,6 +482,40 @@ public class admin extends javax.swing.JFrame {
           this.dispose();
     }//GEN-LAST:event_ProfileMouseClicked
 
+    private void Logout1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout1MouseClicked
+        int a=JOptionPane.showConfirmDialog(null,"Do you really want to logout?","Select", JOptionPane.YES_NO_OPTION);
+        if(a==0)
+        {
+            setVisible(false);
+              new Login().setVisible(true);
+            this.dispose();}
+    }//GEN-LAST:event_Logout1MouseClicked
+
+    private void Logout1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Logout1MouseEntered
+
+    private void Logout1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Logout1MouseExited
+
+    private void Logout2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout2MouseClicked
+        int a=JOptionPane.showConfirmDialog(null,"Do you really want to logout?","Select", JOptionPane.YES_NO_OPTION);
+        if(a==0)
+        {
+            setVisible(false);
+            new Login().setVisible(true);
+            this.dispose();}
+    }//GEN-LAST:event_Logout2MouseClicked
+
+    private void Logout2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Logout2MouseEntered
+
+    private void Logout2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Logout2MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -450,6 +553,8 @@ public class admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Dashboard;
+    private javax.swing.JPanel Logout1;
+    private javax.swing.JPanel Logout2;
     private javax.swing.JPanel Messages;
     private javax.swing.JPanel Productmanagement;
     private javax.swing.JPanel Profile;
@@ -459,7 +564,11 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -468,6 +577,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel name;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables

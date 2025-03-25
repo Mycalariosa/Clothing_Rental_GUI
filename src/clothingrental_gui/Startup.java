@@ -22,7 +22,6 @@ public class Startup extends javax.swing.JFrame {
         Backgound = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 400));
         setSize(new java.awt.Dimension(800, 400));
 
         Back.setBackground(new java.awt.Color(204, 204, 204));
@@ -66,7 +65,7 @@ public class Startup extends javax.swing.JFrame {
         });
         startup.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Lets get started ...");
         startup.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, -1));
