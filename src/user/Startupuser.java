@@ -29,11 +29,12 @@ public class Startupuser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        startrent = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         Name = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 400));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 400));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -42,6 +43,17 @@ public class Startupuser extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        startrent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                startrentMouseClicked(evt);
+            }
+        });
+
+        jLabel2.setText("Start Rental");
+        startrent.add(jLabel2);
+
+        getContentPane().add(startrent, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 150, 20));
 
         Name.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         getContentPane().add(Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 290, 60));
@@ -62,6 +74,10 @@ if (ses != null && ses.getFname() != null && ses.getLname() != null) {
 
 }
     }//GEN-LAST:event_formWindowActivated
+
+    private void startrentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startrentMouseClicked
+            new user().setVisible(true);
+    }//GEN-LAST:event_startrentMouseClicked
 
     /**
      * @param args the command line arguments
@@ -102,5 +118,7 @@ if (ses != null && ses.getFname() != null && ses.getLname() != null) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Name;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel startrent;
     // End of variables declaration//GEN-END:variables
 }

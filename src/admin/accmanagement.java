@@ -382,7 +382,7 @@ public class accmanagement extends javax.swing.JFrame {
         jLabel17.setText("Logout");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel13.setText("DELETE");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -392,16 +392,16 @@ public class accmanagement extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel13)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 7, Short.MAX_VALUE)
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addComponent(jLabel13))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 70, 20));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 60, 20));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -535,7 +535,7 @@ public class accmanagement extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel9.setText("ADD");
 
         javax.swing.GroupLayout addLayout = new javax.swing.GroupLayout(add);
@@ -545,16 +545,16 @@ public class accmanagement extends javax.swing.JFrame {
             .addGroup(addLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel9)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         addLayout.setVerticalGroup(
             addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addLayout.createSequentialGroup()
-                .addGap(0, 7, Short.MAX_VALUE)
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addComponent(jLabel9))
         );
 
-        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, 70, 20));
+        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, 60, 20));
 
         update.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -562,7 +562,7 @@ public class accmanagement extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel12.setText("UPDATE");
 
         javax.swing.GroupLayout updateLayout = new javax.swing.GroupLayout(update);
@@ -572,16 +572,16 @@ public class accmanagement extends javax.swing.JFrame {
             .addGroup(updateLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel12)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         updateLayout.setVerticalGroup(
             updateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateLayout.createSequentialGroup()
-                .addGap(0, 7, Short.MAX_VALUE)
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addComponent(jLabel12))
         );
 
-        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 70, 20));
+        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 60, 20));
 
         activate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -589,7 +589,7 @@ public class accmanagement extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel10.setText("ACTIVATE");
 
         javax.swing.GroupLayout activateLayout = new javax.swing.GroupLayout(activate);
@@ -604,13 +604,14 @@ public class accmanagement extends javax.swing.JFrame {
         activateLayout.setVerticalGroup(
             activateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, activateLayout.createSequentialGroup()
-                .addGap(0, 7, Short.MAX_VALUE)
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addComponent(jLabel10))
         );
 
-        jPanel1.add(activate, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 280, 70, 20));
+        jPanel1.add(activate, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 280, 60, 20));
 
         fname.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        fname.setMinimumSize(new java.awt.Dimension(6, 20));
         jPanel1.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 140, 20));
 
         jLabel14.setText("firstname");
@@ -620,9 +621,11 @@ public class accmanagement extends javax.swing.JFrame {
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 60, 19));
 
         lname.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        lname.setPreferredSize(new java.awt.Dimension(6, 20));
         jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 140, 20));
 
         email.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        email.setPreferredSize(new java.awt.Dimension(6, 20));
         jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 140, 20));
 
         jLabel18.setText("email");
@@ -638,6 +641,7 @@ public class accmanagement extends javax.swing.JFrame {
         jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, 60, 19));
 
         contact.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        contact.setPreferredSize(new java.awt.Dimension(6, 20));
         jPanel1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 130, 20));
 
         username.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
@@ -651,6 +655,7 @@ public class accmanagement extends javax.swing.JFrame {
 
         status.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Active" }));
+        status.setPreferredSize(new java.awt.Dimension(66, 20));
         status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statusActionPerformed(evt);
@@ -660,6 +665,7 @@ public class accmanagement extends javax.swing.JFrame {
 
         role.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin", " " }));
+        role.setPreferredSize(new java.awt.Dimension(54, 20));
         role.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 roleActionPerformed(evt);
@@ -668,6 +674,7 @@ public class accmanagement extends javax.swing.JFrame {
         jPanel1.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 130, -1));
 
         password.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        password.setMinimumSize(new java.awt.Dimension(6, 20));
         jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 340, 130, 20));
 
         admintable.setBackground(new java.awt.Color(204, 204, 204));

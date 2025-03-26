@@ -97,19 +97,19 @@ public class Update extends javax.swing.JFrame {
                 fnameActionPerformed(evt);
             }
         });
-        getContentPane().add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 220, -1));
+        getContentPane().add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 220, -1));
 
         jLabel3.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setText("FIRSTNAME");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("LASTNAME");
         jLabel9.setAlignmentY(0.0F);
         jLabel9.setIconTextGap(1);
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         lname.setForeground(new java.awt.Color(102, 102, 102));
         lname.setCaretColor(new java.awt.Color(102, 102, 102));
@@ -118,12 +118,12 @@ public class Update extends javax.swing.JFrame {
                 lnameActionPerformed(evt);
             }
         });
-        getContentPane().add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, 220, -1));
+        getContentPane().add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 220, -1));
 
         jLabel6.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("EMAIL");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, 10));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, 10));
 
         email.setForeground(new java.awt.Color(102, 102, 102));
         email.setCaretColor(new java.awt.Color(102, 102, 102));
@@ -132,32 +132,32 @@ public class Update extends javax.swing.JFrame {
                 emailActionPerformed(evt);
             }
         });
-        getContentPane().add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 220, -1));
+        getContentPane().add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 220, -1));
 
         jLabel7.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("CONTACT");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, 50, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 50, -1));
 
         cont.setForeground(new java.awt.Color(102, 102, 102));
         cont.setCaretColor(new java.awt.Color(102, 102, 102));
-        getContentPane().add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, 220, -1));
+        getContentPane().add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 220, -1));
 
         jLabel4.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("USERNAME");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
         user.setForeground(new java.awt.Color(102, 102, 102));
         user.setCaretColor(new java.awt.Color(102, 102, 102));
-        getContentPane().add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 220, -1));
+        getContentPane().add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 220, -1));
 
         jLabel2.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("PASSWORD ");
         jLabel2.setIconTextGap(0);
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, -1, -1));
-        getContentPane().add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 220, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        getContentPane().add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 220, 20));
 
         updatepanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -183,7 +183,7 @@ public class Update extends javax.swing.JFrame {
                 .addComponent(jLabel1))
         );
 
-        getContentPane().add(updatepanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 110, 20));
+        getContentPane().add(updatepanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 110, 20));
 
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Pending" }));
         status.addActionListener(new java.awt.event.ActionListener() {
@@ -191,7 +191,7 @@ public class Update extends javax.swing.JFrame {
                 statusActionPerformed(evt);
             }
         });
-        getContentPane().add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, 220, -1));
+        getContentPane().add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 220, -1));
 
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
         role.addActionListener(new java.awt.event.ActionListener() {
@@ -199,10 +199,10 @@ public class Update extends javax.swing.JFrame {
                 roleActionPerformed(evt);
             }
         });
-        getContentPane().add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 220, -1));
+        getContentPane().add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 220, -1));
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Black and White Modern Sign-up and Login Website Page UI Desktop Prototype.png"))); // NOI18N
-        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(-280, -10, 660, 410));
 
         pack();
         setLocationRelativeTo(null);
