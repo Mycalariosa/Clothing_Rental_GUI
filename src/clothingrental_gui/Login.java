@@ -187,18 +187,18 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_RegisterMouseExited
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
-     String username = iusername.getText().trim();
-        String password = new String(ipassword.getPassword()).trim();
+      String username = iusername.getText().trim();
+String password = new String(ipassword.getPassword()).trim();
 
-        if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter both username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+if (username.isEmpty() || password.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Please enter both username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-       try {
+try {
     config dbConfig = new config();
     String sql = "SELECT * FROM user WHERE username = ?";
-    
+
     try (PreparedStatement pst = dbConfig.getConnection().prepareStatement(sql)) {
         pst.setString(1, username);
         ResultSet rs = pst.executeQuery();
@@ -207,18 +207,19 @@ public class Login extends javax.swing.JFrame {
             String dbPassword = rs.getString("password");
             String dbStatus = rs.getString("status");
             String dbRole = rs.getString("role");
+            String profileImagePath = rs.getString("profile_image");
 
             if (!hashPassword(password).equals(dbPassword)) {
-                JOptionPane.showMessageDialog(this, "Incorrect password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Incorrect password.", "Login Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (!dbStatus.equalsIgnoreCase("Active")) {
-                JOptionPane.showMessageDialog(this, "Your account is still pending approval.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Your account is still pending approval.", "Login Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Corrected setUser call with all required parameters
+            // Set user session with correct values
             session sess = session.getInstance();
             sess.setUser(
                 rs.getInt("u_id"), 
@@ -226,29 +227,27 @@ public class Login extends javax.swing.JFrame {
                 rs.getString("lname"), 
                 rs.getString("contact"), 
                 rs.getString("username"), 
-                rs.getString("email")
+                rs.getString("email"), 
+                profileImagePath
             );
-
             sess.setStatus(dbStatus);
             sess.setUserType(dbRole);
 
-            JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
             // Redirect user based on role
             if (dbRole.equalsIgnoreCase("Admin")) {
                 new admin().setVisible(true);
             } else {
                 new Startupuser().setVisible(true);
-            }
-            this.dispose();
+             }
         } else {
-            JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid username or password.", "Login Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 } catch (SQLException ex) {
-    JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-}
-    }
+    JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+}}
 
     private String hashPassword(String password) {
         try {
@@ -260,11 +259,11 @@ public class Login extends javax.swing.JFrame {
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            JOptionPane.showMessageDialog(this, "Password hashing failed.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Password hashing failed.", "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     
-   
+
 
     }//GEN-LAST:event_loginMouseClicked
 

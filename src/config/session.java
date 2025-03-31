@@ -1,9 +1,4 @@
-
 package config;
-
-
-import javax.swing.JDesktopPane;
-
 
 import javax.swing.JDesktopPane;
 
@@ -18,6 +13,7 @@ public class session {
     private String email;
     private String status;
     private String userType;
+    private String profileImage;
     private JDesktopPane mainDesktop;
 
     private session() {} 
@@ -29,13 +25,14 @@ public class session {
         return instance;
     }
 
-    public void setUser(int userId, String fname, String lname, String contact, String username, String email) {
+    public void setUser(int userId, String fname, String lname, String contact, String username, String email, String profileImage) {
         this.userId = userId;
         this.fname = fname;
         this.lname = lname;
         this.contact = contact;
         this.username = username;
         this.email = email;
+        this.profileImage = profileImage;
     }
 
     public int getUserId() {
@@ -97,6 +94,15 @@ public class session {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+    
+    public String getProfileImage() {
+        return profileImage;
+    }
+    
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
 
     public void clearSession() {
         this.userId = 0;
@@ -107,6 +113,7 @@ public class session {
         this.email = null;
         this.status = null;
         this.userType = null;
+        this.profileImage = null;
         this.mainDesktop = null;
     }
 }

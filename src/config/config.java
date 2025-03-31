@@ -1,13 +1,4 @@
-
 package config;
-
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import java.sql.*;
 
@@ -26,31 +17,40 @@ public class config {
         return connect;
     }
 
-    // ✅ Fix: Implement prepareStatement properly
+    // Prepare statements properly
     public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return connect.prepareStatement(sql);
+        if (connect != null) {
+            return connect.prepareStatement(sql);
+        } else {
+            throw new SQLException("Database connection is not established.");
+        }
     }
 
-    // Function to insert data
-    public int insertData(String sql) {
+    // Insert data safely with parameters
+    public int insertData(String sql, Object... params) {
         int result = 0;
-        try (PreparedStatement pst = connect.prepareStatement(sql)) {
-            pst.executeUpdate();
+        try (PreparedStatement pst = prepareStatement(sql)) {
+            for (int i = 0; i < params.length; i++) {
+                pst.setObject(i + 1, params[i]);
+            }
+            result = pst.executeUpdate();
             System.out.println("Inserted successfully!");
-            result = 1;
         } catch (SQLException ex) {
             System.err.println("Insert error: " + ex.getMessage());
         }
         return result;
     }
 
-    // Function to retrieve data
-    public ResultSet getData(String sql) throws SQLException {
-        Statement stmt = connect.createStatement();
-        return stmt.executeQuery(sql);
+    // Retrieve data safely
+    public ResultSet getData(String sql, Object... params) throws SQLException {
+        PreparedStatement pst = prepareStatement(sql);
+        for (int i = 0; i < params.length; i++) {
+            pst.setObject(i + 1, params[i]);
+        }
+        return pst.executeQuery();
     }
 
-    // Method to close the connection
+    // Close connection method
     public void closeConnection() {
         try {
             if (connect != null && !connect.isClosed()) {

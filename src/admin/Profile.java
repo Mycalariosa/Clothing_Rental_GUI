@@ -3,21 +3,24 @@ package admin;
 
 import config.CroppingPanel;
 import clothingrental_gui.Login;
+import config.config;
 import config.session;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.imageio.ImageIO;
 
 public class Profile extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Profile
-     */
+
     public Profile() {
         initComponents();
+        displayProfileSection();
     }
 
     @SuppressWarnings("unchecked")
@@ -771,8 +774,7 @@ if (ses != null && ses.getUsername() != null) {
     }//GEN-LAST:event_Logout1MouseExited
 
     private void uploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadMouseClicked
-                                         
-     JFileChooser fileChooser = new JFileChooser();
+    JFileChooser fileChooser = new JFileChooser();
     fileChooser.setDialogTitle("Choose an image");
     fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
 
@@ -814,28 +816,99 @@ if (ses != null && ses.getUsername() != null) {
                     photo1.setIcon(new ImageIcon(circleImage));
                     photo2.setIcon(new ImageIcon(balancedImage));
 
-                    
-                    String saveDirectory = "C:/MyApp/CroppedImages/";
-                    File dir = new File(saveDirectory);
-
-                    // Create folder if it doesn’t exist
-                    if (!dir.exists()) {
-                        dir.mkdirs();
+                    // ===== Save the cropped image to the specified directory and store the path in the database =====
+                    String fileName = selectedFile.getName(); 
+                    File destinationDirectory = new File("src/images/prof"); 
+                    if (!destinationDirectory.exists()) {
+                        destinationDirectory.mkdirs(); 
                     }
+                    File destinationFile = new File(destinationDirectory, fileName);
 
-                    // Generate unique filename using timestamp
-                    String fileName = "cropped_image_" + System.currentTimeMillis() + ".png";
-                    File saveFile = new File(saveDirectory + fileName);
+                    try {
+                        ImageIO.write(croppedImage, fileName.substring(fileName.lastIndexOf(".") + 1), destinationFile);
+                        System.out.println("Image saved to: " + destinationFile.getAbsolutePath());
 
-                    // Save image as PNG
-                    ImageIO.write(balancedImage, "png", saveFile);
-                    JOptionPane.showMessageDialog(null, "Cropped image saved successfully at:\n" + saveFile.getAbsolutePath());
+                        // Get the relative path from the project root (or your desired base path)
+                        String relativePath = destinationFile.getPath(); 
+
+                        // ===== Store the relative path in the database =====
+                        String sql = "UPDATE mbatelier.user SET profile_image = ? WHERE u_id = ?"; // Use u_id as the primary key
+
+                        config dbConfig = new config();
+                        Connection connection = dbConfig.getConnection();
+
+                        if (connection != null) {
+                            PreparedStatement pstmt = connection.prepareStatement(sql);
+                            pstmt.setString(1, relativePath);
+
+                            session userSession = session.getInstance();
+                            int userId = userSession.getUserId();
+
+                            System.out.println("SQL Query: " + sql); 
+                            System.out.println("User ID: " + userId); 
+
+                            pstmt.setInt(2, userId); // Assuming u_id is an integer
+                            pstmt.executeUpdate();
+                            dbConfig.closeConnection();
+
+                            userSession.setProfileImage(relativePath);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Database connection failed.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error updating database: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Failed to load or save image: " + ex.getMessage());
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading/cropping image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }}
+
+        private void displayProfileSection() { 
+    session userSession = session.getInstance();
+    String imagePath = userSession.getProfileImage();
+
+    if (imagePath != null && !imagePath.isEmpty()) {
+        try {
+            BufferedImage image = ImageIO.read(new File(imagePath));
+            // Scale and process the image as needed (similar to your upload code)
+            int w1 = photo1.getWidth();
+            int h1 = photo1.getHeight();
+            Image resizedForPhoto1 = image.getScaledInstance(w1, h1, Image.SCALE_SMOOTH);
+
+            BufferedImage circleImage = new BufferedImage(w1, h1, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = circleImage.createGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setClip(new java.awt.geom.Ellipse2D.Float(0, 0, w1, h1));
+            g2.drawImage(resizedForPhoto1, 0, 0, null);
+            g2.dispose();
+
+            int w2 = photo2.getWidth();
+            int h2 = photo2.getHeight();
+            Image resizedForPhoto2 = image.getScaledInstance(w2, h2, Image.SCALE_SMOOTH);
+            BufferedImage balancedImage = new BufferedImage(w2, h2, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g3 = balancedImage.createGraphics();
+            g3.drawImage(resizedForPhoto2, 0, 0, null);
+            g3.dispose();
+
+            photo1.setIcon(new ImageIcon(circleImage));
+            photo2.setIcon(new ImageIcon(balancedImage));
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    // ... rest of the code to display the profile section
+
     }//GEN-LAST:event_uploadMouseClicked
 
     private void changepassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changepassMouseClicked

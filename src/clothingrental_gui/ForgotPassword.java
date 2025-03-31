@@ -100,7 +100,7 @@ public class ForgotPassword extends javax.swing.JFrame {
                 .addComponent(jLabel2))
         );
 
-        user.setText("username");
+        user.setText("Username");
 
         newpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
