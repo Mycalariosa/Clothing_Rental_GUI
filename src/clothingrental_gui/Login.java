@@ -238,8 +238,10 @@ try {
             // Redirect user based on role
             if (dbRole.equalsIgnoreCase("Admin")) {
                 new admin().setVisible(true);
+                this.dispose();
             } else {
                 new Startupuser().setVisible(true);
+                this.dispose();
              }
         } else {
             JOptionPane.showMessageDialog(null, "Invalid username or password.", "Login Error", JOptionPane.ERROR_MESSAGE);

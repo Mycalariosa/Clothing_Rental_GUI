@@ -77,6 +77,7 @@ if (ses != null && ses.getFname() != null && ses.getLname() != null) {
 
     private void startrentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startrentMouseClicked
             new user().setVisible(true);
+            this.dispose();
     }//GEN-LAST:event_startrentMouseClicked
 
     /**

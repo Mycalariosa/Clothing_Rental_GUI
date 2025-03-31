@@ -23,28 +23,26 @@ import clothingrental_gui.Login;
  */
 public class Update extends javax.swing.JFrame {
 
-     config connect = new config(); // Database connection
-     private String username; // Store the username
+   private config connect = new config();
+    private String username;
 
     public Update(String username) {
-        initComponents(); // Initialize UI components
+        initComponents();
         this.username = username;
-        fetchUserDetails(); // Fetch user details and populate fields
+        fetchUserDetails();
+        enableEditing(); // Allow editing of all fields
+        user.setEditable(false); // Make username non-editable
     }
 
     private Update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    // Fetch and display user details
     private void fetchUserDetails() {
-        config connect = new config();
         String sql = "SELECT fname, lname, email, contact, status, role FROM user WHERE username = ?";
-
         try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
             pst.setString(1, username);
             ResultSet rs = pst.executeQuery();
-
             if (rs.next()) {
                 fname.setText(rs.getString("fname"));
                 lname.setText(rs.getString("lname"));
@@ -52,9 +50,11 @@ public class Update extends javax.swing.JFrame {
                 cont.setText(rs.getString("contact"));
                 status.setSelectedItem(rs.getString("status"));
                 role.setSelectedItem(rs.getString("role"));
+                user.setText(username); // Set username field
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Database Error: Unable to fetch user details.", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
    
@@ -72,7 +72,7 @@ public class Update extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         cont = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        use = new javax.swing.JLabel();
         user = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         pass = new javax.swing.JPasswordField();
@@ -143,11 +143,12 @@ public class Update extends javax.swing.JFrame {
         cont.setCaretColor(new java.awt.Color(102, 102, 102));
         getContentPane().add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 220, -1));
 
-        jLabel4.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setText("USERNAME");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        use.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        use.setForeground(new java.awt.Color(204, 204, 204));
+        use.setText("USERNAME");
+        getContentPane().add(use, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
+        user.setEditable(false);
         user.setForeground(new java.awt.Color(102, 102, 102));
         user.setCaretColor(new java.awt.Color(102, 102, 102));
         getContentPane().add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 220, -1));
@@ -246,27 +247,24 @@ public class Update extends javax.swing.JFrame {
     }
     
     private void updatepanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updatepanelMouseClicked
-                                           
-   config connect = new config();
     if (!validateInput()) return;
 
-    // Get user inputs
     String firstname = fname.getText().trim();
     String lastname = lname.getText().trim();
     String email1 = email.getText().trim();
     String contact = cont.getText().trim();
     String username = user.getText().trim();
     String password = pass.getText().trim();
-    String status = "Pending";
-    String role = "User";
-    
+    String selectedStatus = (String) status.getSelectedItem();
+    String selectedRole = (String) role.getSelectedItem();
+
     String hashedPassword = password.isEmpty() ? null : hashPassword(password);
 
-     String sql;
+    String sql;
     if (hashedPassword == null) {
-        sql = "UPDATE user SET fname = ?, lname = ?, email = ?, contact = ?, status = ?, role = ? WHERE username = ?";
+        sql = "UPDATE user SET fname = ?, lname = ?, email = ?, contact = ?, username = ?, status = ?, role = ? WHERE username = ?";
     } else {
-        sql = "UPDATE user SET fname = ?, lname = ?, email = ?, contact = ?, password = ?, status = ?, role = ? WHERE username = ?";
+        sql = "UPDATE user SET fname = ?, lname = ?, email = ?, contact = ?, password = ?, username = ?, status = ?, role = ? WHERE username = ?";
     }
 
     try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
@@ -276,91 +274,61 @@ public class Update extends javax.swing.JFrame {
         pst.setString(4, contact);
 
         if (hashedPassword == null) {
-            pst.setString(5, status);
-            pst.setString(6, role);
-            pst.setString(7, username);
+            pst.setString(5, username); // Set the new username
+            pst.setString(6, selectedStatus);
+            pst.setString(7, selectedRole);
+            pst.setString(8, user.getText().trim()); // Original username to identify the record
         } else {
             pst.setString(5, hashedPassword);
-            pst.setString(6, status);
-            pst.setString(7, role);
-            pst.setString(8, username);
+            pst.setString(6, username); // Set the new username
+            pst.setString(7, selectedStatus);
+            pst.setString(8, selectedRole);
+            pst.setString(9, user.getText().trim()); // Original username to identify the record
         }
 
         int rowsAffected = pst.executeUpdate();
         if (rowsAffected > 0) {
             JOptionPane.showMessageDialog(this, "User updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            new accmanagement().setVisible(true); // Redirect to account management
-            this.dispose(); // Close current form
+            new accmanagement().setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "No user found with the provided username.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     } catch (SQLException ex) {
-        ex.printStackTrace();
         JOptionPane.showMessageDialog(this, "Database Error: Unable to update account.", "Error", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
     }
 }
 
-// Fetch updated user details and display them
-private void fetchUpdatedUserDetails(String username) {
-    config connect = new config();
-     String sql = "SELECT fname, lname, email, contact, status, role FROM user WHERE username = ?"; 
+private void enableEditing() {
+    fname.setEditable(true);
+    lname.setEditable(true);
+    email.setEditable(true);
+    cont.setEditable(true);
+    user.setEditable(true); // Allow editing of the username
+    pass.setEditable(true); // Allow editing of the password
+    status.setEnabled(true);
+    role.setEnabled(true);
+}
 
-        try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
-            pst.setString(1, username);
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                fname.setText(rs.getString("fname"));
-                lname.setText(rs.getString("lname"));
-                email.setText(rs.getString("email"));
-                cont.setText(rs.getString("contact"));
-                status.setSelectedItem(rs.getString("status")); // Dropdown
-                role.setSelectedItem(rs.getString("role"));     // Dropdown
+    private boolean isValidEmail(String email) {
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return email.matches(regex);
+    }
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashed = md.digest(password.getBytes());
+            StringBuilder hex = new StringBuilder();
+            for (byte b : hashed) {
+                hex.append(String.format("%02x", b));
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Database Error: Unable to fetch user details.", "Error", JOptionPane.ERROR_MESSAGE);
+            return hex.toString();
+        } catch (NoSuchAlgorithmException e) {
+            JOptionPane.showMessageDialog(this, "Error while hashing password", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
         }
-    }
-
-    // Ensure text fields are editable
-    private void enableEditing() {
-        fname.setEditable(true);
-        lname.setEditable(true);
-        email.setEditable(true);
-        cont.setEditable(true);
-        status.setEnabled(true); // Enable dropdowns
-        role.setEnabled(true);
-    }
-
-// Email validation method
-private boolean isValidEmail(String email) {
-    String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-    return email.matches(regex);
-}
-private void clearFields() {
-    fname.setText("");
-    lname.setText("");
-    email.setText("");
-    cont.setText("");
-    user.setText("");
-    pass.setText("");
-    status.setSelectedIndex(0); // Reset dropdown to default
-    role.setSelectedIndex(0);   // Reset dropdown to default
-}
-// Hash password using SHA-256
-private String hashPassword(String password) {
-    try {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] hashed = md.digest(password.getBytes());
-        StringBuilder hex = new StringBuilder();
-        for (byte b : hashed) {
-            hex.append(String.format("%02x", b));
-        }
-        return hex.toString();
-    } catch (NoSuchAlgorithmException e) {
-        JOptionPane.showMessageDialog(this, "Error while hashing password", "Error", JOptionPane.ERROR_MESSAGE);
-        return null;
-    } 
+    
 
     }//GEN-LAST:event_updatepanelMouseClicked
 
@@ -398,7 +366,6 @@ private String hashPassword(String password) {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
@@ -407,6 +374,7 @@ private String hashPassword(String password) {
     private javax.swing.JComboBox<String> role;
     private javax.swing.JComboBox<String> status;
     private javax.swing.JPanel updatepanel;
-    private javax.swing.JTextField user;
+    private javax.swing.JLabel use;
+    public javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }

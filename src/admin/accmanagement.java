@@ -296,16 +296,16 @@ public class accmanagement extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("PRODUCT");
+        jLabel3.setText("LOGS");
 
         javax.swing.GroupLayout ProductmanagementLayout = new javax.swing.GroupLayout(Productmanagement);
         Productmanagement.setLayout(ProductmanagementLayout);
         ProductmanagementLayout.setHorizontalGroup(
             ProductmanagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProductmanagementLayout.createSequentialGroup()
-                .addGap(77, 77, 77)
+                .addGap(89, 89, 89)
                 .addComponent(jLabel3)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         ProductmanagementLayout.setVerticalGroup(
             ProductmanagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +330,7 @@ public class accmanagement extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("RENTALS");
+        jLabel4.setText("PRODUCT");
 
         javax.swing.GroupLayout RentalmanagementLayout = new javax.swing.GroupLayout(Rentalmanagement);
         Rentalmanagement.setLayout(RentalmanagementLayout);
@@ -438,7 +438,7 @@ public class accmanagement extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("MESSAGES");
+        jLabel7.setText("RENTALS");
 
         javax.swing.GroupLayout MessagesLayout = new javax.swing.GroupLayout(Messages);
         Messages.setLayout(MessagesLayout);
@@ -447,7 +447,7 @@ public class accmanagement extends javax.swing.JFrame {
             .addGroup(MessagesLayout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addComponent(jLabel7)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         MessagesLayout.setVerticalGroup(
             MessagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
