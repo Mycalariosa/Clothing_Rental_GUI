@@ -3,7 +3,7 @@ package config;
 import java.sql.*;
 
 public class config {
-    private Connection connect;
+    public Connection connect;
 
     public config() {
         try {

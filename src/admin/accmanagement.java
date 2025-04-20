@@ -122,25 +122,9 @@ public class accmanagement extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         activate = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        fname = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        lname = new javax.swing.JTextField();
-        email = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        contact = new javax.swing.JTextField();
-        username = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        status = new javax.swing.JComboBox<>();
-        role = new javax.swing.JComboBox<>();
-        password = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         admintable = new javax.swing.JTable();
-        back = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
@@ -401,7 +385,7 @@ public class accmanagement extends javax.swing.JFrame {
                 .addComponent(jLabel13))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 60, 20));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 60, 20));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -543,9 +527,9 @@ public class accmanagement extends javax.swing.JFrame {
         addLayout.setHorizontalGroup(
             addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         addLayout.setVerticalGroup(
             addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -554,7 +538,7 @@ public class accmanagement extends javax.swing.JFrame {
                 .addComponent(jLabel9))
         );
 
-        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, 60, 20));
+        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, 60, 20));
 
         update.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -581,7 +565,7 @@ public class accmanagement extends javax.swing.JFrame {
                 .addComponent(jLabel12))
         );
 
-        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 60, 20));
+        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 60, 20));
 
         activate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -596,10 +580,10 @@ public class accmanagement extends javax.swing.JFrame {
         activate.setLayout(activateLayout);
         activateLayout.setHorizontalGroup(
             activateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(activateLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, activateLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         activateLayout.setVerticalGroup(
             activateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -608,74 +592,7 @@ public class accmanagement extends javax.swing.JFrame {
                 .addComponent(jLabel10))
         );
 
-        jPanel1.add(activate, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 280, 60, 20));
-
-        fname.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        fname.setMinimumSize(new java.awt.Dimension(6, 20));
-        jPanel1.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 140, 20));
-
-        jLabel14.setText("firstname");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, -1, -1));
-
-        jLabel15.setText("lastname");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 60, 19));
-
-        lname.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        lname.setPreferredSize(new java.awt.Dimension(6, 20));
-        jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 140, 20));
-
-        email.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        email.setPreferredSize(new java.awt.Dimension(6, 20));
-        jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 140, 20));
-
-        jLabel18.setText("email");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 60, 19));
-
-        jLabel21.setText("Role");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, -1, 19));
-
-        jLabel22.setText("username");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, 60, 19));
-
-        jLabel23.setText("contact");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, 60, 19));
-
-        contact.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        contact.setPreferredSize(new java.awt.Dimension(6, 20));
-        jPanel1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 130, 20));
-
-        username.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 310, 130, 20));
-
-        jLabel24.setText(" Status");
-        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, 60, 19));
-
-        jLabel25.setText("password");
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 60, 19));
-
-        status.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Active" }));
-        status.setPreferredSize(new java.awt.Dimension(66, 20));
-        status.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusActionPerformed(evt);
-            }
-        });
-        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, 140, -1));
-
-        role.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin", " " }));
-        role.setPreferredSize(new java.awt.Dimension(54, 20));
-        role.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roleActionPerformed(evt);
-            }
-        });
-        jPanel1.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 130, -1));
-
-        password.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        password.setMinimumSize(new java.awt.Dimension(6, 20));
-        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 340, 130, 20));
+        jPanel1.add(activate, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 60, 20));
 
         admintable.setBackground(new java.awt.Color(204, 204, 204));
         admintable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -691,10 +608,10 @@ public class accmanagement extends javax.swing.JFrame {
         admintable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(admintable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 520, 180));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 510, 260));
 
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/2.png"))); // NOI18N
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/2.png"))); // NOI18N
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -840,184 +757,10 @@ public class accmanagement extends javax.swing.JFrame {
 }
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-    config connect = new config();
-
-    // Retrieve user input
-    String firstNameText = fname.getText().trim();
-    String lastNameText = lname.getText().trim();
-    String contactNumberText = contact.getText().trim();
-    String emailText = email.getText().trim();
-    String usernameText = username.getText().trim();
-    char[] passwordChars = password.getPassword();
-    String selectedRole = (String) role.getSelectedItem();  
-    String selectedStatus = (String) status.getSelectedItem(); 
-
-    StringBuilder errorMessage = new StringBuilder();
-
-    // Validation checks
-    if (firstNameText.isEmpty() || lastNameText.isEmpty() || contactNumberText.isEmpty() || 
-        emailText.isEmpty() || usernameText.isEmpty() || passwordChars.length == 0 || 
-        selectedRole == null || selectedStatus == null) { 
-
-        errorMessage.append("Please fill out all required fields.\n");
-
-    } else {
-        if (!contactNumberText.matches("\\d{11}")) {
-            errorMessage.append("Invalid contact number format. Must be 11 digits.\n");
-        }
-        if (!isValidEmail(emailText)) {
-            errorMessage.append("Invalid email format.\n");
-        } else if (isEmailTaken(emailText)) {
-            errorMessage.append("Email is already taken.\n");
-        }
-        if (isUsernameTaken(usernameText)) {
-            errorMessage.append("Username is already taken.\n");
-        }
-        if (!validatePassword(password)) {
-            return;
-        }
+         new Add().setVisible(true);
+         this.dispose();
     }
 
-    // Show error message if validation fails
-    if (errorMessage.length() > 0) {
-        JOptionPane.showMessageDialog(this, errorMessage.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Hash password
-    String passwordText = new String(passwordChars);
-    String hashedPassword = hashPassword(passwordText);
-
-    // Corrected SQL insert query
-    String sql = "INSERT INTO user (fname, lname, email, contact, username, password, status, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-    try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
-        pst.setString(1, firstNameText);
-        pst.setString(2, lastNameText);
-        pst.setString(3, emailText);
-        pst.setString(4, contactNumberText);
-        pst.setString(5, usernameText);
-        pst.setString(6, hashedPassword);
-        pst.setString(7, selectedStatus);
-        pst.setString(8, selectedRole);
-
-        pst.executeUpdate();
-
-        // Success message
-        JOptionPane.showMessageDialog(this, "Account Registered Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-        // Clear input fields
-        fname.setText("");
-        lname.setText("");
-        contact.setText("");
-        email.setText("");
-        username.setText("");
-        password.setText("");
-        role.setSelectedIndex(0);
-        status.setSelectedIndex(0);
-
-    } catch (SQLException ex) {
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(this, "Database Error: Unable to register account.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-}                                
-
-// Check if username is already taken
-private boolean isUsernameTaken(String username) {
-    config connect = new config();
-    String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
-    try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
-        pst.setString(1, username);
-        try (ResultSet rs = pst.executeQuery()) {
-            return rs.next() && rs.getInt(1) > 0;
-        }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-    }
-    return false;
-}
-
-// Check if email is already taken
-private boolean isEmailTaken(String email) {
-    config connect = new config();
-    String sql = "SELECT COUNT(*) FROM user WHERE email = ?";
-    try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
-        pst.setString(1, email);
-        try (ResultSet rs = pst.executeQuery()) {
-            return rs.next() && rs.getInt(1) > 0;
-        }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-    }
-    return false;
-}
-
-// Validate email format
-private boolean isValidEmail(String email) {
-    String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-    return email.matches(regex);
-}
-
-// Validate password strength
-private boolean validatePassword(JPasswordField passwordField) {
-    String password = new String(passwordField.getPassword());
-    StringBuilder errorMessage = new StringBuilder();
-    boolean isValid = true;
-
-    if (password.isEmpty()) {
-        errorMessage.append("Password cannot be empty.\n");
-        isValid = false;
-    }
-    if (password.length() < 8) {
-        errorMessage.append("Password must be at least 8 characters long.\n");
-        isValid = false;
-    }
-    if (!password.matches(".*[A-Z].*")) {
-        errorMessage.append("Password must contain at least one uppercase letter.\n");
-        isValid = false;
-    }
-    if (!password.matches(".*[a-z].*")) {
-        errorMessage.append("Password must contain at least one lowercase letter.\n");
-        isValid = false;
-    }
-    if (!password.matches(".*\\d.*")) {
-        errorMessage.append("Password must contain at least one digit.\n");
-        isValid = false;
-    }
-    if (!password.matches(".*[!@#$%^&*()_+=\\-\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
-        errorMessage.append("Password must contain at least one special character.\n");
-        isValid = false;
-    }
-
-    if (!isValid) {
-        try {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/imgs/error.png"));
-            JOptionPane.showMessageDialog(this, errorMessage.toString(), "Password Validation", JOptionPane.ERROR_MESSAGE, icon);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, errorMessage.toString(), "Password Validation", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    return isValid;
-}
-
-// Hash password using SHA-256
-private String hashPassword(String password) {
-    try {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] hashed = md.digest(password.getBytes());
-        StringBuilder hex = new StringBuilder();
-        for (byte b : hashed) {
-            hex.append(String.format("%02x", b));
-        }
-        return hex.toString();
-    } catch (NoSuchAlgorithmException e) {
-        JOptionPane.showMessageDialog(this, "Error while hashing password", "Error", JOptionPane.ERROR_MESSAGE);
-        return null;
-    }
-
-}
-
-// Show error messages
 private void showError(String message) {
     JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
 
@@ -1026,10 +769,6 @@ private void showError(String message) {
  
   
 
-    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_statusActionPerformed
-
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
@@ -1037,10 +776,6 @@ private void showError(String message) {
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
-
-    private void roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_roleActionPerformed
 
     
     private void activateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activateMouseClicked
@@ -1113,10 +848,6 @@ private void showError(String message) {
     private javax.swing.JPanel activate;
     private javax.swing.JPanel add;
     private javax.swing.JTable admintable;
-    private javax.swing.JLabel back;
-    private javax.swing.JTextField contact;
-    private javax.swing.JTextField email;
-    private javax.swing.JTextField fname;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
@@ -1124,17 +855,10 @@ private void showError(String message) {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1146,14 +870,9 @@ private void showError(String message) {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField lname;
-    private javax.swing.JPasswordField password;
-    private javax.swing.JComboBox<String> role;
     private javax.swing.JTextField search;
     private javax.swing.JPanel settings;
-    private javax.swing.JComboBox<String> status;
     private javax.swing.JPanel update;
-    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 
 }

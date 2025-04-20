@@ -29,7 +29,6 @@ public class register extends javax.swing.JFrame {
     private void initComponents() {
 
         parent = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         user = new javax.swing.JTextField();
@@ -42,11 +41,12 @@ public class register extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         login = new javax.swing.JLabel();
         register = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         registerback = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,11 +57,6 @@ public class register extends javax.swing.JFrame {
         parent.setBackground(new java.awt.Color(204, 204, 204));
         parent.setMaximumSize(new java.awt.Dimension(800, 400));
         parent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("Create Your Account");
-        parent.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
@@ -132,11 +127,8 @@ public class register extends javax.swing.JFrame {
         jLabel9.setIconTextGap(1);
         parent.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, -1));
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Already have an Account!");
-        parent.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, -1, -1));
-
         login.setBackground(new java.awt.Color(204, 255, 255));
+        login.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         login.setForeground(new java.awt.Color(153, 255, 255));
         login.setText("LOGIN");
         login.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -190,17 +182,18 @@ public class register extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0,80));
         jPanel1.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
-        );
+        jLabel5.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel5.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel5.setText("Already have an Account!");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Consolas", 2, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setText("Create Your Account");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
 
         parent.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 340, 320));
 

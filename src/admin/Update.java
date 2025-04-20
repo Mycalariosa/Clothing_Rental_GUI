@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package admin;
 
 import config.config;
@@ -76,10 +72,13 @@ public class Update extends javax.swing.JFrame {
         user = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         pass = new javax.swing.JPasswordField();
-        updatepanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         status = new javax.swing.JComboBox<>();
         role = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        updatepanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -97,19 +96,19 @@ public class Update extends javax.swing.JFrame {
                 fnameActionPerformed(evt);
             }
         });
-        getContentPane().add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 220, -1));
+        getContentPane().add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 220, -1));
 
         jLabel3.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setText("FIRSTNAME");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("LASTNAME");
         jLabel9.setAlignmentY(0.0F);
         jLabel9.setIconTextGap(1);
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, -1));
 
         lname.setForeground(new java.awt.Color(102, 102, 102));
         lname.setCaretColor(new java.awt.Color(102, 102, 102));
@@ -118,12 +117,12 @@ public class Update extends javax.swing.JFrame {
                 lnameActionPerformed(evt);
             }
         });
-        getContentPane().add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 220, -1));
+        getContentPane().add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 220, -1));
 
         jLabel6.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("EMAIL");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, 10));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, 10));
 
         email.setForeground(new java.awt.Color(102, 102, 102));
         email.setCaretColor(new java.awt.Color(102, 102, 102));
@@ -132,34 +131,65 @@ public class Update extends javax.swing.JFrame {
                 emailActionPerformed(evt);
             }
         });
-        getContentPane().add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 220, -1));
+        getContentPane().add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 220, -1));
 
         jLabel7.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("CONTACT");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 50, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 50, -1));
 
         cont.setForeground(new java.awt.Color(102, 102, 102));
         cont.setCaretColor(new java.awt.Color(102, 102, 102));
-        getContentPane().add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 220, -1));
+        getContentPane().add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 220, -1));
 
         use.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         use.setForeground(new java.awt.Color(204, 204, 204));
         use.setText("USERNAME");
-        getContentPane().add(use, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        getContentPane().add(use, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
 
         user.setEditable(false);
         user.setForeground(new java.awt.Color(102, 102, 102));
         user.setCaretColor(new java.awt.Color(102, 102, 102));
-        getContentPane().add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 220, -1));
+        getContentPane().add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 220, -1));
 
         jLabel2.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("PASSWORD ");
         jLabel2.setIconTextGap(0);
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
-        getContentPane().add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 220, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, -1, -1));
+        getContentPane().add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 220, 20));
 
+        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Pending" }));
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusActionPerformed(evt);
+            }
+        });
+        getContentPane().add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 220, -1));
+
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
+        role.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roleActionPerformed(evt);
+            }
+        });
+        getContentPane().add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 220, -1));
+
+        jPanel1.setBackground(new java.awt.Color(0,0,0,80));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel4.setText("STATUS");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel5.setText("ROLE");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
+
+        updatepanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         updatepanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 updatepanelMouseClicked(evt);
@@ -173,37 +203,23 @@ public class Update extends javax.swing.JFrame {
         updatepanelLayout.setHorizontalGroup(
             updatepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updatepanelLayout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(36, 36, 36))
         );
         updatepanelLayout.setVerticalGroup(
             updatepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updatepanelLayout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
+                .addGap(0, 2, Short.MAX_VALUE)
                 .addComponent(jLabel1))
         );
 
-        getContentPane().add(updatepanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 110, 20));
+        jPanel1.add(updatepanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 110, 20));
 
-        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Pending" }));
-        status.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusActionPerformed(evt);
-            }
-        });
-        getContentPane().add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 220, -1));
-
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
-        role.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roleActionPerformed(evt);
-            }
-        });
-        getContentPane().add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 220, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 350, 330));
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Black and White Modern Sign-up and Login Website Page UI Desktop Prototype.png"))); // NOI18N
-        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(-280, -10, 660, 410));
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(-240, -10, 800, 420));
 
         pack();
         setLocationRelativeTo(null);
@@ -366,9 +382,12 @@ private void enableEditing() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lname;
     private javax.swing.JPasswordField pass;
     private javax.swing.JComboBox<String> role;
