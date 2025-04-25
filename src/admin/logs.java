@@ -1,4 +1,3 @@
-
 package admin;
 
 import clothingrental_gui.Login;
@@ -13,6 +12,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -372,9 +372,124 @@ public class logs extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loadLogs() {
-     
+        DefaultTableModel model = new DefaultTableModel();
+        JTable table = new JTable(model);
+        
+        // Add columns based on the database structure
+        model.addColumn("Log ID");
+        model.addColumn("User Info");
+        model.addColumn("Event");
+        model.addColumn("Description");
+        model.addColumn("Timestamp");
+        
+        try {
+            config dbConfig = new config();
+            Connection conn = dbConfig.getConnection();
+            if (conn == null) {
+                JOptionPane.showMessageDialog(null, "Database connection failed!");
+                return;
+            }
 
-}
+            // Join with user table to get user information
+            String query = "SELECT l.log_id, " +
+                         "CONCAT(u.u_id, ' - ', u.role) AS user_info, " +
+                         "l.log_event, l.log_description, l.log_timestamp " +
+                         "FROM logs l " +
+                         "JOIN user u ON l.u_id = u.u_id " +
+                         "ORDER BY l.log_timestamp DESC";
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while(rs.next()) {
+                String userInfo = rs.getString("user_info");
+                if (userInfo == null) {
+                    userInfo = "Unknown User";
+                }
+                
+                Object[] row = {
+                    rs.getInt("log_id"),
+                    userInfo,
+                    rs.getString("log_event"),
+                    rs.getString("log_description"),
+                    rs.getTimestamp("log_timestamp")
+                };
+                model.addRow(row);
+            }
+            
+            // Set table properties
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            table.getColumnModel().getColumn(0).setPreferredWidth(50);  // Log ID
+            table.getColumnModel().getColumn(1).setPreferredWidth(100); // User Info
+            table.getColumnModel().getColumn(2).setPreferredWidth(100); // Event
+            table.getColumnModel().getColumn(3).setPreferredWidth(200); // Description
+            table.getColumnModel().getColumn(4).setPreferredWidth(100); // Timestamp
+            
+            // Add table to scroll pane
+            logs.setViewportView(table);
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error loading logs: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // Get selected log entry's user ID
+    public int getSelectedUserId() {
+        JTable table = (JTable) logs.getViewport().getView();
+        int selectedRow = table.getSelectedRow();
+        
+        if (selectedRow != -1) {
+            String userInfo = table.getValueAt(selectedRow, 1).toString();
+            // Extract user ID from the "user_info" column (format: "ID - Role")
+            return Integer.parseInt(userInfo.split(" - ")[0]);
+        }
+        return -1;
+    }
+    
+    // Log a new event
+    public void logEvent(int userId, String event, String description) {
+        try {
+            config dbConfig = new config();
+            Connection conn = dbConfig.getConnection();
+            
+            String sql = "INSERT INTO logs (u_id, log_event, log_description, log_timestamp) VALUES (?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, event);
+            pstmt.setString(3, description);
+            pstmt.setTimestamp(4, new Timestamp(new Date().getTime()));
+            
+            pstmt.executeUpdate();
+            
+            pstmt.close();
+            conn.close();
+            
+            // Refresh the logs display
+            loadLogs();
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error logging event: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    // Auto refresh logs every 5 seconds
+    public void autoRefreshLogs() {
+        Timer timer = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadLogs();
+            }
+        });
+        timer.start();
+    }
+
     private void DashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardMouseClicked
         new admin().setVisible(true);
         this.dispose();
@@ -509,6 +624,7 @@ public class logs extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new logs().setVisible(true);
+                
             }
         });
     }

@@ -270,6 +270,9 @@ public class accmanagement extends javax.swing.JFrame {
         Productmanagement.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Productmanagement.setForeground(new java.awt.Color(51, 51, 51));
         Productmanagement.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProductmanagementMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ProductmanagementMouseEntered(evt);
             }
@@ -822,6 +825,11 @@ private void showError(String message) {
     
 }   
     }//GEN-LAST:event_updateMouseClicked
+
+    private void ProductmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductmanagementMouseClicked
+          new logs().setVisible(true);
+          this.dispose();
+    }//GEN-LAST:event_ProductmanagementMouseClicked
 
     
     public static void main(String args[]) {

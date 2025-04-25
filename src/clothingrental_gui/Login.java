@@ -1,4 +1,3 @@
-
 package clothingrental_gui;
 
 import admin.admin;
@@ -188,68 +187,95 @@ public class Login extends javax.swing.JFrame {
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
       String username = iusername.getText().trim();
-String password = new String(ipassword.getPassword()).trim();
+      String password = new String(ipassword.getPassword()).trim();
 
-if (username.isEmpty() || password.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Please enter both username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+      if (username.isEmpty() || password.isEmpty()) {
+          JOptionPane.showMessageDialog(null, "Please enter both username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+          return;
+      }
 
-try {
-    config dbConfig = new config();
-    String sql = "SELECT * FROM user WHERE username = ?";
+      try {
+          config dbConfig = new config();
+          String sql = "SELECT * FROM user WHERE username = ?";
 
-    try (PreparedStatement pst = dbConfig.getConnection().prepareStatement(sql)) {
-        pst.setString(1, username);
-        ResultSet rs = pst.executeQuery();
+          try (PreparedStatement pst = dbConfig.getConnection().prepareStatement(sql)) {
+              pst.setString(1, username);
+              ResultSet rs = pst.executeQuery();
 
-        if (rs.next()) {
-            String dbPassword = rs.getString("password");
-            String dbStatus = rs.getString("status");
-            String dbRole = rs.getString("role");
-            String profileImagePath = rs.getString("profile_image");
+              if (rs.next()) {
+                  String dbPassword = rs.getString("password");
+                  String dbStatus = rs.getString("status");
+                  String dbRole = rs.getString("role");
+                  String profileImagePath = rs.getString("profile_image");
+                  int userId = rs.getInt("u_id");
 
-            if (!hashPassword(password).equals(dbPassword)) {
-                JOptionPane.showMessageDialog(null, "Incorrect password.", "Login Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                  if (!hashPassword(password).equals(dbPassword)) {
+                      // Log failed login attempt - wrong password
+                      logLoginAttempt(userId, "Failed Login", "Invalid password attempt for user: " + username);
+                      JOptionPane.showMessageDialog(null, "Incorrect password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                      return;
+                  }
+
+                  if (!dbStatus.equalsIgnoreCase("Active")) {
+                      // Log failed login attempt - pending account
+                      logLoginAttempt(userId, "Failed Login", "Login attempt with pending account: " + username);
+                      JOptionPane.showMessageDialog(null, "Your account is still pending approval.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                      return;
+                  }
+
+                  // Set user session with correct values
+                  session sess = session.getInstance();
+                  sess.setUser(
+                      userId, 
+                      rs.getString("fname"), 
+                      rs.getString("lname"), 
+                      rs.getString("contact"), 
+                      rs.getString("username"), 
+                      rs.getString("email"), 
+                      profileImagePath
+                  );
+                  sess.setStatus(dbStatus);
+                  sess.setUserType(dbRole);
+
+                  // Log successful login
+                  logLoginAttempt(userId, "Successful Login", "User " + username + " logged in successfully as " + dbRole);
+
+                  JOptionPane.showMessageDialog(null, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                  // Redirect user based on role
+                  if (dbRole.equalsIgnoreCase("Admin")) {
+                      new admin().setVisible(true);
+                      this.dispose();
+                  } else {
+                      new Startupuser().setVisible(true);
+                      this.dispose();
+                  }
+              } else {
+                  // Log failed login attempt - invalid username
+                  logLoginAttempt(0, "Failed Login", "Login attempt with invalid username: " + username);
+                  JOptionPane.showMessageDialog(null, "Invalid username or password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+              }
+          }
+      } catch (SQLException ex) {
+          JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+      }
+    }
+
+    private void logLoginAttempt(int userId, String event, String description) {
+        try {
+            config dbConfig = new config();
+            String sql = "INSERT INTO logs (u_id, log_event, log_description, log_timestamp) VALUES (?, ?, ?, NOW())";
+            
+            try (PreparedStatement pst = dbConfig.getConnection().prepareStatement(sql)) {
+                pst.setInt(1, userId);
+                pst.setString(2, event);
+                pst.setString(3, description);
+                pst.executeUpdate();
             }
-
-            if (!dbStatus.equalsIgnoreCase("Active")) {
-                JOptionPane.showMessageDialog(null, "Your account is still pending approval.", "Login Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Set user session with correct values
-            session sess = session.getInstance();
-            sess.setUser(
-                rs.getInt("u_id"), 
-                rs.getString("fname"), 
-                rs.getString("lname"), 
-                rs.getString("contact"), 
-                rs.getString("username"), 
-                rs.getString("email"), 
-                profileImagePath
-            );
-            sess.setStatus(dbStatus);
-            sess.setUserType(dbRole);
-
-            JOptionPane.showMessageDialog(null, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-            // Redirect user based on role
-            if (dbRole.equalsIgnoreCase("Admin")) {
-                new admin().setVisible(true);
-                this.dispose();
-            } else {
-                new Startupuser().setVisible(true);
-                this.dispose();
-             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Invalid username or password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            System.out.println("Error logging login attempt: " + ex.getMessage());
         }
     }
-} catch (SQLException ex) {
-    JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-}}
 
     private String hashPassword(String password) {
         try {
@@ -270,7 +296,7 @@ try {
     }//GEN-LAST:event_loginMouseClicked
 
     private void ForgotPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ForgotPasswordMouseClicked
-          new ForgotPassword().setVisible(true);
+          new Forgotpass().setVisible(true);
           this.dispose();
     }//GEN-LAST:event_ForgotPasswordMouseClicked
 

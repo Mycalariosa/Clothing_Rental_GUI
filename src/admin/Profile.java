@@ -250,6 +250,9 @@ public class Profile extends javax.swing.JFrame {
         Productmanagement.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Productmanagement.setForeground(new java.awt.Color(51, 51, 51));
         Productmanagement.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProductmanagementMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ProductmanagementMouseEntered(evt);
             }
@@ -901,6 +904,11 @@ if (ses != null && ses.getUsername() != null) {
     private void changepassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changepassMouseClicked
       new AdminChangepass().setVisible(true);
     }//GEN-LAST:event_changepassMouseClicked
+
+    private void ProductmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductmanagementMouseClicked
+            new logs().setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_ProductmanagementMouseClicked
 
     /**
      * @param args the command line arguments

@@ -146,6 +146,9 @@ public class admin extends javax.swing.JFrame {
         Productmanagement.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         Productmanagement.setForeground(new java.awt.Color(51, 51, 51));
         Productmanagement.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProductmanagementMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ProductmanagementMouseEntered(evt);
             }
@@ -514,6 +517,11 @@ public class admin extends javax.swing.JFrame {
     private void Logout2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout2MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_Logout2MouseExited
+
+    private void ProductmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductmanagementMouseClicked
+          new logs().setVisible(true);
+          this.dispose();
+    }//GEN-LAST:event_ProductmanagementMouseClicked
 
     /**
      * @param args the command line arguments
