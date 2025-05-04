@@ -1,6 +1,10 @@
 
-package admin;
+package admin.manageuser;
 
+import admin.Profile;
+import admin.managerental.Rental;
+import admin.Settings;
+import admin.manageclothes.Clothes;
 import clothingrental_gui.Login;
 import clothingrental_gui.register;
 import config.config;
@@ -21,67 +25,128 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import user.Startupuser;
-import admin.Update;
+import admin.AdminDash;
+import admin.Logs;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.sql.DriverManager;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 
-public class accmanagement extends javax.swing.JFrame {
+public class Users extends javax.swing.JFrame {
            
-    public accmanagement() {
+    public Users() {
         
         initComponents();
         loadUsers();
     }
 
-   private void loadUsers() {
-    config connect = new config();
-    
-    // Create a new table model
+  private void loadUsers() {
+
+
+    // Create table model and define columns
     DefaultTableModel model = new DefaultTableModel();
     model.addColumn("User ID");
-    model.addColumn("First Name");
-    model.addColumn("Last Name");
+    model.addColumn("Full Name");
     model.addColumn("Role");
     model.addColumn("Username");
     model.addColumn("Status");
 
+    // Create table with the model
+    JTable table = new JTable(model);
+
     try {
+        config connect = new config();
         Connection conn = connect.getConnection();
         if (conn == null) {
-            System.out.println("Database connection failed!");
+            JOptionPane.showMessageDialog(null, "Database connection failed!");
             return;
         }
 
-        String query = "SELECT u_id, fname, lname, role, username, status FROM user"; 
+        String query = "SELECT u_id, fname, lname, role, username, status FROM user ORDER BY u_id ASC";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
 
         while (rs.next()) {
+            String fullName = rs.getString("fname") + " " + rs.getString("lname");
             model.addRow(new Object[]{
                 rs.getInt("u_id"),
-                rs.getString("fname"),
-                rs.getString("lname"),
+                fullName,
                 rs.getString("role"),
                 rs.getString("username"),
                 rs.getString("status")
             });
         }
 
-        admintable.setModel(model);
-        model.fireTableDataChanged(); // Ensure table updates
+        // Apply modern styling
+        styleTable(table);
 
-        // Close resources to avoid memory leaks
+        // Set column widths
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setRowHeight(25); // Set row height for better visibility
+        table.getColumnModel().getColumn(0).setPreferredWidth(80);  // User ID
+        table.getColumnModel().getColumn(1).setPreferredWidth(200); // Full Name
+        table.getColumnModel().getColumn(2).setPreferredWidth(100); // Role
+        table.getColumnModel().getColumn(3).setPreferredWidth(150); // Username
+        table.getColumnModel().getColumn(4).setPreferredWidth(100); // Status
+
+        // Enable sorting
+        table.setAutoCreateRowSorter(true);
+
+        // Display the table in the scroll pane
+        admintable.setViewportView(table);
+
+        // Optional: clear selection
+        table.clearSelection();
+
         rs.close();
         stmt.close();
         conn.close();
 
     } catch (SQLException ex) {
-        System.out.println("Error loading users: " + ex.getMessage());
+        JOptionPane.showMessageDialog(null, "Error loading users: " + ex.getMessage());
         ex.printStackTrace();
     }
 }
 
+private void styleTable(JTable table) {
+    // Table header styling
+    JTableHeader header = table.getTableHeader();
+    header.setBackground(Color.LIGHT_GRAY);
+    header.setForeground(Color.BLACK);  // White text for header
+    header.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+    header.setReorderingAllowed(false);
 
-    
+    // Table font and grid color
+    table.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+    table.setRowHeight(25);
+    table.setGridColor(Color.DARK_GRAY);
+    table.setSelectionBackground(new Color(96, 96, 96));  // Dark gray for selected row
+    table.setSelectionForeground(Color.WHITE);  // White text for selected row
+    table.setShowHorizontalLines(true);
+    table.setShowVerticalLines(false);
+    table.setBackground(Color.WHITE);
+    table.setForeground(Color.BLACK);
+
+    // Alternate row colors
+    table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            if (!isSelected) {
+                c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(240, 240, 240)); // Light grey rows
+                c.setForeground(Color.BLACK);
+            }
+            return c;
+        }
+    });
+}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -93,8 +158,8 @@ public class accmanagement extends javax.swing.JFrame {
         Name = new javax.swing.JLabel();
         search = new javax.swing.JTextField();
         Refresh = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        Archieve = new javax.swing.JPanel();
+        archieve = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Searchb = new javax.swing.JPanel();
@@ -105,8 +170,6 @@ public class accmanagement extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         activate = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        admintable = new javax.swing.JTable();
         accountmanagement = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -129,6 +192,8 @@ public class accmanagement extends javax.swing.JFrame {
         Dashboard = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        admintable = new javax.swing.JScrollPane();
         back = new javax.swing.JLabel();
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
@@ -172,7 +237,15 @@ public class accmanagement extends javax.swing.JFrame {
         Name.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         Name.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, 20));
-        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 230, -1));
+
+        search.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        search.setForeground(new java.awt.Color(51, 51, 51));
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 270, -1));
 
         Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-refresh-24.png"))); // NOI18N
         Refresh.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -182,46 +255,61 @@ public class accmanagement extends javax.swing.JFrame {
         });
         jPanel1.add(Refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jLabel13.setText("DELETE");
+        Archieve.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ArchieveMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13)
-                .addContainerGap(14, Short.MAX_VALUE))
+        archieve.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        archieve.setText("DELETE");
+
+        javax.swing.GroupLayout ArchieveLayout = new javax.swing.GroupLayout(Archieve);
+        Archieve.setLayout(ArchieveLayout);
+        ArchieveLayout.setHorizontalGroup(
+            ArchieveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ArchieveLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(archieve)
+                .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        ArchieveLayout.setVerticalGroup(
+            ArchieveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ArchieveLayout.createSequentialGroup()
                 .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jLabel13))
+                .addComponent(archieve))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 60, 20));
+        jPanel1.add(Archieve, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 60, 20));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jLabel1.setText("Search name:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
+            .addGap(0, 14, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 10));
-
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jLabel1.setText("Search name:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, -1, -1));
 
         Searchb.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -309,6 +397,7 @@ public class accmanagement extends javax.swing.JFrame {
 
         jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 60, 20));
 
+        activate.setForeground(new java.awt.Color(0,0,0,80));
         activate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 activateMouseClicked(evt);
@@ -335,22 +424,6 @@ public class accmanagement extends javax.swing.JFrame {
         );
 
         jPanel1.add(activate, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 60, 20));
-
-        admintable.setBackground(new java.awt.Color(204, 204, 204));
-        admintable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        admintable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        admintable.setColumnSelectionAllowed(true);
-        admintable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(admintable);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 510, 260));
 
         accountmanagement.setBackground(new java.awt.Color(51, 51, 51));
         accountmanagement.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
@@ -662,7 +735,16 @@ public class accmanagement extends javax.swing.JFrame {
 
         jPanel1.add(Dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 210, 30));
 
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Black and White Modern Sign-up and Login Website Page UI Desktop Prototype (2).png"))); // NOI18N
+        jLabel8.setText("Search name:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
+        jPanel1.add(admintable, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 480, 260));
+
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/c.png"))); // NOI18N
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backMouseClicked(evt);
+            }
+        });
         jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -692,22 +774,23 @@ public class accmanagement extends javax.swing.JFrame {
 
     private void RefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RefreshMouseClicked
       
- 
     loadUsers();
-
-
     }//GEN-LAST:event_RefreshMouseClicked
     private int getSelectedUserId() {
-    int selectedRow = admintable.getSelectedRow(); // Assuming userTable is your JTable
-    if (selectedRow != -1) { // Check if a row is selected
-        return (int) admintable.getValueAt(selectedRow, 0); // Assuming user_id is in column 0
-    } else {
-        return -1; // No user selected
+     JTable table = (JTable) admintable.getViewport().getView();
+    int selectedRow = table.getSelectedRow();
+
+    if (selectedRow != -1) {
+        Object value = table.getValueAt(selectedRow, 0); // User ID is in column 0
+        if (value != null) {
+            return Integer.parseInt(value.toString());
+        }
     }
+    return -1; // Nothing selected
 }
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-         new Add().setVisible(true);
+         new AddUser().setVisible(true);
          this.dispose();
     }
 
@@ -759,22 +842,31 @@ private void showError(String message) {
     }//GEN-LAST:event_activateMouseClicked
 
     private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
-      int selectedRow = admintable.getSelectedRow(); // Get selected row
+    
+    // Get the table from the JScrollPane
+    JTable table = (JTable) admintable.getViewport().getView();
+    int selectedRow = table.getSelectedRow();
 
-    if (selectedRow == -1) { // No row selected
+    if (selectedRow == -1) {
+        // No row selected
         JOptionPane.showMessageDialog(this, "Please select a user to update.", "Warning", JOptionPane.WARNING_MESSAGE);
     } else {
-        String selectedUsername = admintable.getValueAt(selectedRow, 4).toString(); // Column 4 is username
+        // Get the selected username from column 4
+        String selectedUsername = table.getValueAt(selectedRow, 4).toString();
 
-        // Open Update form with selected username
-        new Update(selectedUsername).setVisible(true);
-        this.dispose(); // Close current form
-    
-}   
+        // Open the Update form
+        Update updateForm = new Update(selectedUsername); // Ensure this constructor exists in Update.java
+        updateForm.setLocationRelativeTo(this); // Optional: center the window relative to current frame
+        updateForm.setVisible(true);
+
+        // Close the current window (optional)
+        this.dispose();
+    }
+
     }//GEN-LAST:event_updateMouseClicked
 
     private void accountmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountmanagementMouseClicked
-        new accmanagement().setVisible(true);
+        new Users().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_accountmanagementMouseClicked
 
@@ -824,7 +916,7 @@ private void showError(String message) {
     }//GEN-LAST:event_ProductmanagementMouseExited
 
     private void RentalmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RentalmanagementMouseClicked
-        new Products().setVisible(true);
+        new Clothes().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_RentalmanagementMouseClicked
 
@@ -854,7 +946,7 @@ private void showError(String message) {
     }//GEN-LAST:event_ProfileMouseExited
 
     private void DashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardMouseClicked
-        new admin().setVisible(true);
+        new AdminDash().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_DashboardMouseClicked
 
@@ -869,7 +961,7 @@ private void showError(String message) {
     }//GEN-LAST:event_DashboardMouseExited
 
     private void ProductmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductmanagementMouseClicked
-        new logs().setVisible(true);
+        new Logs().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ProductmanagementMouseClicked
 
@@ -878,17 +970,30 @@ private void showError(String message) {
          this.dispose();
     }//GEN-LAST:event_settingsMouseClicked
 
+    private void ArchieveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchieveMouseClicked
+        
+    }//GEN-LAST:event_ArchieveMouseClicked
+
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backMouseClicked
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchActionPerformed
+
     
     public static void main(String args[]) {
       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new accmanagement().setVisible(true);
+                new Users().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Archieve;
     private javax.swing.JPanel Dashboard;
     private javax.swing.JLabel Manage;
     private javax.swing.JPanel Messages;
@@ -902,14 +1007,14 @@ private void showError(String message) {
     private javax.swing.JPanel accountmanagement;
     private javax.swing.JPanel activate;
     private javax.swing.JPanel add;
-    private javax.swing.JTable admintable;
+    private javax.swing.JScrollPane admintable;
+    private javax.swing.JLabel archieve;
     private javax.swing.JLabel back;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
@@ -924,12 +1029,11 @@ private void showError(String message) {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField search;
     private javax.swing.JPanel settings;
     private javax.swing.JPanel update;

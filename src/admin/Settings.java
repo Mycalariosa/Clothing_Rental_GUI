@@ -5,6 +5,9 @@
  */
 package admin;
 
+import admin.managerental.Rental;
+import admin.manageuser.Users;
+import admin.manageclothes.Clothes;
 import clothingrental_gui.Login;
 import javax.swing.JOptionPane;
 
@@ -100,7 +103,7 @@ public class Settings extends javax.swing.JFrame {
 
         getContentPane().add(settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 210, 30));
 
-        Rentalmanagement.setBackground(new java.awt.Color(0, 0, 0));
+        Rentalmanagement.setBackground(new java.awt.Color(0, 0, 0,0));
         Rentalmanagement.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
         Rentalmanagement.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -178,7 +181,7 @@ public class Settings extends javax.swing.JFrame {
         ProductmanagementLayout.setVerticalGroup(
             ProductmanagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProductmanagementLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 2, Short.MAX_VALUE)
                 .addGroup(ProductmanagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)))
@@ -254,7 +257,7 @@ public class Settings extends javax.swing.JFrame {
         ProfileLayout.setHorizontalGroup(
             ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProfileLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addComponent(jLabel15)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
@@ -311,7 +314,7 @@ public class Settings extends javax.swing.JFrame {
         DashboardLayout.setVerticalGroup(
             DashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 3, Short.MAX_VALUE)
                 .addGroup(DashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel13)
                     .addComponent(jLabel5)))
@@ -319,7 +322,7 @@ public class Settings extends javax.swing.JFrame {
 
         getContentPane().add(Dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 210, 30));
 
-        Messages.setBackground(new java.awt.Color(0, 0, 0));
+        Messages.setBackground(new java.awt.Color(0, 0, 0,0));
         Messages.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         Messages.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -387,7 +390,7 @@ public class Settings extends javax.swing.JFrame {
 
         getContentPane().add(Logout1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 30, 40));
 
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Black and White Modern Sign-up and Login Website Page UI Desktop Prototype (2).png"))); // NOI18N
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/c.png"))); // NOI18N
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -405,7 +408,7 @@ public class Settings extends javax.swing.JFrame {
     }//GEN-LAST:event_settingsMouseExited
 
     private void RentalmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RentalmanagementMouseClicked
-        new Products().setVisible(true);
+        new Clothes().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_RentalmanagementMouseClicked
 
@@ -420,7 +423,7 @@ public class Settings extends javax.swing.JFrame {
     }//GEN-LAST:event_RentalmanagementMouseExited
 
     private void ProductmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductmanagementMouseClicked
-        new logs().setVisible(true);
+        new Logs().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ProductmanagementMouseClicked
 
@@ -435,7 +438,7 @@ public class Settings extends javax.swing.JFrame {
     }//GEN-LAST:event_ProductmanagementMouseExited
 
     private void accountmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountmanagementMouseClicked
-        new accmanagement().setVisible(true);
+        new Users().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_accountmanagementMouseClicked
 
@@ -465,7 +468,7 @@ public class Settings extends javax.swing.JFrame {
     }//GEN-LAST:event_ProfileMouseExited
 
     private void DashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardMouseClicked
-        new admin().setVisible(true);
+        new AdminDash().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_DashboardMouseClicked
 

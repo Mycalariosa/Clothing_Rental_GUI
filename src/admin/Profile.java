@@ -1,6 +1,9 @@
 
 package admin;
 
+import admin.managerental.Rental;
+import admin.manageuser.Users;
+import admin.manageclothes.Clothes;
 import config.CroppingPanel;
 import clothingrental_gui.Login;
 import config.config;
@@ -905,7 +908,7 @@ if (ses != null && ses.getUsername() != null) {
     }//GEN-LAST:event_ProductmanagementMouseExited
 
     private void RentalmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RentalmanagementMouseClicked
-        new Products().setVisible(true);
+        new Clothes().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_RentalmanagementMouseClicked
 
@@ -920,7 +923,7 @@ if (ses != null && ses.getUsername() != null) {
     }//GEN-LAST:event_RentalmanagementMouseExited
 
     private void accountmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountmanagementMouseClicked
-        new accmanagement().setVisible(true);
+        new Users().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_accountmanagementMouseClicked
 
@@ -935,7 +938,7 @@ if (ses != null && ses.getUsername() != null) {
     }//GEN-LAST:event_accountmanagementMouseExited
 
     private void DashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardMouseClicked
-        new admin().setVisible(true);
+        new AdminDash().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_DashboardMouseClicked
 
@@ -950,7 +953,7 @@ if (ses != null && ses.getUsername() != null) {
     }//GEN-LAST:event_DashboardMouseExited
 
     private void ProductmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductmanagementMouseClicked
-        new logs().setVisible(true);
+        new Logs().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ProductmanagementMouseClicked
 

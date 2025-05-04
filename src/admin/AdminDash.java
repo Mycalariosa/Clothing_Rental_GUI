@@ -1,6 +1,9 @@
 
 package admin;
 
+import admin.managerental.Rental;
+import admin.manageuser.Users;
+import admin.manageclothes.Clothes;
 import clothingrental_gui.Login;
 import config.session;
 import javax.swing.JLabel;
@@ -8,9 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 
-public class admin extends javax.swing.JFrame {
+public class AdminDash extends javax.swing.JFrame {
 
-    public admin() {
+    public AdminDash() {
         initComponents();
     }
 
@@ -489,7 +492,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_Logout1MouseExited
 
     private void DashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardMouseClicked
-        new admin().setVisible(true);
+        new AdminDash().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_DashboardMouseClicked
 
@@ -519,7 +522,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_ProfileMouseExited
 
     private void accountmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountmanagementMouseClicked
-        new accmanagement().setVisible(true);
+        new Users().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_accountmanagementMouseClicked
 
@@ -574,12 +577,12 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_settingsMouseExited
 
     private void ProductmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductmanagementMouseClicked
-        new logs().setVisible(true);
+        new Logs().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ProductmanagementMouseClicked
 
     private void RentalmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RentalmanagementMouseClicked
-       new Products().setVisible(true);
+       new Clothes().setVisible(true);
          this.dispose();
     }//GEN-LAST:event_RentalmanagementMouseClicked
 
@@ -610,20 +613,21 @@ public class admin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new admin().setVisible(true);
+                new AdminDash().setVisible(true);
             }
         });
     }

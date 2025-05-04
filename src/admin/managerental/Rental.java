@@ -3,8 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package admin;
+package admin.managerental;
 
+import admin.Profile;
+import admin.Settings;
+import admin.AdminDash;
+import admin.Logs;
+import admin.manageuser.Users;
+import admin.manageclothes.Clothes;
 import clothingrental_gui.Login;
 import javax.swing.JOptionPane;
 
@@ -30,6 +36,7 @@ public class Rental extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         Messages = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -55,7 +62,20 @@ public class Rental extends javax.swing.JFrame {
         Profile = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -64,7 +84,7 @@ public class Rental extends javax.swing.JFrame {
 
         Messages.setBackground(new java.awt.Color(51, 51, 51));
         Messages.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
-        Messages.setForeground(new java.awt.Color(102, 102, 102));
+        Messages.setForeground(new java.awt.Color(51, 51, 51));
         Messages.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 MessagesMouseEntered(evt);
@@ -157,7 +177,7 @@ public class Rental extends javax.swing.JFrame {
 
         jPanel1.add(settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 210, 30));
 
-        Rentalmanagement.setBackground(new java.awt.Color(0, 0, 0));
+        Rentalmanagement.setBackground(new java.awt.Color(0, 0, 0,0));
         Rentalmanagement.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
         Rentalmanagement.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -371,7 +391,25 @@ public class Rental extends javax.swing.JFrame {
 
         jPanel1.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 210, 30));
 
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Black and White Modern Sign-up and Login Website Page UI Desktop Prototype (2).png"))); // NOI18N
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 370, 3));
+
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("RENTALS");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
+
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/c.png"))); // NOI18N
         jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 400));
@@ -421,7 +459,7 @@ public class Rental extends javax.swing.JFrame {
     }//GEN-LAST:event_ProductmanagementMouseExited
 
     private void accountmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountmanagementMouseClicked
-        new accmanagement().setVisible(true);
+        new Users().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_accountmanagementMouseClicked
 
@@ -451,7 +489,7 @@ public class Rental extends javax.swing.JFrame {
     }//GEN-LAST:event_ProfileMouseExited
 
     private void DashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardMouseClicked
-        new admin().setVisible(true);
+        new AdminDash().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_DashboardMouseClicked
 
@@ -466,12 +504,12 @@ public class Rental extends javax.swing.JFrame {
     }//GEN-LAST:event_DashboardMouseExited
 
     private void ProductmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductmanagementMouseClicked
-    new logs().setVisible(true);
+    new Logs().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ProductmanagementMouseClicked
 
     private void RentalmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RentalmanagementMouseClicked
-         new Products().setVisible(true);
+         new Clothes().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_RentalmanagementMouseClicked
 
@@ -525,6 +563,7 @@ public class Rental extends javax.swing.JFrame {
     private javax.swing.JPanel Rentalmanagement;
     private javax.swing.JPanel accountmanagement;
     private javax.swing.JLabel back;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -540,6 +579,8 @@ public class Rental extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables

@@ -1,5 +1,5 @@
 
-package admin;
+package admin.manageuser;
 
 import config.config;
 import java.security.MessageDigest;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import admin.accmanagement;
+import admin.manageuser.Users;
 import clothingrental_gui.Login;
 
 /**
@@ -305,7 +305,7 @@ public class Update extends javax.swing.JFrame {
         int rowsAffected = pst.executeUpdate();
         if (rowsAffected > 0) {
             JOptionPane.showMessageDialog(this, "User updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            new accmanagement().setVisible(true);
+            new Users().setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "No user found with the provided username.", "Error", JOptionPane.ERROR_MESSAGE);

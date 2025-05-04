@@ -1,7 +1,14 @@
 package admin;
 
+import admin.managerental.Rental;
+import admin.manageuser.Users;
+import admin.manageclothes.Clothes;
 import clothingrental_gui.Login;
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import config.config;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -14,12 +21,14 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 
-public class logs extends javax.swing.JFrame {
+public class Logs extends javax.swing.JFrame {
 
-    public logs() {
+    public Logs() {
         initComponents();
         loadLogs();
     }
@@ -33,9 +42,6 @@ public class logs extends javax.swing.JFrame {
         Productmanagement = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        Logout1 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         logs = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
         Manage = new javax.swing.JLabel();
@@ -74,8 +80,8 @@ public class logs extends javax.swing.JFrame {
         settings = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         back = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
 
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logs.png"))); // NOI18N
 
@@ -126,35 +132,14 @@ public class logs extends javax.swing.JFrame {
 
         jPanel1.add(Productmanagement, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 210, 30));
 
-        Logout1.setBackground(new java.awt.Color(0, 0, 0));
-        Logout1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Logout1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Logout1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Logout1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Logout1MouseExited(evt);
-            }
-        });
-
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
-        Logout1.add(jLabel20);
-
-        jPanel1.add(Logout1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 30, 40));
-
-        jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Logout");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, -1));
+        logs.setBackground(new java.awt.Color(0, 0, 0));
+        logs.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jPanel1.add(logs, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 510, 260));
 
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("System logs");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, -1, -1));
+        jLabel1.setText("SYSTEM LOGS");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
         Manage.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         Manage.setForeground(new java.awt.Color(255, 255, 255));
@@ -646,11 +631,21 @@ public class logs extends javax.swing.JFrame {
 
         jPanel1.add(settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 210, 30));
 
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Black and White Modern Sign-up and Login Website Page UI Desktop Prototype (2).png"))); // NOI18N
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logs.png"))); // NOI18N
-        jPanel1.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 370, 3));
+
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/c.png"))); // NOI18N
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 400));
 
@@ -659,123 +654,159 @@ public class logs extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loadLogs() {
-        DefaultTableModel model = new DefaultTableModel();
-        JTable table = new JTable(model);
-        
-        // Add columns based on the database structure
-        model.addColumn("Log ID");
-        model.addColumn("User Info");
-        model.addColumn("Event");
-        model.addColumn("Description");
-        model.addColumn("Timestamp");
-        
-        try {
-            config dbConfig = new config();
-            Connection conn = dbConfig.getConnection();
-            if (conn == null) {
-                JOptionPane.showMessageDialog(null, "Database connection failed!");
-                return;
-            }
-
-            // Join with user table to get user information
-            String query = "SELECT l.log_id, " +
-                         "CONCAT(u.u_id, ' - ', u.role) AS user_info, " +
-                         "l.log_event, l.log_description, l.log_timestamp " +
-                         "FROM logs l " +
-                         "JOIN user u ON l.u_id = u.u_id " +
-                         "ORDER BY l.log_timestamp DESC";
-
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            
-            while(rs.next()) {
-                String userInfo = rs.getString("user_info");
-                if (userInfo == null) {
-                    userInfo = "Unknown User";
-                }
-                
-                Object[] row = {
-                    rs.getInt("log_id"),
-                    userInfo,
-                    rs.getString("log_event"),
-                    rs.getString("log_description"),
-                    rs.getTimestamp("log_timestamp")
-                };
-                model.addRow(row);
-            }
-            
-            // Set table properties
-            table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-            table.getColumnModel().getColumn(0).setPreferredWidth(50);  // Log ID
-            table.getColumnModel().getColumn(1).setPreferredWidth(100); // User Info
-            table.getColumnModel().getColumn(2).setPreferredWidth(100); // Event
-            table.getColumnModel().getColumn(3).setPreferredWidth(200); // Description
-            table.getColumnModel().getColumn(4).setPreferredWidth(100); // Timestamp
-            
-            // Add table to scroll pane
-            logs.setViewportView(table);
-            
-            rs.close();
-            stmt.close();
-            conn.close();
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error loading logs: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    // Get selected log entry's user ID
-    public int getSelectedUserId() {
-        JTable table = (JTable) logs.getViewport().getView();
-        int selectedRow = table.getSelectedRow();
-        
-        if (selectedRow != -1) {
-            String userInfo = table.getValueAt(selectedRow, 1).toString();
-            // Extract user ID from the "user_info" column (format: "ID - Role")
-            return Integer.parseInt(userInfo.split(" - ")[0]);
-        }
-        return -1;
-    }
+     
+    DefaultTableModel model = new DefaultTableModel();
+    JTable table = new JTable(model);
     
-    // Log a new event
-    public void logEvent(int userId, String event, String description) {
-        try {
-            config dbConfig = new config();
-            Connection conn = dbConfig.getConnection();
+    // Add columns based on the database structure
+    model.addColumn("Log ID");
+    model.addColumn("User Info");
+    model.addColumn("Event");
+    model.addColumn("Description");
+    model.addColumn("Timestamp");
+    
+    try {
+        config dbConfig = new config();
+        Connection conn = dbConfig.getConnection();
+        if (conn == null) {
+            JOptionPane.showMessageDialog(null, "Database connection failed!");
+            return;
+        }
+
+        String query = "SELECT l.log_id, " +
+                     "CONCAT(u.u_id, ' - ', u.role) AS user_info, " +
+                     "l.log_event, l.log_description, l.log_timestamp " +
+                     "FROM logs l " +
+                     "JOIN user u ON l.u_id = u.u_id " +
+                     "ORDER BY l.log_timestamp DESC";
+
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        
+        while(rs.next()) {
+            String userInfo = rs.getString("user_info");
+            if (userInfo == null) {
+                userInfo = "Unknown User";
+            }
             
-            String sql = "INSERT INTO logs (u_id, log_event, log_description, log_timestamp) VALUES (?, ?, ?, ?)";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            
-            pstmt.setInt(1, userId);
-            pstmt.setString(2, event);
-            pstmt.setString(3, description);
-            pstmt.setTimestamp(4, new Timestamp(new Date().getTime()));
-            
-            pstmt.executeUpdate();
-            
-            pstmt.close();
-            conn.close();
-            
-            // Refresh the logs display
+            Object[] row = {
+                rs.getInt("log_id"),
+                userInfo,
+                rs.getString("log_event"),
+                rs.getString("log_description"),
+                rs.getTimestamp("log_timestamp")
+            };
+            model.addRow(row);
+        }
+        
+        // Set column widths
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.getColumnModel().getColumn(0).setPreferredWidth(75);  // Log ID
+        table.getColumnModel().getColumn(1).setPreferredWidth(100); // User Info
+        table.getColumnModel().getColumn(2).setPreferredWidth(100); // Event
+        table.getColumnModel().getColumn(3).setPreferredWidth(200); // Description
+        table.getColumnModel().getColumn(4).setPreferredWidth(100); // Timestamp
+        
+        // Add table to scroll pane
+        logs.setViewportView(table);
+
+        // Apply modern style
+        styleTable(table);
+        
+        rs.close();
+        stmt.close();
+        conn.close();
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error loading logs: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
+// Method to style table with black, white, grey theme
+private void styleTable(JTable table) {
+    JTableHeader header = table.getTableHeader();
+    header.setBackground(Color.LIGHT_GRAY);
+    header.setForeground(Color.BLACK);
+    header.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+    header.setReorderingAllowed(false);
+
+    table.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+    table.setRowHeight(25);
+    table.setGridColor(Color.DARK_GRAY);
+    table.setSelectionBackground(new Color(96, 96, 96));  // Dark gray for selected row
+    table.setSelectionForeground(Color.WHITE);
+    table.setShowHorizontalLines(true);
+    table.setShowVerticalLines(false);
+    table.setBackground(Color.WHITE);
+    table.setForeground(Color.BLACK);
+
+    // Alternate row colors
+    table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            if (!isSelected) {
+                c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(240, 240, 240)); // Light grey rows
+                c.setForeground(Color.BLACK);
+            }
+            return c;
+        }
+    });
+}
+
+// Get selected log entry's user ID
+public int getSelectedUserId() {
+    JTable table = (JTable) logs.getViewport().getView();
+    int selectedRow = table.getSelectedRow();
+    
+    if (selectedRow != -1) {
+        String userInfo = table.getValueAt(selectedRow, 1).toString();
+        return Integer.parseInt(userInfo.split(" - ")[0]);
+    }
+    return -1;
+}
+
+// Log a new event
+public void logEvent(int userId, String event, String description) {
+    try {
+        config dbConfig = new config();
+        Connection conn = dbConfig.getConnection();
+        
+        String sql = "INSERT INTO logs (u_id, log_event, log_description, log_timestamp) VALUES (?, ?, ?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        
+        pstmt.setInt(1, userId);
+        pstmt.setString(2, event);
+        pstmt.setString(3, description);
+        pstmt.setTimestamp(4, new Timestamp(new Date().getTime()));
+        
+        pstmt.executeUpdate();
+        
+        pstmt.close();
+        conn.close();
+        
+        // Refresh the logs display
+        loadLogs();
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error logging event: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
+// Auto refresh logs every 5 seconds
+public void autoRefreshLogs() {
+    Timer timer = new Timer(5000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
             loadLogs();
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error logging event: " + e.getMessage());
-            e.printStackTrace();
         }
-    }
-    
-    // Auto refresh logs every 5 seconds
-    public void autoRefreshLogs() {
-        Timer timer = new Timer(5000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadLogs();
-            }
-        });
-        timer.start();
-    }
+    });
+    timer.start();
+}
+
 
     private void ProductmanagementMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductmanagementMouseEntered
         Productmanagement.setOpaque(true);
@@ -786,23 +817,6 @@ public class logs extends javax.swing.JFrame {
         Productmanagement.setOpaque(true);
         Productmanagement.setBackground(new java.awt.Color(51,51,51));
     }//GEN-LAST:event_ProductmanagementMouseExited
-
-    private void Logout1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout1MouseClicked
-        int a=JOptionPane.showConfirmDialog(null,"Do you really want to logout?","Select", JOptionPane.YES_NO_OPTION);
-        if(a==0)
-        {
-            setVisible(false);
-            new Login().setVisible(true);
-            this.dispose();}
-    }//GEN-LAST:event_Logout1MouseClicked
-
-    private void Logout1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Logout1MouseEntered
-
-    private void Logout1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Logout1MouseExited
 
     private void MessagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MessagesMouseClicked
         new Rental().setVisible(true);
@@ -820,7 +834,7 @@ public class logs extends javax.swing.JFrame {
     }//GEN-LAST:event_MessagesMouseExited
 
     private void RentalmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RentalmanagementMouseClicked
-        new Products().setVisible(true);
+        new Clothes().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_RentalmanagementMouseClicked
 
@@ -835,7 +849,7 @@ public class logs extends javax.swing.JFrame {
     }//GEN-LAST:event_RentalmanagementMouseExited
 
     private void accountmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountmanagementMouseClicked
-        new accmanagement().setVisible(true);
+        new Users().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_accountmanagementMouseClicked
 
@@ -865,7 +879,7 @@ public class logs extends javax.swing.JFrame {
     }//GEN-LAST:event_ProfileMouseExited
 
     private void DashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardMouseClicked
-        new admin().setVisible(true);
+        new AdminDash().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_DashboardMouseClicked
 
@@ -895,7 +909,7 @@ public class logs extends javax.swing.JFrame {
     }//GEN-LAST:event_Messages1MouseExited
 
     private void Rentalmanagement1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Rentalmanagement1MouseClicked
-        new Products().setVisible(true);
+        new Clothes().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_Rentalmanagement1MouseClicked
 
@@ -910,7 +924,7 @@ public class logs extends javax.swing.JFrame {
     }//GEN-LAST:event_Rentalmanagement1MouseExited
 
     private void accountmanagement1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountmanagement1MouseClicked
-        new accmanagement().setVisible(true);
+        new Users().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_accountmanagement1MouseClicked
 
@@ -940,7 +954,7 @@ public class logs extends javax.swing.JFrame {
     }//GEN-LAST:event_Profile1MouseExited
 
     private void Dashboard1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Dashboard1MouseClicked
-        new admin().setVisible(true);
+        new AdminDash().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_Dashboard1MouseClicked
 
@@ -986,21 +1000,23 @@ public class logs extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(logs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Logs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(logs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Logs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(logs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Logs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(logs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Logs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new logs().setVisible(true);
+                new Logs().setVisible(true);
                 
             }
         });
@@ -1009,7 +1025,6 @@ public class logs extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Dashboard;
     private javax.swing.JPanel Dashboard1;
-    private javax.swing.JPanel Logout1;
     private javax.swing.JLabel Manage;
     private javax.swing.JLabel Manage1;
     private javax.swing.JPanel Messages;
@@ -1031,10 +1046,8 @@ public class logs extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -1046,13 +1059,13 @@ public class logs extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane logs;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables

@@ -1,7 +1,8 @@
 
 
-package admin;
+package admin.manageuser;
 
+import admin.manageuser.Users;
 import config.CroppingPanel;
 import config.config;
 import config.session;
@@ -27,10 +28,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 
-public class Add extends javax.swing.JFrame {
+public class AddUser extends javax.swing.JFrame {
 
     /** Creates new form Add */
-    public Add() {
+    public AddUser() {
         initComponents();
     }
 
@@ -316,7 +317,7 @@ public class Add extends javax.swing.JFrame {
         pst.executeUpdate();
 
         JOptionPane.showMessageDialog(this, "Account Registered Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        new accmanagement().setVisible(true);
+        new Users().setVisible(true);
         this.dispose();
 
         // Clear fields
@@ -569,7 +570,7 @@ private int getSelectedUserId() {
     
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Add().setVisible(true);
+                new AddUser().setVisible(true);
             }
         });
     }

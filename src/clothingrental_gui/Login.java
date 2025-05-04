@@ -1,6 +1,6 @@
 package clothingrental_gui;
 
-import admin.admin;
+import admin.AdminDash;
 import config.config;
 import config.session;
 import java.security.MessageDigest;
@@ -256,7 +256,7 @@ public class Login extends javax.swing.JFrame {
 
                   // Redirect user based on role
                   if (dbRole.equalsIgnoreCase("Admin")) {
-                      new admin().setVisible(true);
+                      new AdminDash().setVisible(true);
                       this.dispose();
                   } else {
                       new Startupuser().setVisible(true);
