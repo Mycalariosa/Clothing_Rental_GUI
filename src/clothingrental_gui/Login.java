@@ -26,6 +26,7 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         parent = new javax.swing.JPanel();
+        showpass = new javax.swing.JLabel();
         user2 = new javax.swing.JLabel();
         iusername = new javax.swing.JTextField();
         pass = new javax.swing.JLabel();
@@ -45,6 +46,17 @@ public class Login extends javax.swing.JFrame {
         parent.setMinimumSize(new java.awt.Dimension(800, 400));
         parent.setPreferredSize(new java.awt.Dimension(800, 400));
         parent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        showpass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/showpass.png"))); // NOI18N
+        showpass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showpassMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                showpassMouseEntered(evt);
+            }
+        });
+        parent.add(showpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 145, -1, 30));
 
         user2.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         user2.setText("USERNAME");
@@ -300,6 +312,23 @@ public class Login extends javax.swing.JFrame {
           this.dispose();
     }//GEN-LAST:event_ForgotPasswordMouseClicked
 
+    private boolean isPasswordVisible = false;
+    
+    private void showpassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showpassMouseClicked
+         if (isPasswordVisible) {
+        ipassword.setEchoChar('\u2022');
+    } else {
+        ipassword.setEchoChar((char) 0);
+    }
+    isPasswordVisible = !isPasswordVisible;
+
+    }//GEN-LAST:event_showpassMouseClicked
+
+    private void showpassMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showpassMouseEntered
+      
+       
+    }//GEN-LAST:event_showpassMouseEntered
+
 
     public static void main(String args[]) {
   
@@ -321,6 +350,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel loginback;
     private javax.swing.JPanel parent;
     private javax.swing.JLabel pass;
+    private javax.swing.JLabel showpass;
     private javax.swing.JLabel user2;
     // End of variables declaration//GEN-END:variables
 

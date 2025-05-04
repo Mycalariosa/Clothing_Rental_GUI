@@ -65,7 +65,6 @@ public class Forgotpass extends javax.swing.JFrame {
         con.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         con.setForeground(new java.awt.Color(153, 153, 153));
 
-        Contact.setEditable(false);
         Contact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ContactActionPerformed(evt);
