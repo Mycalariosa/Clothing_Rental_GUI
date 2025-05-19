@@ -11,8 +11,7 @@ import javax.swing.JOptionPane;
 import java.util.Random;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import user.changepass;
-import admin.AdminChangepass;
+import admin.changepass;
 import javax.mail.MessagingException;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -51,21 +50,19 @@ public class Forgotpass extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         con = new javax.swing.JPanel();
-        Contact = new javax.swing.JTextField();
+        Email = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        reset = new javax.swing.JPanel();
+        sendotp = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
         OTP = new javax.swing.JPasswordField();
         npass = new javax.swing.JLabel();
-        reset1 = new javax.swing.JPanel();
+        verify = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         backbutton = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-        setSize(new java.awt.Dimension(800, 400));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -73,47 +70,47 @@ public class Forgotpass extends javax.swing.JFrame {
         con.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         con.setForeground(new java.awt.Color(153, 153, 153));
 
-        Contact.addActionListener(new java.awt.event.ActionListener() {
+        Email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmailActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18));
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel1.setText("FORGOT PASSWORD");
 
-        reset.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        reset.addMouseListener(new java.awt.event.MouseAdapter() {
+        sendotp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        sendotp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                resetMouseClicked(evt);
+                sendotpMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                resetMouseEntered(evt);
+                sendotpMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                resetMouseExited(evt);
+                sendotpMouseExited(evt);
             }
         });
 
         jLabel2.setText("Send OTP");
 
-        javax.swing.GroupLayout resetLayout = new javax.swing.GroupLayout(reset);
-        reset.setLayout(resetLayout);
-        resetLayout.setHorizontalGroup(
-            resetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(resetLayout.createSequentialGroup()
+        javax.swing.GroupLayout sendotpLayout = new javax.swing.GroupLayout(sendotp);
+        sendotp.setLayout(sendotpLayout);
+        sendotpLayout.setHorizontalGroup(
+            sendotpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sendotpLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
-        resetLayout.setVerticalGroup(
-            resetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resetLayout.createSequentialGroup()
+        sendotpLayout.setVerticalGroup(
+            sendotpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sendotpLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2))
         );
 
-        user.setText("Email");
+        user.setText("Enter Contact");
 
         OTP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,35 +118,35 @@ public class Forgotpass extends javax.swing.JFrame {
             }
         });
 
-        npass.setText("Enter OTP sent to your email");
+        npass.setText("Enter OTP");
 
-        reset1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        reset1.addMouseListener(new java.awt.event.MouseAdapter() {
+        verify.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        verify.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                reset1MouseClicked(evt);
+                verifyMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                reset1MouseEntered(evt);
+                verifyMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                reset1MouseExited(evt);
+                verifyMouseExited(evt);
             }
         });
 
         jLabel3.setText("Verify OTP");
 
-        javax.swing.GroupLayout reset1Layout = new javax.swing.GroupLayout(reset1);
-        reset1.setLayout(reset1Layout);
-        reset1Layout.setHorizontalGroup(
-            reset1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(reset1Layout.createSequentialGroup()
+        javax.swing.GroupLayout verifyLayout = new javax.swing.GroupLayout(verify);
+        verify.setLayout(verifyLayout);
+        verifyLayout.setHorizontalGroup(
+            verifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verifyLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel3)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
-        reset1Layout.setVerticalGroup(
-            reset1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reset1Layout.createSequentialGroup()
+        verifyLayout.setVerticalGroup(
+            verifyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, verifyLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel3))
         );
@@ -166,15 +163,15 @@ public class Forgotpass extends javax.swing.JFrame {
                     .addGroup(conLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Contact, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(user)
                             .addComponent(npass)
                             .addComponent(OTP, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(conLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sendotp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(reset1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(verify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         conLayout.setVerticalGroup(
@@ -185,23 +182,23 @@ public class Forgotpass extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(user)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Contact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(npass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(OTP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(reset1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sendotp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(verify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jPanel2.add(con, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 260, 250));
 
-        backbutton.setFont(new java.awt.Font("Consolas", 0, 12));
+        backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         backbutton.setForeground(new java.awt.Color(255, 255, 255));
-        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png")));
+        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
         backbutton.setText("back");
         backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -210,7 +207,7 @@ public class Forgotpass extends javax.swing.JFrame {
         });
         jPanel2.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forgot pass.png")));
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forgot pass.png"))); // NOI18N
         jPanel2.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -225,15 +222,14 @@ public class Forgotpass extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
 
     }//GEN-LAST:event_EmailActionPerformed
 
-    private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked
-        String email = Contact.getText().trim();
+    private void sendotpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sendotpMouseClicked
+        String email = Email.getText().trim();
         
         if (email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter your email address", "Error", JOptionPane.ERROR_MESSAGE);
@@ -283,17 +279,17 @@ public class Forgotpass extends javax.swing.JFrame {
         } finally {
             connect.closeConnection();
         }
-    }//GEN-LAST:event_resetMouseClicked
+    }//GEN-LAST:event_sendotpMouseClicked
 
-    private void resetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseEntered
-        reset.setOpaque(true);
-        reset.setBackground(new java.awt.Color(102,102,102));
-    }//GEN-LAST:event_resetMouseEntered
+    private void sendotpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sendotpMouseEntered
+        sendotp.setOpaque(true);
+        sendotp.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_sendotpMouseEntered
 
-    private void resetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseExited
-        reset.setOpaque(true);
-        reset.setBackground(new java.awt.Color(204,204,204));
-    }//GEN-LAST:event_resetMouseExited
+    private void sendotpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sendotpMouseExited
+        sendotp.setOpaque(true);
+        sendotp.setBackground(new java.awt.Color(204,204,204));
+    }//GEN-LAST:event_sendotpMouseExited
 
     private void OTPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OTPActionPerformed
 
@@ -304,78 +300,76 @@ public class Forgotpass extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backbuttonMouseClicked
 
-    private void reset1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reset1MouseClicked
-        String enteredOTP = new String(OTP.getPassword()).trim();
+    private void verifyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verifyMouseClicked
+     String enteredOTP = new String(OTP.getPassword()).trim();
+
+if (enteredOTP.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Please enter the OTP", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+if (userId == 0) {
+    JOptionPane.showMessageDialog(this, "Please send OTP first.", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+config connect = new config();
+try {
+    String verifySql = "SELECT * FROM forget_pass WHERE u_id = ? AND otp = ? AND is_used = 0 AND expires_at > NOW()";
+    PreparedStatement verifyStmt = connect.prepareStatement(verifySql);
+    verifyStmt.setInt(1, userId);
+    verifyStmt.setString(2, enteredOTP);
+    ResultSet rs = verifyStmt.executeQuery();
+
+    if (rs.next()) {
+        // Mark OTP as used
+        String updateSql = "UPDATE forget_pass SET is_used = 1 WHERE id = ?";
+        PreparedStatement updateStmt = connect.prepareStatement(updateSql);
+        updateStmt.setInt(1, rs.getInt("id"));
+        updateStmt.executeUpdate();
+
+        // Show success message
+        JOptionPane.showMessageDialog(this, "OTP verified successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         
-        if (enteredOTP.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter the OTP", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (userId == 0) {
-            JOptionPane.showMessageDialog(this, "Please send OTP first.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        config connect = new config();
-        try {
-            String verifySql = "SELECT * FROM forget_pass WHERE u_id = ? AND otp = ? AND is_used = 0 AND expires_at > NOW()";
-            PreparedStatement verifyStmt = connect.prepareStatement(verifySql);
-            verifyStmt.setInt(1, userId);
-            verifyStmt.setString(2, enteredOTP);
-            ResultSet rs = verifyStmt.executeQuery();
-
-            if (rs.next()) {
-                // Mark OTP as used
-                String updateSql = "UPDATE forget_pass SET is_used = 1 WHERE id = ?";
-                PreparedStatement updateStmt = connect.prepareStatement(updateSql);
-                updateStmt.setInt(1, rs.getInt("id"));
-                updateStmt.executeUpdate();
-
-                // Show success message
-                JOptionPane.showMessageDialog(this, "OTP verified successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                
-                // Now, fetch user type and navigate to the correct change password form
-                String userTypeSql = "SELECT username FROM user WHERE u_id = ?";
-                PreparedStatement userTypeStmt = connect.prepareStatement(userTypeSql);
-                userTypeStmt.setInt(1, userId);
-                ResultSet userTypeRs = userTypeStmt.executeQuery();
-                
-                if (userTypeRs.next()) {
-                    String userType = userTypeRs.getString("user_type");
-                    // Pass the user ID and potentially email to the change password forms
-                    if ("admin".equalsIgnoreCase(userType)) {
-                        new AdminChangepass(userId).setVisible(true);
-                    } else {
-                        new changepass(userId).setVisible(true);
-                    }
-                } else {
-                    // Should not happen if OTP is verified, but handle defensively
-                    JOptionPane.showMessageDialog(this, "Could not retrieve user information.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                
-                // Close the forgot password window
-                this.dispose();
+        // Fetch role from user table
+        String roleSql = "SELECT role FROM user WHERE u_id = ?";
+        PreparedStatement roleStmt = connect.prepareStatement(roleSql);
+        roleStmt.setInt(1, userId);
+        ResultSet roleRs = roleStmt.executeQuery();
+        
+        if (roleRs.next()) {
+            String role = roleRs.getString("role");
+            if ("admin".equalsIgnoreCase(role)) {
+                new AdminChangepass(userId).setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "Invalid or expired OTP", "Error", JOptionPane.ERROR_MESSAGE);
+                new changepass(userId).setVisible(true);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Database error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            connect.closeConnection();
+        } else {
+            JOptionPane.showMessageDialog(this, "Could not retrieve user role.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_reset1MouseClicked
 
-    private void reset1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reset1MouseEntered
-        reset1.setOpaque(true);
-        reset1.setBackground(new java.awt.Color(102,102,102));
-    }//GEN-LAST:event_reset1MouseEntered
+        this.dispose();
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid or expired OTP", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+} catch (SQLException ex) {
+    ex.printStackTrace();
+    JOptionPane.showMessageDialog(this, "Database error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+} finally {
+    connect.closeConnection();
+}
 
-    private void reset1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reset1MouseExited
-        reset1.setOpaque(true);
-        reset1.setBackground(new java.awt.Color(204,204,204));
-    }//GEN-LAST:event_reset1MouseExited
+    }//GEN-LAST:event_verifyMouseClicked
+
+    private void verifyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verifyMouseEntered
+        verify.setOpaque(true);
+        verify.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_verifyMouseEntered
+
+    private void verifyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verifyMouseExited
+        verify.setOpaque(true);
+        verify.setBackground(new java.awt.Color(204,204,204));
+    }//GEN-LAST:event_verifyMouseExited
 
     private String generateOTP() {
         Random random = new Random();
@@ -416,7 +410,7 @@ public class Forgotpass extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Contact;
+    private javax.swing.JTextField Email;
     private javax.swing.JPasswordField OTP;
     private javax.swing.JLabel back;
     private javax.swing.JLabel backbutton;
@@ -426,8 +420,8 @@ public class Forgotpass extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel npass;
-    private javax.swing.JPanel reset;
-    private javax.swing.JPanel reset1;
+    private javax.swing.JPanel sendotp;
     private javax.swing.JLabel user;
+    private javax.swing.JPanel verify;
     // End of variables declaration//GEN-END:variables
 }

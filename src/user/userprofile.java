@@ -5,6 +5,7 @@
  */
 package user;
 
+import admin.changepass;
 import config.CroppingPanel;
 import config.config;
 import config.session;

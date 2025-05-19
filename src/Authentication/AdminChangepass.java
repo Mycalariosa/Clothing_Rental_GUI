@@ -1,4 +1,4 @@
-package admin;
+package Authentication;
 
 import config.config;
 import config.session;
@@ -15,13 +15,11 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import Authentication.Login; // Assuming admin also goes back to login after forgot password reset
+import admin.Profile;
 
 
 public class AdminChangepass extends javax.swing.JFrame {
 
-    private static final String EMAIL_FROM = "example@gmail.com";
-    private static final String EMAIL_PASSWORD = "abcdefghijklmnop";
-    
     private int userId; // Added field to store user ID
 
     public AdminChangepass() {
@@ -41,84 +39,160 @@ public class AdminChangepass extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         jPanel1 = new javax.swing.JPanel();
+        backbutton = new javax.swing.JLabel();
         con = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        user = new javax.swing.JLabel();
         users = new javax.swing.JTextField();
-        npass = new javax.swing.JLabel();
-        newpass = new javax.swing.JPasswordField();
-        cpass = new javax.swing.JLabel();
-        confirmpass = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
         reset = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        user = new javax.swing.JLabel();
+        newpass = new javax.swing.JPasswordField();
+        confirmpass = new javax.swing.JPasswordField();
+        npass = new javax.swing.JLabel();
+        cpass = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        setSize(new java.awt.Dimension(800, 400));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new BorderLayout());
+        jPanel1.setMaximumSize(new java.awt.Dimension(800, 400));
+        jPanel1.setMinimumSize(new java.awt.Dimension(800, 400));
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 400));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        con.setBackground(new java.awt.Color(255, 255, 255));
+        backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        backbutton.setForeground(new java.awt.Color(255, 255, 255));
+        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
+        backbutton.setText("back");
+        backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backbuttonMouseClicked(evt);
+            }
+        });
+        jPanel1.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
+
+        con.setBackground(new java.awt.Color(0, 0, 0,80));
         con.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        con.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        con.setForeground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18));
+        users.setEditable(false);
+        users.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usersActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel1.setText("CHANGE PASSWORD");
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        con.add(jLabel1, gbc);
-
-        user.setText("Username");
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        con.add(user, gbc);
-
-        gbc.gridx = 1;
-        con.add(users, gbc);
-
-        npass.setText("New Password");
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        con.add(npass, gbc);
-
-        gbc.gridx = 1;
-        con.add(newpass, gbc);
-
-        cpass.setText("Confirm Password");
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        con.add(cpass, gbc);
-
-        gbc.gridx = 1;
-        con.add(confirmpass, gbc);
 
         reset.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         reset.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 resetMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                resetMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                resetMouseExited(evt);
+            }
         });
 
-        jLabel2.setText("Reset");
-        reset.add(jLabel2);
+        jLabel2.setText("RESET");
 
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.gridwidth = 2;
-        con.add(reset, gbc);
+        javax.swing.GroupLayout resetLayout = new javax.swing.GroupLayout(reset);
+        reset.setLayout(resetLayout);
+        resetLayout.setHorizontalGroup(
+            resetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(resetLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel2)
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        resetLayout.setVerticalGroup(
+            resetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resetLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2))
+        );
 
-        jPanel1.add(con, BorderLayout.CENTER);
+        user.setText("username");
 
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forgot pass.png")));
-        jPanel1.add(back, BorderLayout.CENTER);
+        newpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newpassActionPerformed(evt);
+            }
+        });
 
-        getContentPane().add(jPanel1);
+        npass.setText("New Password");
+
+        cpass.setText("Confirm Password");
+
+        javax.swing.GroupLayout conLayout = new javax.swing.GroupLayout(con);
+        con.setLayout(conLayout);
+        conLayout.setHorizontalGroup(
+            conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conLayout.createSequentialGroup()
+                .addGroup(conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(conLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel1))
+                    .addGroup(conLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(users, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(user)
+                            .addComponent(npass)
+                            .addGroup(conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(newpass)
+                                .addComponent(confirmpass, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cpass))))
+                .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
+        );
+        conLayout.setVerticalGroup(
+            conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(conLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(user)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(users, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(npass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(newpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cpass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(confirmpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(con, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 260, 290));
+
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forgot pass.png"))); // NOI18N
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersActionPerformed
@@ -225,13 +299,11 @@ public class AdminChangepass extends javax.swing.JFrame {
     }//GEN-LAST:event_resetMouseExited
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-       session ses = session.getInstance();
-    
-    if (ses != null && ses.getUsername() != null) {
-        users.setText(ses.getUsername()); 
-    } else {
-        users.setText("No Username");
-    }
+        if (this.userId != 0) {
+            fetchUsername(this.userId);
+        } else {
+            users.setText("No User ID");
+        }
     }//GEN-LAST:event_formWindowActivated
 
     /**

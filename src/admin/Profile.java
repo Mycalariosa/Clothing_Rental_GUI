@@ -1,6 +1,6 @@
-
 package admin;
 
+import Authentication.AdminChangepass;
 import admin.managerental.Rental;
 import admin.manageuser.Users;
 import admin.manageclothes.Clothes;
@@ -854,7 +854,14 @@ if (ses != null && ses.getUsername() != null) {
     }//GEN-LAST:event_uploadMouseClicked
 
     private void changepassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changepassMouseClicked
-      new AdminChangepass().setVisible(true);
+        session userSession = session.getInstance();
+        if (userSession != null && userSession.getUsername() != null) {
+            int userId = userSession.getUserId();
+            new AdminChangepass(userId).setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "No user session found. Please login again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_changepassMouseClicked
 
     private void ProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseClicked
