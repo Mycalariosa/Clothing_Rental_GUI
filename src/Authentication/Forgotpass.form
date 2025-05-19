@@ -71,7 +71,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="Contact" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                                  <Component id="Email" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
                                   <Component id="user" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="npass" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="OTP" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
@@ -96,7 +96,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="user" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="Contact" min="-2" max="-2" attributes="0"/>
+                      <Component id="Email" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="npass" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -112,9 +112,9 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="Contact">
+            <Component class="javax.swing.JTextField" name="Email">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ContactActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EmailActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">

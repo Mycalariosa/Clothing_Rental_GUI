@@ -5,15 +5,37 @@
  */
 package admin.manageclothes;
 
+import config.CroppingPanel;
+import config.config;
+import config.session;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Administrator
  */
 public class AddClothes extends javax.swing.JFrame {
 
-    /**
-     * Creates new form addclothes
-     */
+ private File selectedClothingImageFile = null; // Used to track saved cropped image
+
     public AddClothes() {
         initComponents();
     }
@@ -27,25 +49,319 @@ public class AddClothes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        photo1 = new javax.swing.JLabel();
+        addphoto = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        clothname = new javax.swing.JTextField();
+        size = new javax.swing.JComboBox<>();
+        category = new javax.swing.JTextField();
+        price = new javax.swing.JTextField();
+        availability = new javax.swing.JComboBox<>();
+        addclothes = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        description = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        color = new javax.swing.JTextField();
+        back = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0,80));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(photo1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(photo1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
         );
+
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 160, 210));
+
+        addphoto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addphoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addphotoMouseClicked(evt);
+            }
+        });
+
+        jLabel19.setText("add photo");
+
+        javax.swing.GroupLayout addphotoLayout = new javax.swing.GroupLayout(addphoto);
+        addphoto.setLayout(addphotoLayout);
+        addphotoLayout.setHorizontalGroup(
+            addphotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addphotoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel19)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        addphotoLayout.setVerticalGroup(
+            addphotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addphotoLayout.createSequentialGroup()
+                .addComponent(jLabel19)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(addphoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
+
+        clothname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clothnameActionPerformed(evt);
+            }
+        });
+        jPanel2.add(clothname, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 150, 20));
+
+        size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Small", "Medium", "Large" }));
+        jPanel2.add(size, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 150, -1));
+        jPanel2.add(category, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 150, -1));
+        jPanel2.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 150, -1));
+
+        availability.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Unavailable" }));
+        jPanel2.add(availability, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 150, -1));
+
+        addclothes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addclothesMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setText("ADD ");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addclothesLayout = new javax.swing.GroupLayout(addclothes);
+        addclothes.setLayout(addclothesLayout);
+        addclothesLayout.setHorizontalGroup(
+            addclothesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addclothesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+        addclothesLayout.setVerticalGroup(
+            addclothesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addclothesLayout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addComponent(jLabel1))
+        );
+
+        jPanel2.add(addclothes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, 50, 20));
+
+        jLabel14.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel14.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Cloth name");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, 20));
+
+        jLabel15.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Size");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 50, 20));
+
+        jLabel18.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Prize");
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, 20));
+
+        jLabel23.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setText("Category");
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, 20));
+
+        jLabel22.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Description");
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 80, 20));
+        jPanel2.add(description, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 150, 50));
+
+        jLabel24.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Availability");
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 80, 20));
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Color");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, -1));
+        jPanel2.add(color, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 150, -1));
+
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/f.png"))); // NOI18N
+        jPanel2.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 400));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void addphotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addphotoMouseClicked
+
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Choose an image");
+    fileChooser.setFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
+
+    int result = fileChooser.showOpenDialog(null);
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        try {
+            BufferedImage originalImage = ImageIO.read(selectedFile);
+
+            CroppingPanel cropPanel = new CroppingPanel(originalImage);
+            int confirm = JOptionPane.showConfirmDialog(null, new JScrollPane(cropPanel), "Crop Image", JOptionPane.OK_CANCEL_OPTION);
+
+            if (confirm == JOptionPane.OK_OPTION) {
+                BufferedImage croppedImage = cropPanel.getCroppedImage();
+                if (croppedImage != null) {
+                    int w1 = photo1.getWidth();
+                    int h1 = photo1.getHeight();
+                    Image resizedForLabel = croppedImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH);
+
+                    BufferedImage circleImage = new BufferedImage(w1, h1, BufferedImage.TYPE_INT_ARGB);
+                    Graphics2D g2 = circleImage.createGraphics();
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2.setClip(new Ellipse2D.Float(0, 0, w1, h1));
+                    g2.drawImage(resizedForLabel, 0, 0, null);
+                    g2.dispose();
+
+                    photo1.setIcon(new ImageIcon(circleImage));
+
+                    // Save cropped image to "src/images/clothes/"
+                    String ext = selectedFile.getName().substring(selectedFile.getName().lastIndexOf(".") + 1);
+                    String filename = "clothes_" + System.currentTimeMillis() + "." + ext;
+                    String relativePath = "src/images/clothes/" + filename;
+                    File outputFile = new File(relativePath);
+                    ImageIO.write(croppedImage, ext, outputFile);
+
+                    selectedClothingImageFile = outputFile; // Save the file for later use in DB
+                }
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error processing image: " + ex.getMessage(), "Image Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+            // ... rest of the code to display the profile section
+    }//GEN-LAST:event_addphotoMouseClicked
+
+    private void clothnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clothnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clothnameActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+   
+    }//GEN-LAST:event_jLabel1MouseClicked
+private void clearForm() {
+    clothname.setText("");
+    price.setText("");
+    category.setText("");
+    description.setText("");
+    color.setText("");
+    size.setSelectedIndex(0);
+    availability.setSelectedIndex(0);
+    photo1.setIcon(null);
+}
+
+    private void addclothesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addclothesMouseClicked
+
+    config connect = new config(); // your DB connection class
+
+    String clothName = clothname.getText().trim();
+    String priceText = price.getText().trim();
+    String categoryText = category.getText().trim();
+    String descriptionText = description.getText().trim();
+    String selectedSize = (String) size.getSelectedItem();
+    String selectedAvailability = (String) availability.getSelectedItem();
+    String colorText = color.getText().trim();
+
+    StringBuilder errorMessage = new StringBuilder();
+
+    if (clothName.isEmpty() || priceText.isEmpty() || categoryText.isEmpty() ||
+        descriptionText.isEmpty() || selectedSize == null || selectedAvailability == null || colorText.isEmpty()) {
+        errorMessage.append("Please fill in all fields.\n");
+    }
+
+    double priceValue = 0.0;
+    try {
+        priceValue = Double.parseDouble(priceText);
+        if (priceValue <= 0) {
+            errorMessage.append("Price must be a positive number.\n");
+        }
+    } catch (NumberFormatException e) {
+        errorMessage.append("Invalid price format.\n");
+    }
+
+    if (errorMessage.length() > 0) {
+        JOptionPane.showMessageDialog(this, errorMessage.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Finalize image path
+    String imagePath = "images/clothes/default.png"; // fallback default
+    if (selectedClothingImageFile != null) {
+        imagePath = selectedClothingImageFile.getPath().replace("src/", "").replace("\\", "/");
+    }
+
+    try {
+        Connection con = connect.getConnection();
+        PreparedStatement pst = con.prepareStatement(
+            "INSERT INTO clothes (clothname, price, category, description, sizes, availability, photo_path, color) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+        );
+
+        pst.setString(1, clothName);
+        pst.setDouble(2, priceValue);
+        pst.setString(3, categoryText);
+        pst.setString(4, descriptionText);
+        pst.setString(5, selectedSize);
+        pst.setString(6, selectedAvailability);
+        pst.setString(7, imagePath);
+        pst.setString(8, colorText);
+
+        int rows = pst.executeUpdate();
+        if (rows > 0) {
+            JOptionPane.showMessageDialog(this, "Clothing item added successfully.");
+            clearForm(); // optional: clear inputs
+            selectedClothingImageFile = null;
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to add clothing item.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        pst.close();
+        con.close();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_addclothesMouseClicked
+
+  
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -80,5 +396,27 @@ public class AddClothes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel addclothes;
+    private javax.swing.JPanel addphoto;
+    private javax.swing.JComboBox<String> availability;
+    private javax.swing.JLabel back;
+    private javax.swing.JTextField category;
+    private javax.swing.JTextField clothname;
+    private javax.swing.JTextField color;
+    private javax.swing.JTextField description;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel photo1;
+    private javax.swing.JTextField price;
+    private javax.swing.JComboBox<String> size;
     // End of variables declaration//GEN-END:variables
 }

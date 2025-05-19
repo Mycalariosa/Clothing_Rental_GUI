@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package clothingrental_gui;
+package Authentication;
 
 import config.config;
+import config.EmailSender;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
@@ -16,6 +12,14 @@ import java.util.Random;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import user.changepass;
+import admin.AdminChangepass;
+import javax.mail.MessagingException;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JPanel;
 
 /**
  *
@@ -24,7 +28,7 @@ import user.changepass;
 public class Forgotpass extends javax.swing.JFrame {
     private String generatedOTP;
     private int userId;
-    private String userContact;
+    private String userEmail;
 
     /**
      * Creates new form Forgotpass
@@ -32,6 +36,8 @@ public class Forgotpass extends javax.swing.JFrame {
     public Forgotpass() {
         initComponents();
         setLocationRelativeTo(null);
+        user.setText("Email");
+        npass.setText("Enter OTP sent to your email");
     }
 
     /**
@@ -58,6 +64,8 @@ public class Forgotpass extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        setSize(new java.awt.Dimension(800, 400));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -67,11 +75,11 @@ public class Forgotpass extends javax.swing.JFrame {
 
         Contact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ContactActionPerformed(evt);
+                EmailActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18));
         jLabel1.setText("FORGOT PASSWORD");
 
         reset.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -105,7 +113,7 @@ public class Forgotpass extends javax.swing.JFrame {
                 .addComponent(jLabel2))
         );
 
-        user.setText("Enter Contact");
+        user.setText("Email");
 
         OTP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +121,7 @@ public class Forgotpass extends javax.swing.JFrame {
             }
         });
 
-        npass.setText("Enter OTP");
+        npass.setText("Enter OTP sent to your email");
 
         reset1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         reset1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,9 +199,9 @@ public class Forgotpass extends javax.swing.JFrame {
 
         jPanel2.add(con, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 260, 250));
 
-        backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        backbutton.setFont(new java.awt.Font("Consolas", 0, 12));
         backbutton.setForeground(new java.awt.Color(255, 255, 255));
-        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
+        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png")));
         backbutton.setText("back");
         backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -202,7 +210,7 @@ public class Forgotpass extends javax.swing.JFrame {
         });
         jPanel2.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forgot pass.png"))); // NOI18N
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forgot pass.png")));
         jPanel2.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -217,47 +225,57 @@ public class Forgotpass extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContactActionPerformed
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
 
-    }//GEN-LAST:event_ContactActionPerformed
+    }//GEN-LAST:event_EmailActionPerformed
 
     private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked
-        // This is the Send OTP button
-        String contact = Contact.getText().trim();
+        String email = Contact.getText().trim();
         
-        if (contact.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter your contact number", "Error", JOptionPane.ERROR_MESSAGE);
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your email address", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid email address", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         config connect = new config();
         try {
-            // Check if contact exists in database
-            String checkSql = "SELECT u_id FROM user WHERE contact = ?";
+            // Check if email exists in database
+            String checkSql = "SELECT u_id, email FROM user WHERE email = ?";
             PreparedStatement checkStmt = connect.prepareStatement(checkSql);
-            checkStmt.setString(1, contact);
+            checkStmt.setString(1, email);
             ResultSet rs = checkStmt.executeQuery();
 
             if (rs.next()) {
                 userId = rs.getInt("u_id");
-                userContact = contact;
-                generatedOTP = generateOTP();
+                userEmail = rs.getString("email");
                 
-                // Store OTP in database
-                String insertSql = "INSERT INTO forget_pass (u_id, mobile_number, otp, expires_at) VALUES (?, ?, ?, ?)";
-                PreparedStatement insertStmt = connect.prepareStatement(insertSql);
-                insertStmt.setInt(1, userId);
-                insertStmt.setString(2, contact);
-                insertStmt.setString(3, generatedOTP);
-                insertStmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now().plusMinutes(5)));
-                insertStmt.executeUpdate();
+                try {
+                    // Generate and send OTP via email
+                    generatedOTP = EmailSender.sendVerificationPin(userEmail, "User");
+                    
+                    // Store OTP in database
+                    String insertSql = "INSERT INTO forget_pass (u_id, email, otp, expires_at) VALUES (?, ?, ?, ?)";
+                    PreparedStatement insertStmt = connect.prepareStatement(insertSql);
+                    insertStmt.setInt(1, userId);
+                    insertStmt.setString(2, email); // Store email instead of mobile number
+                    insertStmt.setString(3, generatedOTP);
+                    insertStmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now().plusMinutes(5)));
+                    insertStmt.executeUpdate();
 
-                // For testing purposes, show OTP (in production, this would be sent via SMS)
-                JOptionPane.showMessageDialog(this, "Your OTP is: " + generatedOTP + "\nIn production, this would be sent via SMS.", "OTP Generated", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "OTP has been sent to your email address", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (MessagingException ex) {
+                    JOptionPane.showMessageDialog(this, "Failed to send OTP email: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Contact number not found", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Email address not found", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -287,11 +305,15 @@ public class Forgotpass extends javax.swing.JFrame {
     }//GEN-LAST:event_backbuttonMouseClicked
 
     private void reset1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reset1MouseClicked
-        // This is the Verify OTP button
         String enteredOTP = new String(OTP.getPassword()).trim();
         
         if (enteredOTP.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter the OTP", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (userId == 0) {
+            JOptionPane.showMessageDialog(this, "Please send OTP first.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -305,23 +327,41 @@ public class Forgotpass extends javax.swing.JFrame {
 
             if (rs.next()) {
                 // Mark OTP as used
-                String updateSql = "UPDATE forget_pass SET is_used = 1 WHERE u_id = ? AND otp = ?";
+                String updateSql = "UPDATE forget_pass SET is_used = 1 WHERE id = ?";
                 PreparedStatement updateStmt = connect.prepareStatement(updateSql);
-                updateStmt.setInt(1, userId);
-                updateStmt.setString(2, enteredOTP);
+                updateStmt.setInt(1, rs.getInt("id"));
                 updateStmt.executeUpdate();
 
-                // Show success message and proceed to change password
+                // Show success message
                 JOptionPane.showMessageDialog(this, "OTP verified successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                // Navigate to password change screen
-                new changepass().setVisible(true);
+                
+                // Now, fetch user type and navigate to the correct change password form
+                String userTypeSql = "SELECT username FROM user WHERE u_id = ?";
+                PreparedStatement userTypeStmt = connect.prepareStatement(userTypeSql);
+                userTypeStmt.setInt(1, userId);
+                ResultSet userTypeRs = userTypeStmt.executeQuery();
+                
+                if (userTypeRs.next()) {
+                    String userType = userTypeRs.getString("user_type");
+                    // Pass the user ID and potentially email to the change password forms
+                    if ("admin".equalsIgnoreCase(userType)) {
+                        new AdminChangepass(userId).setVisible(true);
+                    } else {
+                        new changepass(userId).setVisible(true);
+                    }
+                } else {
+                    // Should not happen if OTP is verified, but handle defensively
+                    JOptionPane.showMessageDialog(this, "Could not retrieve user information.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                // Close the forgot password window
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid or expired OTP", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Database error occurred", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Database error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             connect.closeConnection();
         }
@@ -341,6 +381,11 @@ public class Forgotpass extends javax.swing.JFrame {
         Random random = new Random();
         int otp = 100000 + random.nextInt(900000); // 6-digit OTP
         return String.valueOf(otp);
+    }
+
+    private boolean isValidEmail(String email) {
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return email.matches(regex);
     }
 
     /**

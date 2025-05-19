@@ -4,7 +4,7 @@ package admin;
 import admin.managerental.Rental;
 import admin.manageuser.Users;
 import admin.manageclothes.Clothes;
-import clothingrental_gui.Login;
+import Authentication.Login;
 import config.session;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

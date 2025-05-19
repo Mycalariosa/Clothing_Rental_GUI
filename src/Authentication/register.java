@@ -1,5 +1,5 @@
 
-package clothingrental_gui;
+package Authentication;
 
 import config.config;
 import java.sql.Connection;

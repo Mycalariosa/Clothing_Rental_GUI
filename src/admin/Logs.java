@@ -3,7 +3,7 @@ package admin;
 import admin.managerental.Rental;
 import admin.manageuser.Users;
 import admin.manageclothes.Clothes;
-import clothingrental_gui.Login;
+import Authentication.Login;
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import config.config;
 import java.awt.Color;

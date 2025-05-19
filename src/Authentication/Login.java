@@ -1,4 +1,4 @@
-package clothingrental_gui;
+package Authentication;
 
 import admin.AdminDash;
 import config.config;

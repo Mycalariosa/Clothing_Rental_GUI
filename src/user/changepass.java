@@ -1,7 +1,5 @@
-
 package user;
 
-import clothingrental_gui.*;
 import config.config;
 import config.session;
 import java.sql.PreparedStatement;
@@ -10,169 +8,110 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import Authentication.Login;
 
 public class changepass extends javax.swing.JFrame {
 
-    
+    private int userId; // Added field to store user ID
+
     public changepass() {
         initComponents();
+        setLocationRelativeTo(null);
+        users.setEditable(false); // Make username field read-only
+        // Username will be fetched based on userId in a new method or updated formWindowActivated
+    }
+
+    // New constructor to accept userId from Forgotpass
+    public changepass(int userId) {
+        this(); // Call the default constructor to initialize components
+        this.userId = userId;
+        fetchUsername(userId); // Fetch and display username based on ID
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jPanel1 = new javax.swing.JPanel();
-        backbutton = new javax.swing.JLabel();
         con = new javax.swing.JPanel();
-        users = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        user = new javax.swing.JLabel();
+        users = new javax.swing.JTextField();
+        npass = new javax.swing.JLabel();
+        newpass = new javax.swing.JPasswordField();
+        cpass = new javax.swing.JLabel();
+        confirmpass = new javax.swing.JPasswordField();
         reset = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        user = new javax.swing.JLabel();
-        newpass = new javax.swing.JPasswordField();
-        confirmpass = new javax.swing.JPasswordField();
-        npass = new javax.swing.JLabel();
-        cpass = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-        setSize(new java.awt.Dimension(800, 400));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(800, 400));
-        jPanel1.setMinimumSize(new java.awt.Dimension(800, 400));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 400));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setLayout(new BorderLayout());
 
-        backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        backbutton.setForeground(new java.awt.Color(255, 255, 255));
-        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
-        backbutton.setText("back");
-        backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backbuttonMouseClicked(evt);
-            }
-        });
-        jPanel1.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
-
-        con.setBackground(new java.awt.Color(0, 0, 0,80));
+        con.setBackground(new java.awt.Color(255, 255, 255));
         con.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        con.setForeground(new java.awt.Color(204, 204, 204));
+        con.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        users.setEditable(false);
-        users.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usersActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18));
         jLabel1.setText("CHANGE PASSWORD");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        con.add(jLabel1, gbc);
+
+        user.setText("Username");
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        con.add(user, gbc);
+
+        gbc.gridx = 1;
+        con.add(users, gbc);
+
+        npass.setText("New Password");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        con.add(npass, gbc);
+
+        gbc.gridx = 1;
+        con.add(newpass, gbc);
+
+        cpass.setText("Confirm Password");
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        con.add(cpass, gbc);
+
+        gbc.gridx = 1;
+        con.add(confirmpass, gbc);
 
         reset.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         reset.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 resetMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                resetMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                resetMouseExited(evt);
-            }
         });
 
-        jLabel2.setText("RESET");
+        jLabel2.setText("Reset");
+        reset.add(jLabel2);
 
-        javax.swing.GroupLayout resetLayout = new javax.swing.GroupLayout(reset);
-        reset.setLayout(resetLayout);
-        resetLayout.setHorizontalGroup(
-            resetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(resetLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel2)
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
-        resetLayout.setVerticalGroup(
-            resetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resetLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2))
-        );
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        con.add(reset, gbc);
 
-        user.setText("username");
+        jPanel1.add(con, BorderLayout.CENTER);
 
-        newpass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newpassActionPerformed(evt);
-            }
-        });
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forgot pass.png")));
+        jPanel1.add(back, BorderLayout.CENTER);
 
-        npass.setText("New Password");
-
-        cpass.setText("Confirm Password");
-
-        javax.swing.GroupLayout conLayout = new javax.swing.GroupLayout(con);
-        con.setLayout(conLayout);
-        conLayout.setHorizontalGroup(
-            conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(conLayout.createSequentialGroup()
-                .addGroup(conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(conLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel1))
-                    .addGroup(conLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(users, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(user)
-                            .addComponent(npass)
-                            .addGroup(conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(newpass)
-                                .addComponent(confirmpass, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cpass))))
-                .addContainerGap(31, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, conLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
-        );
-        conLayout.setVerticalGroup(
-            conLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(conLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(user)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(users, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(npass)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(newpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cpass)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(confirmpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(con, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 260, 290));
-
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forgot pass.png"))); // NOI18N
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel1);
 
         pack();
         setLocationRelativeTo(null);
@@ -187,51 +126,39 @@ public class changepass extends javax.swing.JFrame {
     }//GEN-LAST:event_newpassActionPerformed
 
     private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked
-    String newPassword = new String(newpass.getPassword()).trim();
-    String confirmPassword = new String(confirmpass.getPassword()).trim();
+        String newPassword = new String(newpass.getPassword()).trim();
+        String confirmPassword = new String(confirmpass.getPassword()).trim();
 
-   
-    session ses = session.getInstance();
-    String username = (ses != null) ? ses.getUsername() : null;
+        // Use the userId passed from Forgotpass
+        if (this.userId == 0) { // Check if userId was set
+             JOptionPane.showMessageDialog(this, "User ID not set.", "Error", JOptionPane.ERROR_MESSAGE);
+             return;
+        }
 
-    if (username == null || username.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No user is logged in.", "Authentication Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Input Error", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+        if (!newPassword.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "New password and confirm password do not match.", "Password Mismatch", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    if (!newPassword.equals(confirmPassword)) {
-        JOptionPane.showMessageDialog(this, "New password and confirm password do not match.", "Password Mismatch", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        config connect = new config();
+        PreparedStatement updateStmt = null;
 
-    config connect = new config(); // Create DB connection instance
-    PreparedStatement checkUserStmt = null;
-    PreparedStatement updateStmt = null;
-    ResultSet rs = null;
-
-    try {
-        // Check if user exists
-        String checkUserSql = "SELECT * FROM user WHERE username = ?";
-        checkUserStmt = connect.prepareStatement(checkUserSql);
-        checkUserStmt.setString(1, username);
-        rs = checkUserStmt.executeQuery();
-
-        if (rs.next()) {
-            // User exists, proceed to update password
+        try {
+            // Update password
             String hashedPassword = hashPassword(newPassword);
             if (hashedPassword == null) {
                 return; // Stop if hashing fails
             }
 
-            String updateSql = "UPDATE user SET password = ? WHERE username = ?";
+            String updateSql = "UPDATE user SET password = ? WHERE u_id = ?";
             updateStmt = connect.prepareStatement(updateSql);
             updateStmt.setString(1, hashedPassword);
-            updateStmt.setString(2, username);
+            updateStmt.setInt(2, this.userId); // Use the stored userId
 
             int rowsUpdated = updateStmt.executeUpdate();
 
@@ -240,29 +167,29 @@ public class changepass extends javax.swing.JFrame {
                 // Clear fields after success
                 newpass.setText("");
                 confirmpass.setText("");
-                  new userprofile().setVisible(true);
+                
+                // Assuming we don't need session user type after password reset in this flow
+                // If navigation back to profile needs user type, you might need to pass it or re-fetch
+                // For now, assuming simple navigation or login after password reset in forgot password flow
+                 new Login().setVisible(true); // Navigate back to Login or a success screen
+                
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to update password.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "User not found. Cannot change password.", "User Not Found", JOptionPane.ERROR_MESSAGE);
-        }
 
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Database error occurred.", "Database Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        // Close resources properly
-        try {
-            if (rs != null) rs.close();
-            if (checkUserStmt != null) checkUserStmt.close();
-            if (updateStmt != null) updateStmt.close();
-            connect.closeConnection(); // Close connection properly
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error occurred: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (updateStmt != null) updateStmt.close();
+                // Keep connection open if reused, otherwise close. Let's close for safety here.
+                 connect.closeConnection();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
-    }
-
     }//GEN-LAST:event_resetMouseClicked
 
     private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
@@ -281,15 +208,15 @@ public class changepass extends javax.swing.JFrame {
     }//GEN-LAST:event_resetMouseExited
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-         session ses = session.getInstance();
-    
-    if (ses != null && ses.getUsername() != null) {
-        users.setText(ses.getUsername()); 
-    } else {
-        users.setText("No Username");}
+        // This method might not be needed if username is fetched in the new constructor
+        // Based on previous state, keeping it but it might be redundant
+        // session ses = session.getInstance();
+        // if (ses != null && ses.getUsername() != null) {
+        //     users.setText(ses.getUsername()); 
+        // } else {
+        // users.setText("No Username");}
     }//GEN-LAST:event_formWindowActivated
 
-   
     public static void main(String args[]) {
      
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -315,7 +242,43 @@ public class changepass extends javax.swing.JFrame {
     private javax.swing.JTextField users;
     // End of variables declaration//GEN-END:variables
 
-    private String hashPassword(String newPassword) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            JOptionPane.showMessageDialog(this, "Password hashing failed.", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+
+    // Method to fetch username based on userId
+    private void fetchUsername(int userId) {
+        config connect = new config();
+        try {
+            String sql = "SELECT username FROM user WHERE u_id = ?";
+            PreparedStatement pst = connect.prepareStatement(sql);
+            pst.setInt(1, userId);
+            ResultSet rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                users.setText(rs.getString("username"));
+            } else {
+                users.setText("User Not Found");
+            }
+            
+            rs.close();
+            pst.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            users.setText("Error fetching username");
+        } finally {
+            connect.closeConnection();
+        }
     }
 }

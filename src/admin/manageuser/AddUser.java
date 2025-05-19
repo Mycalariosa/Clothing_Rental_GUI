@@ -1,20 +1,20 @@
 
-
 package admin.manageuser;
 
-import admin.manageuser.Users;
 import config.CroppingPanel;
 import config.config;
 import config.session;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,85 +27,185 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ *
+ * @author Administrator
+ */
 public class AddUser extends javax.swing.JFrame {
+    
+private File selectedProfileImageFile = null;
 
-    /** Creates new form Add */
+   
     public AddUser() {
         initComponents();
     }
 
-   private File selectedProfileImageFile = null;
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        photo1 = new javax.swing.JLabel();
+        addphoto = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        fname = new javax.swing.JTextField();
+        lname = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
+        status = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        contact = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
+        role = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         add = new javax.swing.JPanel();
         addn = new javax.swing.JLabel();
-        fname = new javax.swing.JTextField();
-        lname = new javax.swing.JTextField();
-        email = new javax.swing.JTextField();
-        status = new javax.swing.JComboBox<>();
-        password = new javax.swing.JPasswordField();
-        role = new javax.swing.JComboBox<>();
-        username = new javax.swing.JTextField();
-        contact = new javax.swing.JTextField();
-        photo1 = new javax.swing.JLabel();
-        addphoto = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        backg = new javax.swing.JLabel();
+        backbutton = new javax.swing.JLabel();
+        back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.setBackground(new java.awt.Color(0,0,0,80));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel2.setForeground(new java.awt.Color(0,0,0,80));
 
-        jLabel18.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        jLabel18.setText("Email");
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, 20));
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(photo1, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(photo1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 130, 160));
+
+        addphoto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addphoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addphotoMouseClicked(evt);
+            }
+        });
+
+        jLabel19.setText("add photo");
+
+        javax.swing.GroupLayout addphotoLayout = new javax.swing.GroupLayout(addphoto);
+        addphoto.setLayout(addphotoLayout);
+        addphotoLayout.setHorizontalGroup(
+            addphotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addphotoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel19)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        addphotoLayout.setVerticalGroup(
+            addphotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addphotoLayout.createSequentialGroup()
+                .addComponent(jLabel19)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(addphoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, -1));
+
+        fname.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        fname.setMinimumSize(new java.awt.Dimension(6, 20));
+        jPanel1.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 140, 20));
+
+        lname.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        lname.setPreferredSize(new java.awt.Dimension(6, 20));
+        jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 140, 20));
+
+        email.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        email.setPreferredSize(new java.awt.Dimension(6, 20));
+        jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 140, 20));
+
+        status.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Active" }));
+        status.setPreferredSize(new java.awt.Dimension(66, 20));
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusActionPerformed(evt);
+            }
+        });
+        jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 140, 20));
+
+        jLabel14.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel14.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Firstname");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, -1, 20));
 
         jLabel15.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Lastname");
-        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 50, 20));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 50, 20));
 
-        jLabel14.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel14.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        jLabel14.setText("Firstname");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
+        jLabel18.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Email");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, -1, 20));
 
         jLabel24.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText(" Status");
-        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 50, 20));
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 50, 20));
+
+        contact.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        contact.setPreferredSize(new java.awt.Dimension(6, 20));
+        jPanel1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 140, 20));
+
+        username.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 140, 20));
+
+        password.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        password.setMinimumSize(new java.awt.Dimension(6, 20));
+        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 140, 20));
+
+        role.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin", " " }));
+        role.setPreferredSize(new java.awt.Dimension(54, 20));
+        role.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roleActionPerformed(evt);
+            }
+        });
+        jPanel1.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 140, 20));
 
         jLabel23.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Contact");
-        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, -1, 20));
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, 20));
 
         jLabel22.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Username");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 50, 20));
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, 50, 20));
 
         jLabel25.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Password");
-        jPanel3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 50, 20));
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 50, 20));
 
         jLabel21.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Role");
-        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, -1, 20));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, -1, 20));
 
         add.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         add.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,102 +239,144 @@ public class AddUser extends javax.swing.JFrame {
                 .addComponent(addn))
         );
 
-        jPanel3.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, -1, -1));
+        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 330, -1, -1));
 
-        fname.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        fname.setMinimumSize(new java.awt.Dimension(6, 20));
-        jPanel3.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 140, 20));
-
-        lname.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        lname.setPreferredSize(new java.awt.Dimension(6, 20));
-        jPanel3.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 140, 20));
-
-        email.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        email.setPreferredSize(new java.awt.Dimension(6, 20));
-        jPanel3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 140, 20));
-
-        status.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Active" }));
-        status.setPreferredSize(new java.awt.Dimension(66, 20));
-        status.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusActionPerformed(evt);
-            }
-        });
-        jPanel3.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 140, 20));
-
-        password.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        password.setMinimumSize(new java.awt.Dimension(6, 20));
-        jPanel3.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 130, 20));
-
-        role.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin", " " }));
-        role.setPreferredSize(new java.awt.Dimension(54, 20));
-        role.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roleActionPerformed(evt);
-            }
-        });
-        jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, 130, 20));
-
-        username.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jPanel3.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 130, 20));
-
-        contact.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        contact.setPreferredSize(new java.awt.Dimension(6, 20));
-        jPanel3.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 130, 20));
-
-        photo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-add-user-male-50.png"))); // NOI18N
-        jPanel3.add(photo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 60, 70));
-
-        addphoto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        addphoto.addMouseListener(new java.awt.event.MouseAdapter() {
+        backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        backbutton.setForeground(new java.awt.Color(255, 255, 255));
+        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
+        backbutton.setText("back");
+        backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addphotoMouseClicked(evt);
+                backbuttonMouseClicked(evt);
             }
         });
+        jPanel1.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
-        jLabel19.setText("add photo");
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/d.png"))); // NOI18N
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        javax.swing.GroupLayout addphotoLayout = new javax.swing.GroupLayout(addphoto);
-        addphoto.setLayout(addphotoLayout);
-        addphotoLayout.setHorizontalGroup(
-            addphotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addphotoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        addphotoLayout.setVerticalGroup(
-            addphotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addphotoLayout.createSequentialGroup()
-                .addComponent(jLabel19)
-                .addGap(0, 0, Short.MAX_VALUE))
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        jPanel3.add(addphoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, -1, -1));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 480, 320));
-
-        backg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Black and White Modern Sign-up and Login Website Page UI Desktop Prototype.png"))); // NOI18N
-        jPanel1.add(backg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-240, 0, 800, -1));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 400));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addMouseExited
+    private void addphotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addphotoMouseClicked
 
-    private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
+   
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Choose an image");
+    fileChooser.setFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
+
+    int result = fileChooser.showOpenDialog(null);
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        try {
+            BufferedImage originalImage = ImageIO.read(selectedFile);
+
+            CroppingPanel cropPanel = new CroppingPanel(originalImage);
+            int confirm = JOptionPane.showConfirmDialog(null, new JScrollPane(cropPanel), "Crop Image", JOptionPane.OK_CANCEL_OPTION);
+
+            if (confirm == JOptionPane.OK_OPTION) {
+                BufferedImage croppedImage = cropPanel.getCroppedImage();
+                if (croppedImage != null) {
+                    int w1 = photo1.getWidth();
+                    int h1 = photo1.getHeight();
+                    Image resizedForPhoto1 = croppedImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH);
+
+                    BufferedImage circleImage = new BufferedImage(w1, h1, BufferedImage.TYPE_INT_ARGB);
+                    Graphics2D g2 = circleImage.createGraphics();
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2.setClip(new Ellipse2D.Float(0, 0, w1, h1));
+                    g2.drawImage(resizedForPhoto1, 0, 0, null);
+                    g2.dispose();
+
+                    // Display circular image preview
+                    photo1.setIcon(new ImageIcon(circleImage));
+
+                    // Save cropped image temporarily for account creation
+                    String ext = selectedFile.getName().substring(selectedFile.getName().lastIndexOf(".") + 1);
+                    File tempFile = File.createTempFile("profile_", "." + ext);
+                    ImageIO.write(croppedImage, ext, tempFile);
+                    selectedProfileImageFile = tempFile; // store to be used in add method
+                }
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error processing image: " + ex.getMessage(), "Image Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+      
+    private void saveClothesImagePathToDB(String relativePath) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mbatelier", "root", "");
+             PreparedStatement stmt = conn.prepareStatement("INSERT INTO clothes (clothename, description, sizes, price, availability, category, photo_path) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+
+            stmt.setString(1, "Sample Name"); // Replace with real values
+            stmt.setString(2, "Sample Description");
+            stmt.setString(3, "M,L,XL");
+            stmt.setBigDecimal(4, new java.math.BigDecimal("999.99"));
+            stmt.setBoolean(5, true);
+            stmt.setString(6, "Category Name");
+            stmt.setString(7, relativePath);
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Clothes item with image saved successfully!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void displayClothesImage(String photoPath) {
+        if (photoPath != null && !photoPath.isEmpty()) {
+            try {
+                BufferedImage image = ImageIO.read(new File(photoPath));
+                int w1 = photo1.getWidth();
+                int h1 = photo1.getHeight();
+
+                Image resized = image.getScaledInstance(w1, h1, Image.SCALE_SMOOTH);
+                BufferedImage circleImage = new BufferedImage(w1, h1, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2 = circleImage.createGraphics();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setClip(new Ellipse2D.Float(0, 0, w1, h1));
+                g2.drawImage(resized, 0, 0, null);
+                g2.dispose();
+
+                photo1.setIcon(new ImageIcon(circleImage));
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error loading image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    
+
+            // ... rest of the code to display the profile section
+    }//GEN-LAST:event_addphotoMouseClicked
+
+    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addMouseEntered
+    }//GEN-LAST:event_statusActionPerformed
+
+    private void roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roleActionPerformed
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-        config connect = new config();
+    
+    config connect = new config();
 
     // Retrieve user input
     String firstNameText = fname.getText().trim();
@@ -248,7 +390,7 @@ public class AddUser extends javax.swing.JFrame {
 
     StringBuilder errorMessage = new StringBuilder();
 
-    // Validation checks
+    // Validation
     if (firstNameText.isEmpty() || lastNameText.isEmpty() || contactNumberText.isEmpty() ||
         emailText.isEmpty() || usernameText.isEmpty() || passwordChars.length == 0 ||
         selectedRole == null || selectedStatus == null) {
@@ -282,25 +424,29 @@ public class AddUser extends javax.swing.JFrame {
     String hashedPassword = hashPassword(passwordText);
     Arrays.fill(passwordChars, '0'); // clear password for security
 
-    // Handle profile image
-    String relativeProfilePath = "src/images/prof/default.png"; // default path if no image uploaded
-    if (selectedProfileImageFile != null) {
+    // Handle profile image saving
+    String relativeProfilePath = "src/images/prof/default.png"; // default image path
+    if (selectedProfileImageFile != null && selectedProfileImageFile.exists()) {
         try {
             BufferedImage image = ImageIO.read(selectedProfileImageFile);
+            String extension = selectedProfileImageFile.getName().substring(selectedProfileImageFile.getName().lastIndexOf(".") + 1);
             String fileName = System.currentTimeMillis() + "_" + selectedProfileImageFile.getName(); // unique filename
             File destinationDir = new File("src/images/prof");
             if (!destinationDir.exists()) {
                 destinationDir.mkdirs();
             }
             File destinationFile = new File(destinationDir, fileName);
-            ImageIO.write(image, fileName.substring(fileName.lastIndexOf('.') + 1), destinationFile);
-            relativeProfilePath = "src/images/prof/" + fileName;
+            ImageIO.write(image, extension, destinationFile);
+
+            relativeProfilePath = "src/images/prof/" + fileName; // update relative path
+
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Failed to save profile image.\n" + e.getMessage(), "Image Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 
-    // SQL to insert user
+    // Insert new user into the database
     String sql = "INSERT INTO user (fname, lname, email, contact, username, password, status, role, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
@@ -312,7 +458,7 @@ public class AddUser extends javax.swing.JFrame {
         pst.setString(6, hashedPassword);
         pst.setString(7, selectedStatus);
         pst.setString(8, selectedRole);
-        pst.setString(9, relativeProfilePath); // save image path
+        pst.setString(9, relativeProfilePath);
 
         pst.executeUpdate();
 
@@ -320,7 +466,7 @@ public class AddUser extends javax.swing.JFrame {
         new Users().setVisible(true);
         this.dispose();
 
-        // Clear fields
+        // Clear input fields
         fname.setText("");
         lname.setText("");
         contact.setText("");
@@ -335,8 +481,8 @@ public class AddUser extends javax.swing.JFrame {
         Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         JOptionPane.showMessageDialog(this, "Database Error: Unable to register account.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
 
-        }
 
         // Check if username is already taken
         private boolean isUsernameTaken(String username) {
@@ -437,137 +583,48 @@ public class AddUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_addMouseClicked
 
-    private void roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleActionPerformed
+    private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_roleActionPerformed
+    }//GEN-LAST:event_addMouseEntered
 
-    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
+    private void addMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_statusActionPerformed
+    }//GEN-LAST:event_addMouseExited
 
-    private void addphotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addphotoMouseClicked
- 
-    JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Choose an image");
-    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
-
-    int result = fileChooser.showOpenDialog(null);
-    if (result == JFileChooser.APPROVE_OPTION) {
-        File selectedFile = fileChooser.getSelectedFile();
-        try {
-            BufferedImage originalImage = ImageIO.read(selectedFile);
-
-            CroppingPanel cropPanel = new CroppingPanel(originalImage);
-            int confirm = JOptionPane.showConfirmDialog(null, new JScrollPane(cropPanel), "Crop Image", JOptionPane.OK_CANCEL_OPTION);
-
-            if (confirm == JOptionPane.OK_OPTION) {
-                BufferedImage croppedImage = cropPanel.getCroppedImage();
-
-                if (croppedImage != null) {
-                    int w1 = photo1.getWidth();
-                    int h1 = photo1.getHeight();
-                    Image resizedForPhoto1 = croppedImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH);
-
-                    BufferedImage circleImage = new BufferedImage(w1, h1, BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D g2 = circleImage.createGraphics();
-                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2.setClip(new java.awt.geom.Ellipse2D.Float(0, 0, w1, h1));
-                    g2.drawImage(resizedForPhoto1, 0, 0, null);
-                    g2.dispose();
-
-                    photo1.setIcon(new ImageIcon(circleImage));
-
-                    // ===== Save and update DB =====
-                    String fileExtension = selectedFile.getName().substring(selectedFile.getName().lastIndexOf(".") + 1);
-                    int targetUserId = getSelectedUserId(); // ✅ SELECTED USER ID, not current session
-
-                    String fileName = "user_" + targetUserId + "." + fileExtension;
-                    File destinationDirectory = new File("src/images/prof");
-                    if (!destinationDirectory.exists()) {
-                        destinationDirectory.mkdirs();
-                    }
-
-                    File destinationFile = new File(destinationDirectory, fileName);
-                    ImageIO.write(croppedImage, fileExtension, destinationFile);
-                    String relativePath = destinationFile.getPath();
-
-                    // ===== Update database =====
-                    String sql = "UPDATE mbatelier.user SET profile_image = ? WHERE u_id = ?";
-                    config dbConfig = new config();
-                    Connection connection = dbConfig.getConnection();
-
-                    if (connection != null) {
-                        PreparedStatement pstmt = connection.prepareStatement(sql);
-                        pstmt.setString(1, relativePath);
-                        pstmt.setInt(2, targetUserId);
-                        pstmt.executeUpdate();
-                        dbConfig.closeConnection();
-
-                        // ✅ Only update session if this is the current user
-                        session userSession = session.getInstance();
-                        if (userSession.getUserId() == targetUserId) {
-                            userSession.setProfileImage(relativePath);
-                        }
-
-                        JOptionPane.showMessageDialog(null, "Profile image updated successfully.");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Database connection failed.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error loading/cropping image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error updating database: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-}
-private int getSelectedUserId() {
-   
-    return session.getInstance().getUserId(); // For now, fallback to current user
-}
-
-
-        private void displayProfileSection() {
-            session userSession = session.getInstance();
-            String imagePath = userSession.getProfileImage();
-
-            if (imagePath != null && !imagePath.isEmpty()) {
-                try {
-                    BufferedImage image = ImageIO.read(new File(imagePath));
-                    // Scale and process the image as needed (similar to your upload code)
-                    int w1 = photo1.getWidth();
-                    int h1 = photo1.getHeight();
-                    Image resizedForPhoto1 = image.getScaledInstance(w1, h1, Image.SCALE_SMOOTH);
-
-                    BufferedImage circleImage = new BufferedImage(w1, h1, BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D g2 = circleImage.createGraphics();
-                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2.setClip(new java.awt.geom.Ellipse2D.Float(0, 0, w1, h1));
-                    g2.drawImage(resizedForPhoto1, 0, 0, null);
-                    g2.dispose();
-
-                   
-
-                    photo1.setIcon(new ImageIcon(circleImage));
-                   
-
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Error loading image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-            // ... rest of the code to display the profile section
-    }//GEN-LAST:event_addphotoMouseClicked
+    private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
+        new Users().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backbuttonMouseClicked
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AddUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AddUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AddUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AddUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AddUser().setVisible(true);
@@ -579,7 +636,8 @@ private int getSelectedUserId() {
     private javax.swing.JPanel add;
     private javax.swing.JLabel addn;
     private javax.swing.JPanel addphoto;
-    private javax.swing.JLabel backg;
+    private javax.swing.JLabel back;
+    private javax.swing.JLabel backbutton;
     private javax.swing.JTextField contact;
     private javax.swing.JTextField email;
     private javax.swing.JTextField fname;
@@ -593,7 +651,7 @@ private int getSelectedUserId() {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField lname;
     private javax.swing.JPasswordField password;
     private javax.swing.JLabel photo1;
@@ -601,5 +659,4 @@ private int getSelectedUserId() {
     private javax.swing.JComboBox<String> status;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
-
 }

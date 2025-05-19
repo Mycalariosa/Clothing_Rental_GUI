@@ -5,8 +5,8 @@ import admin.Profile;
 import admin.managerental.Rental;
 import admin.Settings;
 import admin.manageclothes.Clothes;
-import clothingrental_gui.Login;
-import clothingrental_gui.register;
+import Authentication.Login;
+import Authentication.register;
 import config.config;
 import config.session;
 import java.security.MessageDigest;
@@ -48,7 +48,6 @@ public class Users extends javax.swing.JFrame {
   private void loadUsers() {
 
 
-    // Create table model and define columns
     DefaultTableModel model = new DefaultTableModel();
     model.addColumn("User ID");
     model.addColumn("Full Name");
@@ -852,7 +851,7 @@ private void showError(String message) {
         JOptionPane.showMessageDialog(this, "Please select a user to update.", "Warning", JOptionPane.WARNING_MESSAGE);
     } else {
         // Get the selected username from column 4
-        String selectedUsername = table.getValueAt(selectedRow, 4).toString();
+        String selectedUsername = table.getValueAt(selectedRow, 3).toString();
 
         // Open the Update form
         Update updateForm = new Update(selectedUsername); // Ensure this constructor exists in Update.java

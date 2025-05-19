@@ -11,7 +11,7 @@ import admin.AdminDash;
 import admin.Logs;
 import admin.manageuser.Users;
 import admin.manageclothes.Clothes;
-import clothingrental_gui.Login;
+import Authentication.Login;
 import javax.swing.JOptionPane;
 
 /**

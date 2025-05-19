@@ -5,7 +5,7 @@ import admin.managerental.Rental;
 import admin.manageuser.Users;
 import admin.manageclothes.Clothes;
 import config.CroppingPanel;
-import clothingrental_gui.Login;
+import Authentication.Login;
 import config.config;
 import config.session;
 import javax.swing.*;
