@@ -70,6 +70,7 @@ public class AddClothes extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         color = new javax.swing.JTextField();
+        backbutton = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -207,6 +208,17 @@ public class AddClothes extends javax.swing.JFrame {
         jLabel2.setText("Color");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, -1));
         jPanel2.add(color, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 150, -1));
+
+        backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        backbutton.setForeground(new java.awt.Color(255, 255, 255));
+        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
+        backbutton.setText("back");
+        backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backbuttonMouseClicked(evt);
+            }
+        });
+        jPanel2.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/f.png"))); // NOI18N
         jPanel2.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -347,6 +359,10 @@ private void clearForm() {
             JOptionPane.showMessageDialog(this, "Clothing item added successfully.");
             clearForm(); // optional: clear inputs
             selectedClothingImageFile = null;
+            
+            // Navigate back to Clothes.java
+            new Clothes().setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Failed to add clothing item.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -359,6 +375,11 @@ private void clearForm() {
         JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_addclothesMouseClicked
+
+    private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
+        new Clothes().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backbuttonMouseClicked
 
   
 
@@ -400,6 +421,7 @@ private void clearForm() {
     private javax.swing.JPanel addphoto;
     private javax.swing.JComboBox<String> availability;
     private javax.swing.JLabel back;
+    private javax.swing.JLabel backbutton;
     private javax.swing.JTextField category;
     private javax.swing.JTextField clothname;
     private javax.swing.JTextField color;
