@@ -85,6 +85,7 @@ public class AdminChangepass extends javax.swing.JFrame {
         con.setForeground(new java.awt.Color(204, 204, 204));
 
         users.setEditable(false);
+        users.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         users.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usersActionPerformed(evt);
@@ -107,6 +108,7 @@ public class AdminChangepass extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel2.setText("RESET");
 
         javax.swing.GroupLayout resetLayout = new javax.swing.GroupLayout(reset);
@@ -125,16 +127,22 @@ public class AdminChangepass extends javax.swing.JFrame {
                 .addComponent(jLabel2))
         );
 
+        user.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         user.setText("username");
 
+        newpass.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         newpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newpassActionPerformed(evt);
             }
         });
 
+        confirmpass.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+
+        npass.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         npass.setText("New Password");
 
+        cpass.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         cpass.setText("Confirm Password");
 
         javax.swing.GroupLayout conLayout = new javax.swing.GroupLayout(con);

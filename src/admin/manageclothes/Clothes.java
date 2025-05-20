@@ -173,7 +173,6 @@ public class Clothes extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 400));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setMaximumSize(new java.awt.Dimension(800, 400));
@@ -232,6 +231,7 @@ public class Clothes extends javax.swing.JFrame {
         getContentPane().add(Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, 20));
 
         clothestable.setBackground(new java.awt.Color(0, 0, 0));
+        clothestable.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         getContentPane().add(clothestable, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 510, 260));
 
         settings.setBackground(new java.awt.Color(0, 0, 0,80));
@@ -715,12 +715,8 @@ public class Clothes extends javax.swing.JFrame {
             return;
         }
 
-        // Get the clothing ID from the selected row
-        int clothingId = (int) clothesTable.getValueAt(selectedRow, 0);
-        
-        // Open the update form with the selected clothing ID
-        UpdateClothes updateForm = new UpdateClothes(clothingId);
-        updateForm.setVisible(true);
+        int clothingId = (int) tableModel.getValueAt(selectedRow, 0);
+        new UpdateClothes(clothingId).setVisible(true);
         this.dispose();
     }
 

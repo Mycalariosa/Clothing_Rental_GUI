@@ -126,7 +126,7 @@ public class Profile extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         Name.setEditable(false);
-        Name.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        Name.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         Name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NameActionPerformed(evt);
@@ -134,7 +134,7 @@ public class Profile extends javax.swing.JFrame {
         });
 
         Email.setEditable(false);
-        Email.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        Email.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         Email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmailActionPerformed(evt);
@@ -142,7 +142,7 @@ public class Profile extends javax.swing.JFrame {
         });
 
         Contact.setEditable(false);
-        Contact.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        Contact.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         Contact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ContactActionPerformed(evt);
@@ -150,38 +150,44 @@ public class Profile extends javax.swing.JFrame {
         });
 
         Username.setEditable(false);
-        Username.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        Username.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         Username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UsernameActionPerformed(evt);
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setText("Basic information");
 
         jLabel9.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel9.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("Fullname");
 
+        jLabel10.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(204, 204, 204));
         jLabel10.setText("Email");
 
         jLabel11.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel11.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
         jLabel11.setText("Contact");
 
+        jLabel12.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(204, 204, 204));
         jLabel12.setText("Username");
 
         ID.setEditable(false);
-        ID.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        ID.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IDActionPerformed(evt);
             }
         });
 
+        jLabel13.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(204, 204, 204));
         jLabel13.setText("ID");
 
@@ -197,6 +203,7 @@ public class Profile extends javax.swing.JFrame {
             }
         });
 
+        jLabel22.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(204, 204, 204));
         jLabel22.setText("Change Password");
 
@@ -222,7 +229,7 @@ public class Profile extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(photo2, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addComponent(photo2, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
@@ -248,6 +255,7 @@ public class Profile extends javax.swing.JFrame {
             }
         });
 
+        jLabel19.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(204, 204, 204));
         jLabel19.setText("Change Photo");
 
@@ -291,7 +299,7 @@ public class Profile extends javax.swing.JFrame {
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                                 .addComponent(jLabel10)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                                 .addComponent(jLabel11)
@@ -341,9 +349,9 @@ public class Profile extends javax.swing.JFrame {
                             .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10)
-                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Contact, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -66,7 +66,7 @@ public class AddClothes extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        description = new javax.swing.JTextField();
+        description = new javax.swing.JTextArea();
         jLabel24 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         color = new javax.swing.JTextField();
@@ -197,7 +197,23 @@ public class AddClothes extends javax.swing.JFrame {
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Description");
         jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 80, 20));
-        jPanel2.add(description, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 150, 50));
+
+        // Replace JTextField with JTextArea
+        description = new javax.swing.JTextArea();
+        description.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        description.setBackground(new java.awt.Color(255, 255, 255));
+        description.setForeground(new java.awt.Color(0, 0, 0));
+        description.setCaretColor(new java.awt.Color(0, 0, 0));
+        description.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        description.setSelectionColor(new java.awt.Color(0, 0, 0));
+        description.setLineWrap(true);
+        description.setWrapStyleWord(true);
+        description.setRows(3);
+
+        // Create scroll pane for the text area
+        javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(description);
+        scrollPane.setPreferredSize(new java.awt.Dimension(150, 50));
+        jPanel2.add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 150, 50));
 
         jLabel24.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
@@ -425,7 +441,7 @@ private void clearForm() {
     private javax.swing.JTextField category;
     private javax.swing.JTextField clothname;
     private javax.swing.JTextField color;
-    private javax.swing.JTextField description;
+    private javax.swing.JTextArea description;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
