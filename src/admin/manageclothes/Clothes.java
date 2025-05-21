@@ -9,6 +9,7 @@ import admin.Logs;
 import Authentication.Login;
 import admin.manageuser.Update;
 import config.config;
+import config.session;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -58,6 +59,15 @@ public class Clothes extends javax.swing.JFrame {
                 return;
             }
 
+            // First, update availability based on active rentals
+            String updateQuery = "UPDATE clothes c " +
+                               "LEFT JOIN rentals r ON c.clothesid = r.clothesid AND r.status = 'active' " +
+                               "SET c.availability = CASE WHEN r.rental_id IS NOT NULL THEN 'unavailable' ELSE 'available' END";
+            Statement updateStmt = conn.createStatement();
+            updateStmt.executeUpdate(updateQuery);
+            updateStmt.close();
+
+            // Then load the clothes data
             String query = "SELECT clothesid, clothname, price, category, sizes, availability, color FROM clothes ORDER BY clothesid ASC";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -515,6 +525,12 @@ public class Clothes extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addMouseExited(evt);
+            }
         });
 
         jLabel9.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
@@ -542,6 +558,12 @@ public class Clothes extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 updateMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                updateMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                updateMouseExited(evt);
+            }
         });
 
         jLabel12.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
@@ -568,6 +590,12 @@ public class Clothes extends javax.swing.JFrame {
         Archieve.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ArchieveMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ArchieveMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ArchieveMouseExited(evt);
             }
         });
 
@@ -700,16 +728,35 @@ public class Clothes extends javax.swing.JFrame {
     }//GEN-LAST:event_settingsMouseClicked
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
+        // Check if user is logged in
+        session ses = session.getInstance();
+        if (ses == null || ses.getUsername() == null) {
+            JOptionPane.showMessageDialog(this, "Please login first to perform this action.", "Authentication Required", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         new AddClothes().setVisible(true);
         this.dispose();
-        }
-
-        private void showError(String message) {
-            JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
-
     }//GEN-LAST:event_addMouseClicked
 
+    private void addMouseEntered(java.awt.event.MouseEvent evt) {
+        add.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+    }
+
+    private void addMouseExited(java.awt.event.MouseEvent evt) {
+        add.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+    }
+
     private void updateMouseClicked(java.awt.event.MouseEvent evt) {
+        // Check if user is logged in
+        session ses = session.getInstance();
+        if (ses == null || ses.getUsername() == null) {
+            JOptionPane.showMessageDialog(this, "Please login first to perform this action.", "Authentication Required", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         int selectedRow = clothesTable.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Please select a clothing item to update.", "No Selection", JOptionPane.WARNING_MESSAGE);
@@ -721,9 +768,36 @@ public class Clothes extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void ArchieveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchieveMouseClicked
+    private void updateMouseEntered(java.awt.event.MouseEvent evt) {
+        update.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+    }
 
+    private void updateMouseExited(java.awt.event.MouseEvent evt) {
+        update.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+    }
+
+    private void ArchieveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchieveMouseClicked
+        // Check if user is logged in
+        session ses = session.getInstance();
+        if (ses == null || ses.getUsername() == null) {
+            JOptionPane.showMessageDialog(this, "Please login first to perform this action.", "Authentication Required", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Add your archive functionality here
     }//GEN-LAST:event_ArchieveMouseClicked
+
+    private void ArchieveMouseEntered(java.awt.event.MouseEvent evt) {
+        Archieve.setBackground(new java.awt.Color(102, 102, 102));
+        archieve.setForeground(new java.awt.Color(255, 255, 255));
+    }
+
+    private void ArchieveMouseExited(java.awt.event.MouseEvent evt) {
+        Archieve.setBackground(new java.awt.Color(255, 255, 255));
+        archieve.setForeground(new java.awt.Color(0, 0, 0));
+    }
 
     /**
      * @param args the command line arguments

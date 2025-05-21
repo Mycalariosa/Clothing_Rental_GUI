@@ -14,6 +14,7 @@ import admin.manageclothes.Clothes;
 import Authentication.Login;
 import javax.swing.JOptionPane;
 import config.config;
+import config.session;
 import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -53,6 +55,12 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JPanel;
+import javax.swing.JPanel;
+
+import javax.swing.JPanel;
 /**
  *
  * @author Administrator
@@ -66,7 +74,19 @@ public class Rental extends javax.swing.JFrame {
         setTitle("Rental Management");
         setupRentalTable();
         loadRentalData();
-     
+        
+        // Add mouse listener to return button
+        returnbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                returnbuttonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                returnbuttonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                returnbuttonMouseExited(evt);
+            }
+        });
     }
 
     /**
@@ -108,6 +128,8 @@ public class Rental extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        returnbutton = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -461,16 +483,16 @@ public class Rental extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
-        jLabel8.setText("ADD");
+        jLabel8.setText("RENT");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel8)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,7 +501,28 @@ public class Rental extends javax.swing.JFrame {
                 .addComponent(jLabel8))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 70, 20));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 60, 20));
+
+        jLabel9.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
+        jLabel9.setText("RETURN");
+
+        javax.swing.GroupLayout returnbuttonLayout = new javax.swing.GroupLayout(returnbutton);
+        returnbutton.setLayout(returnbuttonLayout);
+        returnbuttonLayout.setHorizontalGroup(
+            returnbuttonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(returnbuttonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        returnbuttonLayout.setVerticalGroup(
+            returnbuttonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, returnbuttonLayout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addComponent(jLabel9))
+        );
+
+        jPanel1.add(returnbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 350, 60, 20));
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/c.png"))); // NOI18N
         jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -591,13 +634,200 @@ public class Rental extends javax.swing.JFrame {
     }//GEN-LAST:event_settingsMouseClicked
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // Check if user is logged in
+        session ses = session.getInstance();
+        if (ses == null || ses.getUsername() == null) {
+            JOptionPane.showMessageDialog(this, "Please login first to perform this action.", "Authentication Required", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         new addRental().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel2MouseClicked
 
-    
-private JTable rentalTable; // declare this at class level
-private void setupRentalTable() {
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+        jPanel2.setBackground(new java.awt.Color(102,102,102));
+        jLabel8.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_jPanel2MouseEntered
+
+    private void jPanel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseExited
+        jPanel2.setBackground(new java.awt.Color(255,255,255));
+        jLabel8.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_jPanel2MouseExited
+
+    private void returnbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnbuttonMouseClicked
+        // Check if user is logged in
+        session ses = session.getInstance();
+        if (ses == null || ses.getUsername() == null) {
+            JOptionPane.showMessageDialog(this, "Please login first to perform this action.", "Authentication Required", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Create input dialog for rental ID
+        String rentalIdStr = JOptionPane.showInputDialog(this, 
+            "Enter the Rental ID to return:", 
+            "Return Item", 
+            JOptionPane.QUESTION_MESSAGE);
+
+        if (rentalIdStr == null || rentalIdStr.trim().isEmpty()) {
+            return; // User cancelled or entered empty string
+        }
+
+        try {
+            int rentalId = Integer.parseInt(rentalIdStr);
+            
+            // Verify rental exists and is not already returned
+            config connect = new config();
+            Connection conn = connect.getConnection();
+            if (conn == null) {
+                JOptionPane.showMessageDialog(this, "Database connection failed!");
+                return;
+            }
+
+            // Check rental status and dates
+            String checkQuery = "SELECT r.status, r.clothesid, c.clothname, r.rental_date, r.return_date, r.total_amount " +
+                              "FROM rentals r " +
+                              "JOIN clothes c ON r.clothesid = c.clothesid " +
+                              "WHERE r.rental_id = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+            checkStmt.setInt(1, rentalId);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(this, "Rental ID not found!");
+                return;
+            }
+
+            String status = rs.getString("status");
+            int clothesId = rs.getInt("clothesid");
+            String clothName = rs.getString("clothname");
+            Date rentalDate = rs.getDate("rental_date");
+            Date returnDate = rs.getDate("return_date");
+            double totalAmount = rs.getDouble("total_amount");
+            Date currentDate = new Date(); // Get current date
+
+            // Check if the item is actually rented
+            if (!"active".equals(status)) {
+                JOptionPane.showMessageDialog(this, "This item is not currently rented out!");
+                return;
+            }
+
+            if ("returned".equals(status)) {
+                JOptionPane.showMessageDialog(this, "This item has already been returned!");
+                return;
+            }
+
+            // Check if current date is before rental date
+            if (currentDate.before(rentalDate)) {
+                JOptionPane.showMessageDialog(this, 
+                    "Cannot return item before rental date!\n" +
+                    "Rental Date: " + rentalDate + "\n" +
+                    "Current Date: " + currentDate,
+                    "Invalid Return Date",
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Calculate if return is early or late
+            boolean isLate = currentDate.after(returnDate);
+            boolean isEarly = currentDate.before(returnDate);
+            double refundAmount = 0.0;
+            
+            String returnMessage = "";
+            if (isLate) {
+                returnMessage = "\nWARNING: This return is late! Return date was: " + returnDate;
+            } else if (isEarly) {
+                // Calculate 50% refund for early return
+                refundAmount = totalAmount * 0.5;
+                returnMessage = "\nEarly Return: 50% refund of ₱" + String.format("%.2f", refundAmount) + " will be issued.";
+            }
+
+            // Confirm return
+            int confirm = JOptionPane.showConfirmDialog(this,
+                "Confirm return of item:\n" +
+                "Rental ID: " + rentalId + "\n" +
+                "Item: " + clothName + "\n" +
+                "Rental Date: " + rentalDate + "\n" +
+                "Return Date: " + returnDate + "\n" +
+                "Total Amount: ₱" + String.format("%.2f", totalAmount) + returnMessage,
+                "Confirm Return",
+                JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Start transaction
+                conn.setAutoCommit(false);
+                try {
+                    // Update rental status
+                    String updateRentalQuery = "UPDATE rentals SET status = 'returned' WHERE rental_id = ?";
+                    PreparedStatement updateRentalStmt = conn.prepareStatement(updateRentalQuery);
+                    updateRentalStmt.setInt(1, rentalId);
+                    updateRentalStmt.executeUpdate();
+
+                    // Update clothes availability
+                    String updateClothesQuery = "UPDATE clothes SET availability = 'available' WHERE clothesid = ?";
+                    PreparedStatement updateClothesStmt = conn.prepareStatement(updateClothesQuery);
+                    updateClothesStmt.setInt(1, clothesId);
+                    updateClothesStmt.executeUpdate();
+
+                    // If early return, process refund
+                    if (isEarly && refundAmount > 0) {
+                        // Insert refund record
+                        String insertRefundQuery = "INSERT INTO refunds (rental_id, amount, refund_date, reason) VALUES (?, ?, ?, ?)";
+                        PreparedStatement refundStmt = conn.prepareStatement(insertRefundQuery);
+                        refundStmt.setInt(1, rentalId);
+                        refundStmt.setDouble(2, refundAmount);
+                        refundStmt.setDate(3, new java.sql.Date(currentDate.getTime()));
+                        refundStmt.setString(4, "Early return - 50% refund");
+                        refundStmt.executeUpdate();
+                        refundStmt.close();
+                    }
+
+                    // Commit transaction
+                    conn.commit();
+
+                    String successMessage = "Item successfully returned!";
+                    if (isLate) {
+                        successMessage += "\nNote: This was a late return.";
+                    } else if (isEarly) {
+                        successMessage += "\nRefund of ₱" + String.format("%.2f", refundAmount) + " has been processed.";
+                    }
+                    JOptionPane.showMessageDialog(this, successMessage);
+                    
+                    // Refresh the rental table
+                    loadRentalData();
+                } catch (Exception e) {
+                    // Rollback transaction on error
+                    conn.rollback();
+                    throw e;
+                } finally {
+                    // Reset auto-commit
+                    conn.setAutoCommit(true);
+                }
+            }
+
+            // Close resources
+            rs.close();
+            checkStmt.close();
+            conn.close();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid Rental ID number!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error processing return: " + e.getMessage());
+        }
+    }//GEN-LAST:event_returnbuttonMouseClicked
+
+    private void returnbuttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnbuttonMouseEntered
+        returnbutton.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_returnbuttonMouseEntered
+
+    private void returnbuttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnbuttonMouseExited
+        returnbutton.setBackground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_returnbuttonMouseExited
+
+    private JTable rentalTable; // declare this at class level
+    private void setupRentalTable() {
         DefaultTableModel model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -642,6 +872,13 @@ private void setupRentalTable() {
     // Load data into the table
     private void loadRentalData() {
         try {
+            // Check if user is logged in
+            session ses = session.getInstance();
+            if (ses == null || ses.getUsername() == null) {
+                JOptionPane.showMessageDialog(this, "Please login first to view rental data.", "Authentication Required", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
             config connect = new config();
             Connection conn = connect.getConnection();
             if (conn == null) {
@@ -715,12 +952,15 @@ private void setupRentalTable() {
                 return;
             }
 
-            // Get clothing details
-            String query = "SELECT c.*, r.user_id FROM clothes c " +
+            // Get clothing details and refund information
+            String query = "SELECT c.*, r.user_id, r.total_amount, " +
+                          "(SELECT amount FROM refunds WHERE rental_id = ?) as refund_amount " +
+                          "FROM clothes c " +
                           "JOIN rentals r ON c.clothesid = r.clothesid " +
                           "WHERE r.rental_id = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, rentalId);
+            pstmt.setInt(2, rentalId);
             ResultSet rs = pstmt.executeQuery();
 
             String clothName = "";
@@ -730,6 +970,7 @@ private void setupRentalTable() {
             String color = "";
             double price = 0.0;
             int userId = 0;
+            double refundAmount = 0.0;
 
             if (rs.next()) {
                 clothName = rs.getString("clothname");
@@ -739,6 +980,7 @@ private void setupRentalTable() {
                 color = rs.getString("color");
                 price = rs.getDouble("price");
                 userId = rs.getInt("user_id");
+                refundAmount = rs.getDouble("refund_amount");
             }
 
             rs.close();
@@ -750,53 +992,60 @@ private void setupRentalTable() {
             long diffInDays = diffInMillies / (24 * 60 * 60 * 1000);
 
             // Create a more professional receipt with clothing details
-            String receiptHTML = "<html><body style='font-family: Consolas, monospace; max-width: 400px; margin: 0 auto;'>"
-                + "<div style='text-align: center; border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 10px;'>"
-                + "<h1 style='color: #000; margin: 0; font-size: 16px;'>MB ATELIER</h1>"
-                + "<p style='color: #666; margin: 3px 0; font-size: 10px;'>Rental Receipt</p>"
+            String receiptHTML = "<html><body style='font-family: 'Segoe UI', Arial, sans-serif; max-width: 400px; margin: 0 auto; background-color: #ffffff;'>"
+                + "<div style='text-align: center; border-bottom: 2px solid #f0f0f0; padding: 20px 0; margin-bottom: 20px; background-color: #ffffff;'>"
+                + "<h1 style='color: #333; margin: 0; font-size: 24px; font-weight: 600;'>MB ATELIER</h1>"
+                + "<p style='color: #666; margin: 8px 0; font-size: 14px;'>Rental Receipt</p>"
                 + "</div>"
                 
-                + "<div style='margin-bottom: 10px;'>"
-                + "<h2 style='color: #000; font-size: 12px; margin: 0 0 5px 0;'>Rental Details</h2>"
-                + "<table style='width: 100%; border-collapse: collapse; font-size: 10px;'>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666; width: 40%;'>Rental ID:</td><td style='padding: 2px; color: #000; text-align: left;'>" + rentalId + "</td></tr>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Status:</td><td style='padding: 2px; color: #000; text-align: left;'>" + status + "</td></tr>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Rental Date:</td><td style='padding: 2px; color: #000; text-align: left;'>" + rentalDate + "</td></tr>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Return Date:</td><td style='padding: 2px; color: #000; text-align: left;'>" + returnDate + "</td></tr>"
+                + "<div style='margin-bottom: 20px; background-color: #f8f9fa; padding: 15px; border-radius: 8px;'>"
+                + "<h2 style='color: #333; font-size: 16px; margin: 0 0 10px 0; font-weight: 600;'>Rental Details</h2>"
+                + "<table style='width: 100%; border-collapse: collapse; font-size: 13px;'>"
+                + "<tr><td style='padding: 8px; color: #666; width: 40%;'>Rental ID:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + rentalId + "</td></tr>"
+                + "<tr><td style='padding: 8px; color: #666;'>Status:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + status + "</td></tr>"
+                + "<tr><td style='padding: 8px; color: #666;'>Rental Date:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + rentalDate + "</td></tr>"
+                + "<tr><td style='padding: 8px; color: #666;'>Return Date:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + returnDate + "</td></tr>"
                 + "</table>"
                 + "</div>"
 
-                + "<div style='margin-bottom: 10px;'>"
-                + "<h2 style='color: #000; font-size: 12px; margin: 0 0 5px 0;'>Customer Information</h2>"
-                + "<table style='width: 100%; border-collapse: collapse; font-size: 10px;'>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666; width: 40%;'>User ID:</td><td style='padding: 2px; color: #000; text-align: left;'>" + userId + "</td></tr>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Name:</td><td style='padding: 2px; color: #000; text-align: left;'>" + customerName + "</td></tr>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Phone:</td><td style='padding: 2px; color: #000; text-align: left;'>" + customerPhone + "</td></tr>"
+                + "<div style='margin-bottom: 20px; background-color: #f8f9fa; padding: 15px; border-radius: 8px;'>"
+                + "<h2 style='color: #333; font-size: 16px; margin: 0 0 10px 0; font-weight: 600;'>Customer Information</h2>"
+                + "<table style='width: 100%; border-collapse: collapse; font-size: 13px;'>"
+                + "<tr><td style='padding: 8px; color: #666; width: 40%;'>User ID:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + userId + "</td></tr>"
+                + "<tr><td style='padding: 8px; color: #666;'>Name:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + customerName + "</td></tr>"
+                + "<tr><td style='padding: 8px; color: #666;'>Phone:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + customerPhone + "</td></tr>"
                 + "</table>"
                 + "</div>"
 
-                + "<div style='margin-bottom: 10px;'>"
-                + "<h2 style='color: #000; font-size: 12px; margin: 0 0 5px 0;'>Clothing Details</h2>"
-                + "<table style='width: 100%; border-collapse: collapse; font-size: 10px;'>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666; width: 40%;'>Name:</td><td style='padding: 2px; color: #000; text-align: left;'>" + clothName + "</td></tr>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Category:</td><td style='padding: 2px; color: #000; text-align: left;'>" + category + "</td></tr>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Size:</td><td style='padding: 2px; color: #000; text-align: left;'>" + size + "</td></tr>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Color:</td><td style='padding: 2px; color: #000; text-align: left;'>" + color + "</td></tr>"
+                + "<div style='margin-bottom: 20px; background-color: #f8f9fa; padding: 15px; border-radius: 8px;'>"
+                + "<h2 style='color: #333; font-size: 16px; margin: 0 0 10px 0; font-weight: 600;'>Clothing Details</h2>"
+                + "<table style='width: 100%; border-collapse: collapse; font-size: 13px;'>"
+                + "<tr><td style='padding: 8px; color: #666; width: 40%;'>Name:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + clothName + "</td></tr>"
+                + "<tr><td style='padding: 8px; color: #666;'>Category:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + category + "</td></tr>"
+                + "<tr><td style='padding: 8px; color: #666;'>Size:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + size + "</td></tr>"
+                + "<tr><td style='padding: 8px; color: #666;'>Color:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + color + "</td></tr>"
                 + "</table>"
                 + "</div>"
 
-                + "<div style='margin-bottom: 10px;'>"
-                + "<h2 style='color: #000; font-size: 12px; margin: 0 0 5px 0;'>Payment Information</h2>"
-                + "<table style='width: 100%; border-collapse: collapse; font-size: 10px;'>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666; width: 40%;'>Daily Rate:</td><td style='padding: 2px; color: #000; text-align: left;'>₱" + String.format("%.2f", price) + "</td></tr>"
-                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Number of Days:</td><td style='padding: 2px; color: #000; text-align: left;'>" + diffInDays + " days</td></tr>"
-                + "<tr style='font-weight: bold;'><td style='padding: 2px 15px 2px 2px; color: #000;'>Total Amount:</td><td style='padding: 2px; color: #000; text-align: left;'>" + totalAmount + "</td></tr>"
-                + "</table>"
+                + "<div style='margin-bottom: 20px; background-color: #f8f9fa; padding: 15px; border-radius: 8px;'>"
+                + "<h2 style='color: #333; font-size: 16px; margin: 0 0 10px 0; font-weight: 600;'>Payment Information</h2>"
+                + "<table style='width: 100%; border-collapse: collapse; font-size: 13px;'>"
+                + "<tr><td style='padding: 8px; color: #666; width: 40%;'>Daily Rate:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>₱" + String.format("%.2f", price) + "</td></tr>"
+                + "<tr><td style='padding: 8px; color: #666;'>Number of Days:</td><td style='padding: 8px; color: #333; text-align: left; font-weight: 500;'>" + diffInDays + " days</td></tr>"
+                + "<tr style='font-weight: bold;'><td style='padding: 8px; color: #333;'>Total Amount:</td><td style='padding: 8px; color: #333; text-align: left;'>" + totalAmount + "</td></tr>";
+
+            // Add refund information if there is a refund
+            if (refundAmount > 0) {
+                receiptHTML += "<tr style='color: #28a745;'><td style='padding: 8px;'>Refund Amount:</td><td style='padding: 8px; text-align: left;'>-₱" + String.format("%.2f", refundAmount) + "</td></tr>"
+                           + "<tr style='font-weight: bold; color: #28a745;'><td style='padding: 8px;'>Final Amount:</td><td style='padding: 8px; text-align: left;'>₱" + String.format("%.2f", Double.parseDouble(totalAmount.replace("₱", "")) - refundAmount) + "</td></tr>";
+            }
+
+            receiptHTML += "</table>"
                 + "</div>"
 
-                + "<div style='text-align: center; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px;'>"
-                + "<p style='color: #666; margin: 3px 0; font-size: 9px;'>Thank you for choosing MB ATELIER!</p>"
-                + "<p style='color: #666; margin: 3px 0; font-size: 9px;'>Please return the item on or before the return date.</p>"
+                + "<div style='text-align: center; border-top: 2px solid #f0f0f0; padding: 20px 0; margin-top: 20px; background-color: #ffffff;'>"
+                + "<p style='color: #666; margin: 5px 0; font-size: 12px;'>Thank you for choosing MB ATELIER!</p>"
+                + "<p style='color: #666; margin: 5px 0; font-size: 12px;'>Please return the item on or before the return date.</p>"
                 + "</div>"
                 + "</body></html>";
 
@@ -805,18 +1054,31 @@ private void setupRentalTable() {
             receiptPane.setContentType("text/html");
             receiptPane.setText(receiptHTML);
             receiptPane.setEditable(false);
+            receiptPane.setBackground(Color.WHITE);
 
             JScrollPane scrollPane = new JScrollPane(receiptPane);
-            scrollPane.setPreferredSize(new Dimension(400, 500));
+            scrollPane.setPreferredSize(new Dimension(450, 600));
+            scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
-            // Create print button with improved styling
+            // Create print button with modern styling
             JButton printBtn = new JButton("Print Receipt");
-            printBtn.setFont(new Font("Arial", Font.BOLD, 12));
-            printBtn.setBackground(Color.BLACK);
+            printBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+            printBtn.setBackground(new Color(51, 51, 51));
             printBtn.setForeground(Color.WHITE);
             printBtn.setFocusPainted(false);
             printBtn.setBorderPainted(false);
             printBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            printBtn.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+            // Add hover effect
+            printBtn.addMouseListener(new MouseAdapter() {
+                public void mouseEntered(MouseEvent e) {
+                    printBtn.setBackground(new Color(70, 70, 70));
+                }
+                public void mouseExited(MouseEvent e) {
+                    printBtn.setBackground(new Color(51, 51, 51));
+                }
+            });
 
             printBtn.addActionListener(e -> {
                 try {
@@ -830,17 +1092,25 @@ private void setupRentalTable() {
                 }
             });
 
-            // Panel to hold everything with improved styling
-            JPanel panel = new JPanel(new BorderLayout(10, 10));
-            panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            // Panel to hold everything with modern styling
+            JPanel panel = new JPanel(new BorderLayout(0, 0));
+            panel.setBackground(Color.WHITE);
+            panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
             panel.add(scrollPane, BorderLayout.CENTER);
-            panel.add(printBtn, BorderLayout.SOUTH);
+            
+            // Create a panel for the button with padding
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            buttonPanel.setBackground(Color.WHITE);
+            buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+            buttonPanel.add(printBtn);
+            panel.add(buttonPanel, BorderLayout.SOUTH);
 
-            // Show in dialog with custom title
+            // Show in dialog with custom title and modern styling
             JDialog dialog = new JDialog((Frame) null, "Rental Receipt", true);
             dialog.setContentPane(panel);
             dialog.pack();
             dialog.setLocationRelativeTo(null);
+            dialog.setResizable(false);
             dialog.setVisible(true);
 
         } catch (Exception e) {
@@ -908,11 +1178,13 @@ private void setupRentalTable() {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane rentaltable;
+    private javax.swing.JPanel returnbutton;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables
 }

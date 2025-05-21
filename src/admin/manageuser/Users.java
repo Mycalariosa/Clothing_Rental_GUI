@@ -1,4 +1,3 @@
-
 package admin.manageuser;
 
 import admin.Profile;
@@ -789,14 +788,15 @@ private void styleTable(JTable table) {
 }
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-         new AddUser().setVisible(true);
-         this.dispose();
-    }
-
-private void showError(String message) {
-    JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
-
-
+        // Check if user is logged in
+        session ses = session.getInstance();
+        if (ses == null || ses.getUsername() == null) {
+            JOptionPane.showMessageDialog(this, "Please login first to perform this action.", "Authentication Required", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        new AddUser().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_addMouseClicked
  
   
@@ -811,57 +811,67 @@ private void showError(String message) {
 
     
     private void activateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activateMouseClicked
-
-    int selectedUserId = getSelectedUserId(); // Get the selected user's ID
-
-    if (selectedUserId != -1) {
-        try {
-            config connect = new config(); // Create an instance of config
-            Connection conn = connect.getConnection(); // Get database connection
-
-            String query = "UPDATE user SET status = 'Active' WHERE u_id = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setInt(1, selectedUserId);
-
-            int rowsUpdated = pstmt.executeUpdate();
-            if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(this, "User Account Activated Successfully!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to Activate User Account.");
-            }
-            pstmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+        // Check if user is logged in
+        session ses = session.getInstance();
+        if (ses == null || ses.getUsername() == null) {
+            JOptionPane.showMessageDialog(this, "Please login first to perform this action.", "Authentication Required", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "Please select a User to Activate.");
-    }
-      
+
+        int selectedUserId = getSelectedUserId(); // Get the selected user's ID
+
+        if (selectedUserId != -1) {
+            try {
+                config connect = new config(); // Create an instance of config
+                Connection conn = connect.getConnection(); // Get database connection
+
+                String query = "UPDATE user SET status = 'Active' WHERE u_id = ?";
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                pstmt.setInt(1, selectedUserId);
+
+                int rowsUpdated = pstmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    JOptionPane.showMessageDialog(this, "User Account Activated Successfully!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to Activate User Account.");
+                }
+                pstmt.close();
+                conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a User to Activate.");
+        }
     }//GEN-LAST:event_activateMouseClicked
 
     private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
+        // Check if user is logged in
+        session ses = session.getInstance();
+        if (ses == null || ses.getUsername() == null) {
+            JOptionPane.showMessageDialog(this, "Please login first to perform this action.", "Authentication Required", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
     
-    // Get the table from the JScrollPane
-    JTable table = (JTable) admintable.getViewport().getView();
-    int selectedRow = table.getSelectedRow();
+        // Get the table from the JScrollPane
+        JTable table = (JTable) admintable.getViewport().getView();
+        int selectedRow = table.getSelectedRow();
 
-    if (selectedRow == -1) {
-        // No row selected
-        JOptionPane.showMessageDialog(this, "Please select a user to update.", "Warning", JOptionPane.WARNING_MESSAGE);
-    } else {
-        // Get the selected username from column 4
-        String selectedUsername = table.getValueAt(selectedRow, 3).toString();
+        if (selectedRow == -1) {
+            // No row selected
+            JOptionPane.showMessageDialog(this, "Please select a user to update.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // Get the selected username from column 4
+            String selectedUsername = table.getValueAt(selectedRow, 3).toString();
 
-        // Open the Update form
-        Update updateForm = new Update(selectedUsername); // Ensure this constructor exists in Update.java
-        updateForm.setLocationRelativeTo(this); // Optional: center the window relative to current frame
-        updateForm.setVisible(true);
+            // Open the Update form
+            Update updateForm = new Update(selectedUsername); // Ensure this constructor exists in Update.java
+            updateForm.setLocationRelativeTo(this); // Optional: center the window relative to current frame
+            updateForm.setVisible(true);
 
-        // Close the current window (optional)
-        this.dispose();
-    }
-
+            // Close the current window (optional)
+            this.dispose();
+        }
     }//GEN-LAST:event_updateMouseClicked
 
     private void accountmanagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountmanagementMouseClicked
@@ -970,7 +980,90 @@ private void showError(String message) {
     }//GEN-LAST:event_settingsMouseClicked
 
     private void ArchieveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ArchieveMouseClicked
-        
+        // Check if user is logged in
+        session ses = session.getInstance();
+        if (ses == null || ses.getUsername() == null) {
+            JOptionPane.showMessageDialog(this, "Please login first to perform this action.", "Authentication Required", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int selectedUserId = getSelectedUserId();
+        if (selectedUserId == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a user to delete.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            config connect = new config();
+            Connection conn = connect.getConnection();
+
+            // Check if user is active
+            String statusQuery = "SELECT status FROM user WHERE u_id = ?";
+            PreparedStatement statusStmt = conn.prepareStatement(statusQuery);
+            statusStmt.setInt(1, selectedUserId);
+            ResultSet statusRs = statusStmt.executeQuery();
+
+            if (statusRs.next()) {
+                String status = statusRs.getString("status");
+                if (status.equalsIgnoreCase("Active")) {
+                    JOptionPane.showMessageDialog(this, "Cannot delete an active user.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+
+            // Check if user has any active rentals
+            String rentalQuery = "SELECT COUNT(*) as active_rentals FROM rental WHERE u_id = ? AND status = 'Active'";
+            PreparedStatement rentalStmt = conn.prepareStatement(rentalQuery);
+            rentalStmt.setInt(1, selectedUserId);
+            ResultSet rentalRs = rentalStmt.executeQuery();
+
+            if (rentalRs.next() && rentalRs.getInt("active_rentals") > 0) {
+                JOptionPane.showMessageDialog(this, "Cannot delete user with active rentals.", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Check if user is currently using the system
+            String sessionQuery = "SELECT COUNT(*) as active_sessions FROM session WHERE u_id = ? AND status = 'Active'";
+            PreparedStatement sessionStmt = conn.prepareStatement(sessionQuery);
+            sessionStmt.setInt(1, selectedUserId);
+            ResultSet sessionRs = sessionStmt.executeQuery();
+
+            if (sessionRs.next() && sessionRs.getInt("active_sessions") > 0) {
+                JOptionPane.showMessageDialog(this, "Cannot delete user who is currently using the system.", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // If all checks pass, proceed with deletion
+            int confirm = JOptionPane.showConfirmDialog(this, 
+                "Are you sure you want to delete this user? This action cannot be undone.", 
+                "Confirm Deletion", 
+                JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                String deleteQuery = "DELETE FROM user WHERE u_id = ?";
+                PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery);
+                deleteStmt.setInt(1, selectedUserId);
+
+                int rowsDeleted = deleteStmt.executeUpdate();
+                if (rowsDeleted > 0) {
+                    JOptionPane.showMessageDialog(this, "User deleted successfully!");
+                    loadUsers(); // Refresh the table
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to delete user.");
+                }
+                deleteStmt.close();
+            }
+
+            // Close all resources
+            statusStmt.close();
+            rentalStmt.close();
+            sessionStmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_ArchieveMouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked

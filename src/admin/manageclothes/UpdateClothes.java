@@ -183,6 +183,12 @@ public class UpdateClothes extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addphotoMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addphoto.setBackground(new java.awt.Color(200, 200, 200));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addphoto.setBackground(new java.awt.Color(255, 255, 255));
+            }
         });
 
         jLabel19.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
@@ -231,6 +237,12 @@ public class UpdateClothes extends javax.swing.JFrame {
         updateclothes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 updateclothesMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                updateclothes.setBackground(new java.awt.Color(200, 200, 200));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                updateclothes.setBackground(new java.awt.Color(255, 255, 255));
             }
         });
 
@@ -304,7 +316,7 @@ public class UpdateClothes extends javax.swing.JFrame {
         backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         backbutton.setForeground(new java.awt.Color(255, 255, 255));
         backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
-        backbutton.setText("back");
+        backbutton.setText("Exit");
         backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backbuttonMouseClicked(evt);
@@ -421,48 +433,96 @@ public class UpdateClothes extends javax.swing.JFrame {
 
         try {
             Connection con = connect.getConnection();
-            StringBuilder query = new StringBuilder(
-                "UPDATE clothes SET clothname = ?, price = ?, category = ?, description = ?, " +
-                "sizes = ?, availability = ?, color = ?"
-            );
             
-            // Only update photo_path if a new image was selected
-            if (imagePath != null) {
-                query.append(", photo_path = ?");
+            // Check for active rentals if trying to set availability to Available
+            if (selectedAvailability.equals("Available")) {
+                PreparedStatement checkRental = con.prepareStatement(
+                    "SELECT COUNT(*) FROM rental WHERE clothesid = ? AND status = 'Rented'"
+                );
+                checkRental.setInt(1, clothingId);
+                ResultSet rs = checkRental.executeQuery();
+                
+                if (rs.next() && rs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(this, 
+                        "Cannot set availability to Available while item is still rented out.", 
+                        "Validation Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                    checkRental.close();
+                    con.close();
+                    return;
+                }
+                checkRental.close();
             }
             
-            query.append(" WHERE clothesid = ?");
+            // Start transaction
+            con.setAutoCommit(false);
             
-            PreparedStatement pst = con.prepareStatement(query.toString());
+            try {
+                StringBuilder query = new StringBuilder(
+                    "UPDATE clothes SET clothname = ?, price = ?, category = ?, description = ?, " +
+                    "sizes = ?, availability = ?, color = ?"
+                );
+                
+                // Only update photo_path if a new image was selected
+                if (imagePath != null) {
+                    query.append(", photo_path = ?");
+                }
+                
+                query.append(" WHERE clothesid = ?");
+                
+                PreparedStatement pst = con.prepareStatement(query.toString());
 
-            pst.setString(1, clothName);
-            pst.setDouble(2, priceValue);
-            pst.setString(3, categoryText);
-            pst.setString(4, descriptionText);
-            pst.setString(5, selectedSize);
-            pst.setString(6, selectedAvailability);
-            pst.setString(7, colorText);
-            
-            int paramIndex = 8;
-            if (imagePath != null) {
-                pst.setString(paramIndex++, imagePath);
+                pst.setString(1, clothName);
+                pst.setDouble(2, priceValue);
+                pst.setString(3, categoryText);
+                pst.setString(4, descriptionText);
+                pst.setString(5, selectedSize);
+                pst.setString(6, selectedAvailability);
+                pst.setString(7, colorText);
+                
+                int paramIndex = 8;
+                if (imagePath != null) {
+                    pst.setString(paramIndex++, imagePath);
+                }
+                pst.setInt(paramIndex, clothingId);
+
+                int rows = pst.executeUpdate();
+                
+                // If availability is changed to "Available", update rental status
+                if (selectedAvailability.equals("Available")) {
+                    PreparedStatement updateRental = con.prepareStatement(
+                        "UPDATE rental SET status = 'Returned' WHERE clothesid = ? AND status = 'Rented'"
+                    );
+                    updateRental.setInt(1, clothingId);
+                    updateRental.executeUpdate();
+                    updateRental.close();
+                }
+
+                if (rows > 0) {
+                    // Commit transaction
+                    con.commit();
+                    JOptionPane.showMessageDialog(this, "Clothing item updated successfully.");
+                    selectedClothingImageFile = null;
+
+                    // Navigate back to Clothes.java
+                    new Clothes().setVisible(true);
+                    this.dispose();
+                } else {
+                    // Rollback transaction
+                    con.rollback();
+                    JOptionPane.showMessageDialog(this, "Failed to update clothing item.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                pst.close();
+            } catch (SQLException e) {
+                // Rollback transaction on error
+                con.rollback();
+                throw e;
+            } finally {
+                // Reset auto-commit
+                con.setAutoCommit(true);
+                con.close();
             }
-            pst.setInt(paramIndex, clothingId);
-
-            int rows = pst.executeUpdate();
-            if (rows > 0) {
-                JOptionPane.showMessageDialog(this, "Clothing item updated successfully.");
-                selectedClothingImageFile = null;
-
-                // Navigate back to Clothes.java
-                new Clothes().setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to update clothing item.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-            pst.close();
-            con.close();
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,4 +1,3 @@
-
 package admin.manageuser;
 
 import config.config;
@@ -28,6 +27,7 @@ public Update(String username) {
    this.username = username;
         fetchUserDetails();
         user.setEditable(false); // Prevent editing of username
+        pass.setEditable(false); // Prevent editing of password
     }
 
     private Update() {
@@ -82,6 +82,7 @@ public Update(String username) {
         jLabel18 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        backbutton = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -224,6 +225,17 @@ public Update(String username) {
         jLabel14.setText("Firstname");
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, 20));
 
+        backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        backbutton.setForeground(new java.awt.Color(255, 255, 255));
+        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
+        backbutton.setText("back");
+        backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backbuttonMouseClicked(evt);
+            }
+        });
+        getContentPane().add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
+
         back.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/e.png"))); // NOI18N
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 560, 420));
@@ -268,37 +280,20 @@ public Update(String username) {
         String email1 = email.getText().trim();
         String contact = cont.getText().trim();
         String newUsername = user.getText().trim(); // Should match original
-        String password = new String(pass.getPassword()).trim(); // Get password from JPasswordField
         String selectedStatus = (String) status.getSelectedItem();
         String selectedRole = (String) role.getSelectedItem();
 
-        String hashedPassword = password.isEmpty() ? null : hashPassword(password);
-
-        String sql;
-        if (hashedPassword == null) {
-            sql = "UPDATE user SET fname = ?, lname = ?, email = ?, contact = ?, username = ?, status = ?, role = ? WHERE username = ?";
-        } else {
-            sql = "UPDATE user SET fname = ?, lname = ?, email = ?, contact = ?, password = ?, username = ?, status = ?, role = ? WHERE username = ?";
-        }
+        String sql = "UPDATE user SET fname = ?, lname = ?, email = ?, contact = ?, username = ?, status = ?, role = ? WHERE username = ?";
 
         try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
             pst.setString(1, firstname);
             pst.setString(2, lastname);
             pst.setString(3, email1);
             pst.setString(4, contact);
-
-            if (hashedPassword == null) {
-                pst.setString(5, newUsername);
-                pst.setString(6, selectedStatus);
-                pst.setString(7, selectedRole);
-                pst.setString(8, this.username); // original username from constructor
-            } else {
-                pst.setString(5, hashedPassword);
-                pst.setString(6, newUsername);
-                pst.setString(7, selectedStatus);
-                pst.setString(8, selectedRole);
-                pst.setString(9, this.username); // original username
-            }
+            pst.setString(5, newUsername);
+            pst.setString(6, selectedStatus);
+            pst.setString(7, selectedRole);
+            pst.setString(8, this.username); // original username from constructor
 
             int rowsAffected = pst.executeUpdate();
             if (rowsAffected > 0) {
@@ -320,7 +315,7 @@ public Update(String username) {
         email.setEditable(true);
         cont.setEditable(true);
         user.setEditable(false); // Do not allow username to be changed
-        pass.setEditable(true);
+        pass.setEditable(false); // Do not allow password to be changed
         status.setEnabled(true);
         role.setEnabled(true);
     }
@@ -362,6 +357,11 @@ public Update(String username) {
 
     }//GEN-LAST:event_updatepanelMouseClicked
 
+    private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
+        new Users().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backbuttonMouseClicked
+
     
     
 
@@ -378,6 +378,7 @@ public Update(String username) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back;
+    private javax.swing.JLabel backbutton;
     private javax.swing.JTextField cont;
     private javax.swing.JTextField email;
     private javax.swing.JTextField fname;
