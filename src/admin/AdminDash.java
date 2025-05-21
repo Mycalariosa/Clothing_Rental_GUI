@@ -1,14 +1,32 @@
-
 package admin;
 
 import admin.managerental.Rental;
 import admin.manageuser.Users;
 import admin.manageclothes.Clothes;
 import Authentication.Login;
+import config.config;
 import config.session;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 
 
 public class AdminDash extends javax.swing.JFrame {
@@ -470,9 +488,147 @@ public class AdminDash extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-      session ses = session.getInstance();
-              name.setText("Welcome "+ses.getUsername());
+        session ses = session.getInstance();
+        name.setText("Welcome "+ses.getUsername());
+        
+        // Fetch and display counts
+        try {
+            config connect = new config();
+            Connection conn = connect.getConnection();
+            
+            // Get total users count
+            String userQuery = "SELECT COUNT(*) as total FROM user";
+            Statement userStmt = conn.createStatement();
+            ResultSet userRs = userStmt.executeQuery(userQuery);
+            int userCount = 0;
+            if (userRs.next()) {
+                userCount = userRs.getInt("total");
+                jLabel12.setText("NUMBER OF USERS: " + userCount);
+            }
+            
+            // Get total clothes count
+            String clothesQuery = "SELECT COUNT(*) as total FROM clothes";
+            Statement clothesStmt = conn.createStatement();
+            ResultSet clothesRs = clothesStmt.executeQuery(clothesQuery);
+            int clothesCount = 0;
+            if (clothesRs.next()) {
+                clothesCount = clothesRs.getInt("total");
+                jLabel10.setText("NUMBER OF CLOTHES: " + clothesCount);
+            }
+            
+            // Get total rentals count
+            String rentalQuery = "SELECT COUNT(*) as total FROM rentals";
+            Statement rentalStmt = conn.createStatement();
+            ResultSet rentalRs = rentalStmt.executeQuery(rentalQuery);
+            int rentalCount = 0;
+            if (rentalRs.next()) {
+                rentalCount = rentalRs.getInt("total");
+                jLabel9.setText("NUMBER OF RENTALS: " + rentalCount);
+            }
+            
+            // Create and display chart
+            System.out.println("Creating chart with counts:");
+            System.out.println("Users: " + userCount);
+            System.out.println("Clothes: " + clothesCount);
+            System.out.println("Rentals: " + rentalCount);
+            createAndDisplayChart(userCount, clothesCount, rentalCount);
+            
+            // Close resources
+            userRs.close();
+            userStmt.close();
+            clothesRs.close();
+            clothesStmt.close();
+            rentalRs.close();
+            rentalStmt.close();
+            conn.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error fetching counts: " + ex.getMessage());
+        }
     }//GEN-LAST:event_formWindowActivated
+
+    private void createAndDisplayChart(int userCount, int clothesCount, int rentalCount) {
+        try {
+            // Create dataset
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            dataset.addValue(userCount, "Count", "Users");
+            dataset.addValue(clothesCount, "Count", "Clothes");
+            dataset.addValue(rentalCount, "Count", "Rentals");
+
+            // Create chart
+            JFreeChart chart = ChartFactory.createBarChart(
+                "Clothing Rental", // Chart title
+                "",               // X-axis label (removed for cleaner look)
+                "",              // Y-axis label (removed for cleaner look)
+                dataset,         // Dataset
+                PlotOrientation.VERTICAL,
+                false,          // Hide legend for cleaner look
+                true,           // Show tooltips
+                false           // Show URLs
+            );
+
+            // Customize chart appearance
+            chart.setBackgroundPaint(new Color(240, 240, 240)); // Light gray background
+            
+            // Set font for title
+            chart.getTitle().setFont(new java.awt.Font("Consolas", java.awt.Font.BOLD, 16));
+            chart.getTitle().setPaint(new Color(51, 51, 51)); // Dark gray title
+            
+            // Customize plot
+            CategoryPlot plot = chart.getCategoryPlot();
+            plot.setBackgroundPaint(Color.WHITE);
+            plot.setOutlineVisible(false);
+            
+            // Customize domain axis (X-axis)
+            CategoryAxis domainAxis = plot.getDomainAxis();
+            domainAxis.setTickLabelFont(new java.awt.Font("Consolas", java.awt.Font.PLAIN, 12));
+            domainAxis.setTickLabelPaint(new Color(51, 51, 51));
+            domainAxis.setAxisLineVisible(false);
+            domainAxis.setTickMarksVisible(false);
+            
+            // Customize range axis (Y-axis)
+            NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+            rangeAxis.setTickLabelFont(new java.awt.Font("Consolas", java.awt.Font.PLAIN, 12));
+            rangeAxis.setTickLabelPaint(new Color(51, 51, 51));
+            rangeAxis.setAxisLineVisible(false);
+            rangeAxis.setTickMarksVisible(false);
+          
+            
+            // Customize renderer
+            BarRenderer renderer = (BarRenderer) plot.getRenderer();
+            renderer.setSeriesPaint(0, Color.BLACK); // Changed to black bars
+            renderer.setDrawBarOutline(false); // Remove bar outlines
+            renderer.setShadowVisible(false); // Remove shadows
+            
+            // Add some padding between bars
+            renderer.setItemMargin(0.2);
+            
+            // Add value labels on top of bars
+            renderer.setDefaultItemLabelsVisible(true);
+            renderer.setDefaultItemLabelFont(new java.awt.Font("Consolas", java.awt.Font.PLAIN, 12));
+            renderer.setDefaultItemLabelPaint(new Color(51, 51, 51));
+            renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+
+            // Create chart panel with padding
+            ChartPanel chartPanel = new ChartPanel(chart);
+            chartPanel.setPreferredSize(new Dimension(200, 300));
+            chartPanel.setBackground(new Color(240, 240, 240));
+            chartPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+            // Configure jPanel3
+            jPanel3.setLayout(new java.awt.BorderLayout());
+            jPanel3.removeAll();
+            jPanel3.add(chartPanel, java.awt.BorderLayout.CENTER);
+            jPanel3.setVisible(true);
+            jPanel3.revalidate();
+            jPanel3.repaint();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error creating chart: " + e.getMessage());
+        }
+    }
 
     private void Logout1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout1MouseClicked
         int a=JOptionPane.showConfirmDialog(null,"Do you really want to logout?","Select", JOptionPane.YES_NO_OPTION);

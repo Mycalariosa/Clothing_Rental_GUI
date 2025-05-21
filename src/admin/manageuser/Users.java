@@ -260,7 +260,7 @@ private void styleTable(JTable table) {
             }
         });
 
-        archieve.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        archieve.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         archieve.setText("DELETE");
 
         javax.swing.GroupLayout ArchieveLayout = new javax.swing.GroupLayout(Archieve);
@@ -348,7 +348,7 @@ private void styleTable(JTable table) {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel9.setText("ADD");
 
         javax.swing.GroupLayout addLayout = new javax.swing.GroupLayout(add);
@@ -375,7 +375,7 @@ private void styleTable(JTable table) {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel12.setText("UPDATE");
 
         javax.swing.GroupLayout updateLayout = new javax.swing.GroupLayout(update);
@@ -403,7 +403,7 @@ private void styleTable(JTable table) {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel10.setText("ACTIVATE");
 
         javax.swing.GroupLayout activateLayout = new javax.swing.GroupLayout(activate);

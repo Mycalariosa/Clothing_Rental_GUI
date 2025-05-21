@@ -152,6 +152,7 @@ public class UpdateClothes extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -184,8 +185,8 @@ public class UpdateClothes extends javax.swing.JFrame {
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        jLabel19.setText("change photo");
+        jLabel19.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
+        jLabel19.setText("Change Photo");
 
         javax.swing.GroupLayout addphotoLayout = new javax.swing.GroupLayout(addphoto);
         addphoto.setLayout(addphotoLayout);
@@ -233,7 +234,7 @@ public class UpdateClothes extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel1.setText("Upddate");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

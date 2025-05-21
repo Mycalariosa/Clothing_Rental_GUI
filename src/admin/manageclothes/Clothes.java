@@ -173,6 +173,7 @@ public class Clothes extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setMaximumSize(new java.awt.Dimension(800, 400));
@@ -516,7 +517,7 @@ public class Clothes extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel9.setText("ADD");
 
         javax.swing.GroupLayout addLayout = new javax.swing.GroupLayout(add);
@@ -543,7 +544,7 @@ public class Clothes extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel12.setText("UPDATE");
 
         javax.swing.GroupLayout updateLayout = new javax.swing.GroupLayout(update);
@@ -570,7 +571,7 @@ public class Clothes extends javax.swing.JFrame {
             }
         });
 
-        archieve.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        archieve.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         archieve.setText("DELETE");
 
         javax.swing.GroupLayout ArchieveLayout = new javax.swing.GroupLayout(Archieve);

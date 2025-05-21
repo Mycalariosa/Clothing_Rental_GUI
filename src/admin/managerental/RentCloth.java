@@ -106,6 +106,7 @@ public class RentCloth extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -233,7 +234,11 @@ public class RentCloth extends javax.swing.JFrame {
         ClothID.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(ClothID, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 60, 40));
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
         info.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
+        info.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -248,7 +253,7 @@ public class RentCloth extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 160, 60));
@@ -259,19 +264,6 @@ public class RentCloth extends javax.swing.JFrame {
         jLabel16.setText("Customer name");
         jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, 20));
         jPanel2.add(userid, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 50, -1));
-
-        // Add event listeners for userid textfield
-        userid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fetchUserDetails();
-            }
-        });
-        
-        userid.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                fetchUserDetails();
-            }
-        });
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/f.png"))); // NOI18N
         jPanel2.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
@@ -542,7 +534,7 @@ public class RentCloth extends javax.swing.JFrame {
     }
 
     private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
-        new Clothes().setVisible(true);
+        new Rental().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backbuttonMouseClicked
 

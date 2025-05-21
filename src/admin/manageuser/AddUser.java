@@ -73,6 +73,7 @@ private File selectedProfileImageFile = null;
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -103,7 +104,8 @@ private File selectedProfileImageFile = null;
             }
         });
 
-        jLabel19.setText("add photo");
+        jLabel19.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
+        jLabel19.setText("Add Photo");
 
         javax.swing.GroupLayout addphotoLayout = new javax.swing.GroupLayout(addphoto);
         addphoto.setLayout(addphotoLayout);
@@ -123,19 +125,19 @@ private File selectedProfileImageFile = null;
 
         jPanel1.add(addphoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, -1));
 
-        fname.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        fname.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         fname.setMinimumSize(new java.awt.Dimension(6, 20));
         jPanel1.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 140, 20));
 
-        lname.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        lname.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         lname.setPreferredSize(new java.awt.Dimension(6, 20));
         jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 140, 20));
 
-        email.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        email.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         email.setPreferredSize(new java.awt.Dimension(6, 20));
         jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 140, 20));
 
-        status.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        status.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Active" }));
         status.setPreferredSize(new java.awt.Dimension(66, 20));
         status.addActionListener(new java.awt.event.ActionListener() {
@@ -146,38 +148,38 @@ private File selectedProfileImageFile = null;
         jPanel1.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 140, 20));
 
         jLabel14.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel14.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Firstname");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, -1, 20));
 
-        jLabel15.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Lastname");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 50, 20));
 
-        jLabel18.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Email");
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, -1, 20));
 
-        jLabel24.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText(" Status");
         jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 50, 20));
 
-        contact.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        contact.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         contact.setPreferredSize(new java.awt.Dimension(6, 20));
         jPanel1.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 140, 20));
 
         username.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 140, 20));
 
-        password.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        password.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         password.setMinimumSize(new java.awt.Dimension(6, 20));
         jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 140, 20));
 
-        role.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        role.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin", " " }));
         role.setPreferredSize(new java.awt.Dimension(54, 20));
         role.addActionListener(new java.awt.event.ActionListener() {
@@ -187,22 +189,22 @@ private File selectedProfileImageFile = null;
         });
         jPanel1.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 290, 140, 20));
 
-        jLabel23.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Contact");
         jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, 20));
 
-        jLabel22.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Username");
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, 50, 20));
 
-        jLabel25.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Password");
         jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 50, 20));
 
-        jLabel21.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Role");
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, -1, 20));
@@ -220,7 +222,7 @@ private File selectedProfileImageFile = null;
             }
         });
 
-        addn.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        addn.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         addn.setText("ADD");
 
         javax.swing.GroupLayout addLayout = new javax.swing.GroupLayout(add);
@@ -252,6 +254,7 @@ private File selectedProfileImageFile = null;
         });
         jPanel1.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
+        back.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/d.png"))); // NOI18N
         jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 

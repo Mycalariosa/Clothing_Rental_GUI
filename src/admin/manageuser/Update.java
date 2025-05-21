@@ -85,6 +85,7 @@ public Update(String username) {
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -92,6 +93,7 @@ public Update(String username) {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        fname.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         fname.setForeground(new java.awt.Color(102, 102, 102));
         fname.setCaretColor(new java.awt.Color(102, 102, 102));
         fname.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +103,7 @@ public Update(String username) {
         });
         getContentPane().add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 220, -1));
 
+        lname.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         lname.setForeground(new java.awt.Color(102, 102, 102));
         lname.setCaretColor(new java.awt.Color(102, 102, 102));
         lname.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +113,7 @@ public Update(String username) {
         });
         getContentPane().add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 220, -1));
 
+        email.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         email.setForeground(new java.awt.Color(102, 102, 102));
         email.setCaretColor(new java.awt.Color(102, 102, 102));
         email.addActionListener(new java.awt.event.ActionListener() {
@@ -119,16 +123,21 @@ public Update(String username) {
         });
         getContentPane().add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 220, -1));
 
+        cont.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         cont.setForeground(new java.awt.Color(102, 102, 102));
         cont.setCaretColor(new java.awt.Color(102, 102, 102));
         getContentPane().add(cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 220, -1));
 
         user.setEditable(false);
+        user.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         user.setForeground(new java.awt.Color(102, 102, 102));
         user.setCaretColor(new java.awt.Color(102, 102, 102));
         getContentPane().add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 220, -1));
+
+        pass.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         getContentPane().add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 220, 20));
 
+        status.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Pending" }));
         status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +146,7 @@ public Update(String username) {
         });
         getContentPane().add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 220, -1));
 
+        role.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
         role.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,16 +162,17 @@ public Update(String username) {
             }
         });
 
-        jLabel10.setText("update");
+        jLabel10.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
+        jLabel10.setText("Update");
 
         javax.swing.GroupLayout updatepanel2Layout = new javax.swing.GroupLayout(updatepanel2);
         updatepanel2.setLayout(updatepanel2Layout);
         updatepanel2Layout.setHorizontalGroup(
             updatepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updatepanel2Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+            .addGroup(updatepanel2Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
                 .addComponent(jLabel10)
-                .addGap(36, 36, 36))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         updatepanel2Layout.setVerticalGroup(
             updatepanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,47 +183,48 @@ public Update(String username) {
 
         getContentPane().add(updatepanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, -1, -1));
 
-        jLabel21.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Role");
         getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, -1, 20));
 
-        jLabel24.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText(" Status");
         getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 50, 20));
 
-        jLabel25.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Password");
         getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 50, 20));
 
-        jLabel22.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Username");
         getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 50, 20));
 
-        jLabel23.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Contact");
         getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, 20));
 
-        jLabel18.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Email");
         getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, -1, 20));
 
-        jLabel15.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Lastname");
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 50, 20));
 
         jLabel14.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel14.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Firstname");
         getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, 20));
 
+        back.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/e.png"))); // NOI18N
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 560, 420));
 
@@ -369,12 +381,10 @@ public Update(String username) {
     private javax.swing.JTextField cont;
     private javax.swing.JTextField email;
     private javax.swing.JTextField fname;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -384,8 +394,6 @@ public Update(String username) {
     private javax.swing.JPasswordField pass;
     private javax.swing.JComboBox<String> role;
     private javax.swing.JComboBox<String> status;
-    private javax.swing.JPanel updatepanel;
-    private javax.swing.JPanel updatepanel1;
     private javax.swing.JPanel updatepanel2;
     public javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables

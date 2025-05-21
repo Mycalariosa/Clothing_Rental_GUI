@@ -66,7 +66,7 @@ public class AddClothes extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        description = new javax.swing.JTextArea();
+        description = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         color = new javax.swing.JTextField();
@@ -74,6 +74,7 @@ public class AddClothes extends javax.swing.JFrame {
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -106,7 +107,8 @@ public class AddClothes extends javax.swing.JFrame {
             }
         });
 
-        jLabel19.setText("add photo");
+        jLabel19.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
+        jLabel19.setText("Add Photo");
 
         javax.swing.GroupLayout addphotoLayout = new javax.swing.GroupLayout(addphoto);
         addphoto.setLayout(addphotoLayout);
@@ -126,6 +128,7 @@ public class AddClothes extends javax.swing.JFrame {
 
         jPanel2.add(addphoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
 
+        clothname.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         clothname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clothnameActionPerformed(evt);
@@ -133,11 +136,17 @@ public class AddClothes extends javax.swing.JFrame {
         });
         jPanel2.add(clothname, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 150, 20));
 
+        size.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         size.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Small", "Medium", "Large" }));
         jPanel2.add(size, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 150, -1));
+
+        category.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jPanel2.add(category, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 150, -1));
+
+        price.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jPanel2.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 150, -1));
 
+        availability.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         availability.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Unavailable" }));
         jPanel2.add(availability, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 150, -1));
 
@@ -147,6 +156,7 @@ public class AddClothes extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel1.setText("ADD ");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,10 +168,10 @@ public class AddClothes extends javax.swing.JFrame {
         addclothes.setLayout(addclothesLayout);
         addclothesLayout.setHorizontalGroup(
             addclothesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addclothesLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addclothesLayout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap())
         );
         addclothesLayout.setVerticalGroup(
             addclothesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,56 +183,45 @@ public class AddClothes extends javax.swing.JFrame {
         jPanel2.add(addclothes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, 50, 20));
 
         jLabel14.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel14.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Cloth name");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, 20));
 
-        jLabel15.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Size");
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 50, 20));
 
-        jLabel18.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Prize");
         jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, 20));
 
-        jLabel23.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Category");
         jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, 20));
 
-        jLabel22.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Description");
         jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 80, 20));
 
-        // Replace JTextField with JTextArea
-        description = new javax.swing.JTextArea();
-        description.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        description.setBackground(new java.awt.Color(255, 255, 255));
-        description.setForeground(new java.awt.Color(0, 0, 0));
-        description.setCaretColor(new java.awt.Color(0, 0, 0));
-        description.setSelectedTextColor(new java.awt.Color(255, 255, 255));
-        description.setSelectionColor(new java.awt.Color(0, 0, 0));
-        description.setLineWrap(true);
-        description.setWrapStyleWord(true);
-        description.setRows(3);
+        description.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        jPanel2.add(description, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 150, 50));
 
-        // Create scroll pane for the text area
-        javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(description);
-        scrollPane.setPreferredSize(new java.awt.Dimension(150, 50));
-        jPanel2.add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 150, 50));
-
-        jLabel24.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Availability");
         jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 80, 20));
 
+        jLabel2.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Color");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, -1));
+
+        color.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jPanel2.add(color, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 150, -1));
 
         backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
@@ -438,7 +437,7 @@ private void clearForm() {
     private javax.swing.JTextField category;
     private javax.swing.JTextField clothname;
     private javax.swing.JTextField color;
-    private javax.swing.JTextArea description;
+    private javax.swing.JTextField description;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;

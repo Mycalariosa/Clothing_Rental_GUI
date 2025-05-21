@@ -178,7 +178,7 @@
             <Component class="javax.swing.JLabel" name="archieve">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Consolas" size="11" style="0"/>
+                  <Font name="Consolas" size="11" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="DELETE"/>
               </Properties>
@@ -313,7 +313,7 @@
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Consolas" size="11" style="0"/>
+                  <Font name="Consolas" size="11" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ADD"/>
               </Properties>
@@ -353,7 +353,7 @@
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Consolas" size="11" style="0"/>
+                  <Font name="Consolas" size="11" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="UPDATE"/>
               </Properties>
@@ -398,7 +398,7 @@
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Consolas" size="11" style="0"/>
+                  <Font name="Consolas" size="11" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ACTIVATE"/>
               </Properties>
