@@ -9,51 +9,12 @@ import javax.swing.JLabel;
 
 public class RentCloth extends javax.swing.JFrame {
 
-    private int clothesId;
-    private String name;
-    private String size;
-    private double rate;
-    private String imagePath;
-
-    // UI Components
-    private JLabel lblImage;
-    private JLabel lblName;
-    private JLabel lblSize;
-    private JLabel lblRate;
-
-    public RentCloth(int clothesId, String name, String size, double rate, String imagePath) {
-        this.clothesId = clothesId;
-        this.name = name;
-        this.size = size;
-        this.rate = rate;
-        this.imagePath = imagePath;
-
-        initComponents();
-        displayClothingInfo();
-    }
+    
     public RentCloth() {
         initComponents();
     }
 
-    
-    private void displayClothingInfo() {
-        lblName.setText("Name: " + name);
-        lblSize.setText("Size: " + size);
-        lblRate.setText("Rate: ₱" + rate + " per day");
-
-        if (imagePath != null && !imagePath.isEmpty()) {
-            File imgFile = new File(imagePath);
-            if (imgFile.exists()) {
-                ImageIcon icon = new ImageIcon(new ImageIcon(imgFile.getAbsolutePath()).getImage()
-                        .getScaledInstance(200, 200, Image.SCALE_SMOOTH));
-                lblImage.setIcon(icon);
-            } else {
-                lblImage.setText("Image not found");
-            }
-        } else {
-            lblImage.setText("No image");
-        }
-    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,14 +30,15 @@ public class RentCloth extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 653, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 423, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

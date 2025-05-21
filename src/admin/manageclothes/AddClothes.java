@@ -247,52 +247,60 @@ public class AddClothes extends javax.swing.JFrame {
 
     private void addphotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addphotoMouseClicked
 
-    JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Choose an image");
-    fileChooser.setFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
+   JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Choose an image");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
 
-    int result = fileChooser.showOpenDialog(null);
-    if (result == JFileChooser.APPROVE_OPTION) {
-        File selectedFile = fileChooser.getSelectedFile();
-        try {
-            BufferedImage originalImage = ImageIO.read(selectedFile);
+        int result = fileChooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try {
+                BufferedImage originalImage = ImageIO.read(selectedFile);
 
-            CroppingPanel cropPanel = new CroppingPanel(originalImage);
-            int confirm = JOptionPane.showConfirmDialog(null, new JScrollPane(cropPanel), "Crop Image", JOptionPane.OK_CANCEL_OPTION);
+                CroppingPanel cropPanel = new CroppingPanel(originalImage);
+                int confirm = JOptionPane.showConfirmDialog(null, new JScrollPane(cropPanel), "Crop Image", JOptionPane.OK_CANCEL_OPTION);
 
-            if (confirm == JOptionPane.OK_OPTION) {
-                BufferedImage croppedImage = cropPanel.getCroppedImage();
-                if (croppedImage != null) {
-                    int w1 = photo1.getWidth();
-                    int h1 = photo1.getHeight();
-                    Image resizedForLabel = croppedImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH);
+                if (confirm == JOptionPane.OK_OPTION) {
+                    BufferedImage croppedImage = cropPanel.getCroppedImage();
+                    if (croppedImage != null) {
+                        int w1 = photo1.getWidth();
+                        int h1 = photo1.getHeight();
+                        Image resizedForLabel = croppedImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH);
 
-                    BufferedImage circleImage = new BufferedImage(w1, h1, BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D g2 = circleImage.createGraphics();
-                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2.setClip(new Ellipse2D.Float(0, 0, w1, h1));
-                    g2.drawImage(resizedForLabel, 0, 0, null);
-                    g2.dispose();
+                        BufferedImage circleImage = new BufferedImage(w1, h1, BufferedImage.TYPE_INT_ARGB);
+                        Graphics2D g2 = circleImage.createGraphics();
+                        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                        g2.setClip(new Ellipse2D.Float(0, 0, w1, h1));
+                        g2.drawImage(resizedForLabel, 0, 0, null);
+                        g2.dispose();
 
-                    photo1.setIcon(new ImageIcon(circleImage));
+                        photo1.setIcon(new ImageIcon(circleImage));
 
-                    // Save cropped image to "src/images/clothes/"
-                    String ext = selectedFile.getName().substring(selectedFile.getName().lastIndexOf(".") + 1);
-                    String filename = "clothes_" + System.currentTimeMillis() + "." + ext;
-                    String relativePath = "src/images/clothes/" + filename;
-                    File outputFile = new File(relativePath);
-                    ImageIO.write(croppedImage, ext, outputFile);
+                        // Save cropped image to "src/images/clothes/"
+                        String ext = selectedFile.getName().substring(selectedFile.getName().lastIndexOf(".") + 1);
+                        String filename = "clothes_" + System.currentTimeMillis() + "." + ext;
+                        String savePath = "src/images/clothes/" + filename;
+                        File outputFile = new File(savePath);
 
-                    selectedClothingImageFile = outputFile; // Save the file for later use in DB
+                        // Make sure directory exists
+                        File dir = outputFile.getParentFile();
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+
+                        ImageIO.write(croppedImage, ext, outputFile);
+
+                        // Save full relative path for DB
+                        selectedClothingImageFile = outputFile;
+                    }
                 }
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error processing image: " + ex.getMessage(), "Image Error", JOptionPane.ERROR_MESSAGE);
             }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error processing image: " + ex.getMessage(), "Image Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
+    
             // ... rest of the code to display the profile section
     }//GEN-LAST:event_addphotoMouseClicked
 
@@ -304,92 +312,94 @@ public class AddClothes extends javax.swing.JFrame {
    
     }//GEN-LAST:event_jLabel1MouseClicked
 private void clearForm() {
-    clothname.setText("");
-    price.setText("");
-    category.setText("");
-    description.setText("");
-    color.setText("");
-    size.setSelectedIndex(0);
-    availability.setSelectedIndex(0);
-    photo1.setIcon(null);
-}
+       clothname.setText("");
+        price.setText("");
+        category.setText("");
+        description.setText("");
+        color.setText("");
+        size.setSelectedIndex(0);
+        availability.setSelectedIndex(0);
+        photo1.setIcon(null);
+    }
 
     private void addclothesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addclothesMouseClicked
 
     config connect = new config(); // your DB connection class
 
-    String clothName = clothname.getText().trim();
-    String priceText = price.getText().trim();
-    String categoryText = category.getText().trim();
-    String descriptionText = description.getText().trim();
-    String selectedSize = (String) size.getSelectedItem();
-    String selectedAvailability = (String) availability.getSelectedItem();
-    String colorText = color.getText().trim();
+        String clothName = clothname.getText().trim();
+        String priceText = price.getText().trim();
+        String categoryText = category.getText().trim();
+        String descriptionText = description.getText().trim();
+        String selectedSize = (String) size.getSelectedItem();
+        String selectedAvailability = (String) availability.getSelectedItem();
+        String colorText = color.getText().trim();
 
-    StringBuilder errorMessage = new StringBuilder();
+        StringBuilder errorMessage = new StringBuilder();
 
-    if (clothName.isEmpty() || priceText.isEmpty() || categoryText.isEmpty() ||
-        descriptionText.isEmpty() || selectedSize == null || selectedAvailability == null || colorText.isEmpty()) {
-        errorMessage.append("Please fill in all fields.\n");
-    }
-
-    double priceValue = 0.0;
-    try {
-        priceValue = Double.parseDouble(priceText);
-        if (priceValue <= 0) {
-            errorMessage.append("Price must be a positive number.\n");
-        }
-    } catch (NumberFormatException e) {
-        errorMessage.append("Invalid price format.\n");
-    }
-
-    if (errorMessage.length() > 0) {
-        JOptionPane.showMessageDialog(this, errorMessage.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Finalize image path
-    String imagePath = "images/clothes/default.png"; // fallback default
-    if (selectedClothingImageFile != null) {
-        imagePath = selectedClothingImageFile.getPath().replace("src/", "").replace("\\", "/");
-    }
-
-    try {
-        Connection con = connect.getConnection();
-        PreparedStatement pst = con.prepareStatement(
-            "INSERT INTO clothes (clothname, price, category, description, sizes, availability, photo_path, color) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-        );
-
-        pst.setString(1, clothName);
-        pst.setDouble(2, priceValue);
-        pst.setString(3, categoryText);
-        pst.setString(4, descriptionText);
-        pst.setString(5, selectedSize);
-        pst.setString(6, selectedAvailability);
-        pst.setString(7, imagePath);
-        pst.setString(8, colorText);
-
-        int rows = pst.executeUpdate();
-        if (rows > 0) {
-            JOptionPane.showMessageDialog(this, "Clothing item added successfully.");
-            clearForm(); // optional: clear inputs
-            selectedClothingImageFile = null;
-            
-            // Navigate back to Clothes.java
-            new Clothes().setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add clothing item.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (clothName.isEmpty() || priceText.isEmpty() || categoryText.isEmpty() ||
+                descriptionText.isEmpty() || selectedSize == null || selectedAvailability == null || colorText.isEmpty()) {
+            errorMessage.append("Please fill in all fields.\n");
         }
 
-        pst.close();
-        con.close();
+        double priceValue = 0.0;
+        try {
+            priceValue = Double.parseDouble(priceText);
+            if (priceValue <= 0) {
+                errorMessage.append("Price must be a positive number.\n");
+            }
+        } catch (NumberFormatException e) {
+            errorMessage.append("Invalid price format.\n");
+        }
 
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
-    }
+        if (errorMessage.length() > 0) {
+            JOptionPane.showMessageDialog(this, errorMessage.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Finalize image path
+        String imagePath = "ClothingRental_GUI/src/images/clothes/"; // fallback default
+        if (selectedClothingImageFile != null) {
+            imagePath = selectedClothingImageFile.getPath().replace("\\", "/");
+        }
+
+        try {
+            Connection con = connect.getConnection();
+            PreparedStatement pst = con.prepareStatement(
+                    "INSERT INTO clothes (clothname, price, category, description, sizes, availability, photo_path, color) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            );
+
+            pst.setString(1, clothName);
+            pst.setDouble(2, priceValue);
+            pst.setString(3, categoryText);
+            pst.setString(4, descriptionText);
+            pst.setString(5, selectedSize);
+            pst.setString(6, selectedAvailability);
+            pst.setString(7, imagePath);
+            pst.setString(8, colorText);
+
+            int rows = pst.executeUpdate();
+            if (rows > 0) {
+                JOptionPane.showMessageDialog(this, "Clothing item added successfully.");
+                clearForm(); // optional: clear inputs
+                selectedClothingImageFile = null;
+
+                // Navigate back to Clothes.java
+                new Clothes().setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to add clothing item.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            pst.close();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
+        }
+    
+    
     }//GEN-LAST:event_addclothesMouseClicked
 
     private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
@@ -400,11 +410,6 @@ private void clearForm() {
   
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -412,17 +417,9 @@ private void clearForm() {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddClothes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddClothes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddClothes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (Exception ex) {
             java.util.logging.Logger.getLogger(AddClothes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

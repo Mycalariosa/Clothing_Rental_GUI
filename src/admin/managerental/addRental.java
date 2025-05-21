@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.io.File;
 import javax.swing.JOptionPane;
 import java.awt.event.MouseAdapter;
@@ -28,123 +29,119 @@ import java.awt.event.MouseEvent;
 public class addRental extends javax.swing.JFrame {
        private JPanel clothesPanel;
     private config connect = new config();
-    /**
-     * Creates new form addRental
-     */
+   
     public addRental() {
         initComponents();
         setTitle("Add Rental");
         setupClothesPanel();
         loadAvailableClothes();
     }
+   private void setupClothesPanel() {
+    clothesPanel = new JPanel(new GridLayout(0, 4, 10, 10)); // 4 columns
+    clothesPanel.setBackground(Color.DARK_GRAY); // black background
+    clothesPanel.setOpaque(true);
+    clothespanel.setViewportView(clothesPanel);
+}
 
-     private void setupClothesPanel() {
-        clothesPanel = new JPanel(new GridLayout(0, 3, 10, 10));
-        clothesPanel.setBackground(new Color(0, 0, 0, 80));
-        clothesPanel.setOpaque(true);
-        clothespanel.setViewportView(clothesPanel);
-    }
-
-    private ImageIcon loadImage(String imagePath) {
-        if (imagePath == null || imagePath.isEmpty()) return null;
-        try {
-            File imageFile = new File(imagePath);
-            if (imageFile.exists()) {
-                return new ImageIcon(imageFile.getAbsolutePath());
-            } else {
-                System.out.println("Image not found: " + imagePath);
-            }
-        } catch (Exception e) {
-            System.out.println("Error loading image: " + e.getMessage());
+private ImageIcon loadImage(String imagePath) {
+    if (imagePath == null || imagePath.isEmpty()) return null;
+    try {
+        File imageFile = new File(imagePath);
+        if (imageFile.exists()) {
+            return new ImageIcon(imageFile.getAbsolutePath());
+        } else {
+            System.out.println("Image not found: " + imagePath);
         }
-        return null;
+    } catch (Exception e) {
+        System.out.println("Error loading image: " + e.getMessage());
     }
+    return null;
+}
 
-    private void loadAvailableClothes() {
-        try {
-            Connection conn = connect.getConnection();
-            if (conn == null) {
-                JOptionPane.showMessageDialog(this, "Database connection failed!");
-                return;
+private void loadAvailableClothes() {
+    try {
+        Connection conn = connect.getConnection();
+        if (conn == null) {
+            JOptionPane.showMessageDialog(this, "Database connection failed!");
+            return;
+        }
+
+        String query = "SELECT clothesid, clothname, sizes, price, photo_path FROM clothes WHERE availability = 'available' ORDER BY clothesid ASC";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+
+        clothesPanel.removeAll();
+
+        while (rs.next()) {
+            int clothesId = rs.getInt("clothesid");
+            String name = rs.getString("clothname");
+            String size = rs.getString("sizes");
+            double rate = rs.getDouble("price");
+            String imagePath = rs.getString("photo_path");
+
+            JPanel itemPanel = new JPanel(new BorderLayout(5, 5));
+            Color defaultColor = new Color(30, 30, 30); // dark gray
+            Color hoverColor = new Color(70, 70, 70);
+
+            itemPanel.setBackground(defaultColor);
+            itemPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+
+            JLabel imageLabel = new JLabel();
+            imageLabel.setPreferredSize(new Dimension(150, 150));
+            imageLabel.setHorizontalAlignment(JLabel.CENTER);
+
+            ImageIcon icon = loadImage(imagePath);
+            if (icon != null) {
+                Image scaled = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                imageLabel.setIcon(new ImageIcon(scaled));
+            } else {
+                imageLabel.setText("No Image");
+                imageLabel.setForeground(Color.WHITE);
+                imageLabel.setFont(new Font("Consolas", Font.PLAIN, 12));
             }
 
-            String query = "SELECT clothesid, clothname, sizes, price, photo_path FROM clothes WHERE availability = 'available' ORDER BY clothesid ASC";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            JLabel infoLabel = new JLabel("<html><center>" +
+                    name + "<br>" +
+                    "Size: " + size + "<br>" +
+                    "₱" + rate + "/day</center></html>");
+            infoLabel.setForeground(Color.WHITE);
+            infoLabel.setFont(new Font("Consolas", Font.PLAIN, 12));
+            infoLabel.setHorizontalAlignment(JLabel.CENTER);
 
-            clothesPanel.removeAll();
+            itemPanel.add(imageLabel, BorderLayout.CENTER);
+            itemPanel.add(infoLabel, BorderLayout.SOUTH);
 
-            while (rs.next()) {
-                int clothesId = rs.getInt("clothesid");
-                String name = rs.getString("clothname");
-                String size = rs.getString("sizes");
-                double rate = rs.getDouble("price");
-                String imagePath = rs.getString("photo_path");
-
-                JPanel itemPanel = new JPanel(new BorderLayout(5, 5));
-                Color defaultColor = new Color(51, 51, 51);
-                Color hoverColor = new Color(102, 102, 102);
-
-                itemPanel.setBackground(defaultColor);
-                itemPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-
-                JLabel imageLabel = new JLabel();
-                imageLabel.setPreferredSize(new Dimension(150, 150));
-                imageLabel.setHorizontalAlignment(JLabel.CENTER);
-
-                ImageIcon icon = loadImage(imagePath);
-                if (icon != null) {
-                    Image scaled = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-                    imageLabel.setIcon(new ImageIcon(scaled));
-                } else {
-                    imageLabel.setText("No Image");
-                    imageLabel.setForeground(Color.WHITE);
+            itemPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            itemPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    new RentCloth().setVisible(true);
                 }
 
-                JLabel infoLabel = new JLabel("<html><center>" +
-                        name + "<br>" +
-                        "Size: " + size + "<br>" +
-                        "₱" + rate + "/day</center></html>");
-                infoLabel.setForeground(Color.WHITE);
-                infoLabel.setHorizontalAlignment(JLabel.CENTER);
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    itemPanel.setBackground(hoverColor);
+                    itemPanel.repaint();
+                }
 
-                itemPanel.add(imageLabel, BorderLayout.CENTER);
-                itemPanel.add(infoLabel, BorderLayout.SOUTH);
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    itemPanel.setBackground(defaultColor);
+                    itemPanel.repaint();
+                }
+            });
 
-                itemPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                itemPanel.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        new RentCloth().setVisible(true);
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        itemPanel.setOpaque(true);
-                        itemPanel.setBackground(hoverColor);
-                        itemPanel.repaint();
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        itemPanel.setOpaque(true);
-                        itemPanel.setBackground(defaultColor);
-                        itemPanel.repaint();
-                    }
-                });
-
-                clothesPanel.add(itemPanel);
-            }
-
-            clothesPanel.revalidate();
-            clothesPanel.repaint();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error loading clothes: " + e.getMessage());
+            clothesPanel.add(itemPanel);
         }
-    }
 
+        clothesPanel.revalidate();
+        clothesPanel.repaint();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error loading clothes: " + e.getMessage());
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
