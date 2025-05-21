@@ -458,6 +458,7 @@ public class Rental extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel8.setText("ADD");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -467,7 +468,7 @@ public class Rental extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel8)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
