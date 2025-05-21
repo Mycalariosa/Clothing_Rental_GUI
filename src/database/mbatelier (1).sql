@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2025 at 09:08 AM
+-- Generation Time: May 21, 2025 at 09:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -36,31 +36,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `active_rentals_view`
--- (See below for the actual view)
---
-CREATE TABLE `active_rentals_view` (
-);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `available_items_view`
--- (See below for the actual view)
---
-CREATE TABLE `available_items_view` (
-`clothesid` int(11)
-,`name` varchar(100)
-,`description` text
-,`size` enum('Small','Medium','Large')
-,`category` varchar(50)
-,`daily_rate` decimal(10,2)
-,`image_path` varchar(255)
-);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `clothes`
 --
 
@@ -82,11 +57,11 @@ CREATE TABLE `clothes` (
 --
 
 INSERT INTO `clothes` (`clothesid`, `clothname`, `description`, `sizes`, `price`, `category`, `photo_path`, `created_at`, `availability`, `color`) VALUES
-(1, 'Glittery Gown', 'glitter gown, detachable off shoulder strap and corset bodice', 'Small', 1200.00, 'Gown', 'src/images/clothes/clothes_1747660902472.png', '2025-05-19 13:23:12', 'Available', 'Pink'),
-(52, 'Suit', 'White suit, usually worn by groom in a wedding', 'Small', 1000.00, 'Male Suit', 'src/images/clothes/clothes_1747703326495.png', '2025-05-20 01:09:38', 'Available', 'White'),
-(53, 'Wedding Dress', 'intricate lace patterns, often incorporating delicate floral or vine designs, and are embellished with sparkling stones like crystals or pearls for added shimmer', 'Medium', 2000.00, 'Wedding Gown', 'src/images/clothes/clothes_1747703629582.png', '2025-05-20 01:15:26', 'Available', 'White'),
-(54, 'Batman Costume', 'a dark gray bodysuit with a black bat emblem, includes accessories like a black or blue cape, cowl, gloves, and boots, all serving various purposes such as protection, stealth, and intimidation.', 'Small', 900.00, 'Kids custome', 'src/images/clothes/clothes_1747704213748.png', '2025-05-20 01:25:17', 'Available', 'Black'),
-(59, 'Barong', 'a formal shirt that is a vibrant and unique choice for celebrating Filipino culture with style. It combines traditional Filipino craftsmanship with modern elegance, making it suitable for formal occasions, weddings, and cultural events.', 'Small', 600.00, 'Barong', 'src/images/clothes/clothes_1747795186404.jpg', '2025-05-21 02:40:25', 'Available', 'Navy Blue');
+(1, 'Glittery Gown', 'glitter gown, detachable off shoulder strap and corset bodice', 'Small', 1200.00, 'Gown', 'src/images/clothes/clothes_1747660902472.png', '2025-05-19 05:23:12', 'Available', 'Pink'),
+(52, 'Suit', 'White suit, usually worn by groom in a wedding', 'Small', 1000.00, 'Male Suit', 'src/images/clothes/clothes_1747703326495.png', '2025-05-19 17:09:38', 'Available', 'White'),
+(53, 'Wedding Dress', 'intricate lace patterns, often incorporating delicate floral or vine designs, and are embellished with sparkling stones like crystals or pearls for added shimmer', 'Medium', 2000.00, 'Wedding Gown', 'src/images/clothes/clothes_1747703629582.png', '2025-05-19 17:15:26', 'Available', 'White'),
+(54, 'Batman Costume', 'a dark gray bodysuit with a black bat emblem, includes accessories like a black or blue cape, cowl, gloves, and boots, all serving various purposes such as protection, stealth, and intimidation.', 'Small', 900.00, 'Kids custome', 'src/images/clothes/clothes_1747704213748.png', '2025-05-19 17:25:17', 'Available', 'Black'),
+(59, 'Barong', 'a formal shirt that is a vibrant and unique choice for celebrating Filipino culture with style. It combines traditional Filipino craftsmanship with modern elegance, making it suitable for formal occasions, weddings, and cultural events.', 'Small', 600.00, 'Barong', 'src/images/clothes/clothes_1747795186404.jpg', '2025-05-20 18:40:25', 'Available', 'Navy Blue');
 
 -- --------------------------------------------------------
 
@@ -109,35 +84,35 @@ CREATE TABLE `forget_pass` (
 --
 
 INSERT INTO `forget_pass` (`id`, `u_id`, `email`, `otp`, `expires_at`, `is_used`, `created_at`) VALUES
-(1, 1, 'myca.lariosa12@gmail.com', '487682', '2025-05-19 15:33:48', 0, '2025-05-19 15:28:48'),
-(2, 1, 'myca.lariosa12@gmail.com', '246073', '2025-05-19 15:33:08', 1, '2025-05-19 15:32:47'),
-(3, 1, 'myca.lariosa12@gmail.com', '950001', '2025-05-19 15:58:16', 1, '2025-05-19 15:57:47'),
-(4, 1, 'myca.lariosa12@gmail.com', '229599', '2025-05-19 16:02:00', 1, '2025-05-19 16:01:39'),
-(5, 1, 'myca.lariosa12@gmail.com', '628949', '2025-05-19 16:04:49', 1, '2025-05-19 16:04:14'),
-(6, 1, 'Myca.lariosa12@gmail.com', '110458', '2025-05-19 16:07:30', 1, '2025-05-19 16:06:46'),
-(7, 1, 'myca.lariosa12@gmail.com', '275952', '2025-05-19 16:13:35', 0, '2025-05-19 16:08:35'),
-(8, 1, 'myca.lariosa12@gmail.com', '132332', '2025-05-19 16:09:08', 1, '2025-05-19 16:08:54'),
-(9, 1, 'myca.lariosa12@gmail.com', '600189', '2025-05-19 16:11:33', 1, '2025-05-19 16:11:20'),
-(10, 1, 'myca.lariosa12@gmail.com', '282593', '2025-05-19 16:31:02', 0, '2025-05-19 16:26:02'),
-(11, 1, 'myca.lariosa12@gmail.com', '702753', '2025-05-19 16:32:40', 0, '2025-05-19 16:27:40'),
-(12, 1, 'myca.lariosa12@gmail.com', '391948', '2025-05-19 16:39:19', 0, '2025-05-19 16:34:19'),
-(13, 1, 'myca.lariosa12@gmail.com', '514530', '2025-05-19 16:41:08', 0, '2025-05-19 16:36:08'),
-(14, 1, 'myca.lariosa12@gmail.com', '940782', '2025-05-19 16:44:44', 0, '2025-05-19 16:39:44'),
-(15, 1, 'myca.lariosa12@gmail.com', '895873', '2025-05-19 16:45:53', 0, '2025-05-19 16:40:53'),
-(16, 1, 'Myca.lariosa12@gmail.com', '951914', '2025-05-19 16:53:35', 0, '2025-05-19 16:48:35'),
-(17, 1, 'myca.lariosa12@gmail.com', '843637', '2025-05-19 16:58:51', 0, '2025-05-19 16:53:51'),
-(18, 1, 'Myca.lariosa12@gmail.com', '246123', '2025-05-19 16:56:12', 1, '2025-05-19 16:55:51'),
-(19, 1, 'Myca.lariosa12@gmail.com', '321071', '2025-05-19 16:59:51', 1, '2025-05-19 16:59:38'),
-(20, 1, 'myca.lariosa12@gmail.com', '887967', '2025-05-19 17:05:16', 1, '2025-05-19 17:05:04'),
-(21, 1, 'myca.lariosa12@gmail.com', '913970', '2025-05-19 17:06:39', 1, '2025-05-19 17:06:25'),
-(22, 1, 'Myca.lariosa12@gmail.com', '317253', '2025-05-19 23:20:43', 0, '2025-05-19 23:15:43'),
-(23, 1, 'Myca.lariosa12@gmail.com', '785457', '2025-05-19 23:16:30', 1, '2025-05-19 23:16:14'),
-(24, 1, 'myca.lariosa12@gmail.com', '379334', '2025-05-19 23:18:28', 1, '2025-05-19 23:18:12'),
-(25, 1, 'Myca.lariosa12@gmail.com', '289927', '2025-05-19 23:19:59', 1, '2025-05-19 23:19:43'),
-(26, 1, 'myca.lariosa12@gmail.com', '705527', '2025-05-19 23:21:58', 1, '2025-05-19 23:21:45'),
-(27, 1, 'myca.lariosa12@gmail.com', '979891', '2025-05-19 23:24:46', 1, '2025-05-19 23:24:29'),
-(28, 2, 'Bushsellote15@gmail.com', '793586', '2025-05-20 10:21:15', 1, '2025-05-20 10:20:09'),
-(29, 9, 'albertolarrobis05@gmail.com', '474741', '2025-05-20 12:26:11', 0, '2025-05-20 12:21:11');
+(1, 1, 'myca.lariosa12@gmail.com', '487682', '2025-05-19 07:33:48', 0, '2025-05-19 07:28:48'),
+(2, 1, 'myca.lariosa12@gmail.com', '246073', '2025-05-19 07:33:08', 1, '2025-05-19 07:32:47'),
+(3, 1, 'myca.lariosa12@gmail.com', '950001', '2025-05-19 07:58:16', 1, '2025-05-19 07:57:47'),
+(4, 1, 'myca.lariosa12@gmail.com', '229599', '2025-05-19 08:02:00', 1, '2025-05-19 08:01:39'),
+(5, 1, 'myca.lariosa12@gmail.com', '628949', '2025-05-19 08:04:49', 1, '2025-05-19 08:04:14'),
+(6, 1, 'Myca.lariosa12@gmail.com', '110458', '2025-05-19 08:07:30', 1, '2025-05-19 08:06:46'),
+(7, 1, 'myca.lariosa12@gmail.com', '275952', '2025-05-19 08:13:35', 0, '2025-05-19 08:08:35'),
+(8, 1, 'myca.lariosa12@gmail.com', '132332', '2025-05-19 08:09:08', 1, '2025-05-19 08:08:54'),
+(9, 1, 'myca.lariosa12@gmail.com', '600189', '2025-05-19 08:11:33', 1, '2025-05-19 08:11:20'),
+(10, 1, 'myca.lariosa12@gmail.com', '282593', '2025-05-19 08:31:02', 0, '2025-05-19 08:26:02'),
+(11, 1, 'myca.lariosa12@gmail.com', '702753', '2025-05-19 08:32:40', 0, '2025-05-19 08:27:40'),
+(12, 1, 'myca.lariosa12@gmail.com', '391948', '2025-05-19 08:39:19', 0, '2025-05-19 08:34:19'),
+(13, 1, 'myca.lariosa12@gmail.com', '514530', '2025-05-19 08:41:08', 0, '2025-05-19 08:36:08'),
+(14, 1, 'myca.lariosa12@gmail.com', '940782', '2025-05-19 08:44:44', 0, '2025-05-19 08:39:44'),
+(15, 1, 'myca.lariosa12@gmail.com', '895873', '2025-05-19 08:45:53', 0, '2025-05-19 08:40:53'),
+(16, 1, 'Myca.lariosa12@gmail.com', '951914', '2025-05-19 08:53:35', 0, '2025-05-19 08:48:35'),
+(17, 1, 'myca.lariosa12@gmail.com', '843637', '2025-05-19 08:58:51', 0, '2025-05-19 08:53:51'),
+(18, 1, 'Myca.lariosa12@gmail.com', '246123', '2025-05-19 08:56:12', 1, '2025-05-19 08:55:51'),
+(19, 1, 'Myca.lariosa12@gmail.com', '321071', '2025-05-19 08:59:51', 1, '2025-05-19 08:59:38'),
+(20, 1, 'myca.lariosa12@gmail.com', '887967', '2025-05-19 09:05:16', 1, '2025-05-19 09:05:04'),
+(21, 1, 'myca.lariosa12@gmail.com', '913970', '2025-05-19 09:06:39', 1, '2025-05-19 09:06:25'),
+(22, 1, 'Myca.lariosa12@gmail.com', '317253', '2025-05-19 15:20:43', 0, '2025-05-19 15:15:43'),
+(23, 1, 'Myca.lariosa12@gmail.com', '785457', '2025-05-19 15:16:30', 1, '2025-05-19 15:16:14'),
+(24, 1, 'myca.lariosa12@gmail.com', '379334', '2025-05-19 15:18:28', 1, '2025-05-19 15:18:12'),
+(25, 1, 'Myca.lariosa12@gmail.com', '289927', '2025-05-19 15:19:59', 1, '2025-05-19 15:19:43'),
+(26, 1, 'myca.lariosa12@gmail.com', '705527', '2025-05-19 15:21:58', 1, '2025-05-19 15:21:45'),
+(27, 1, 'myca.lariosa12@gmail.com', '979891', '2025-05-19 15:24:46', 1, '2025-05-19 15:24:29'),
+(28, 2, 'Bushsellote15@gmail.com', '793586', '2025-05-20 02:21:15', 1, '2025-05-20 02:20:09'),
+(29, 9, 'albertolarrobis05@gmail.com', '474741', '2025-05-20 04:26:11', 0, '2025-05-20 04:21:11');
 
 -- --------------------------------------------------------
 
@@ -325,126 +300,6 @@ INSERT INTO `user` (`u_id`, `fname`, `lname`, `email`, `contact`, `username`, `p
 (7, 'art', 'lariosa', 'art@gmail.com', '09674857643', 'Art', '78c158ab5ab10bb92ef762672c660eb832f0b199c3911419b139784af90eb83c', 'Active', 'User', 'src/images/prof/default.png'),
 (8, 'Bush', 'Sellote', 'Bushidoo@gmail.com', '09999221232', 'Bush', '7c9aa883641b1ef4b76f8b141bd1d0308bc83eeebe38a60f70fdcff0aec5b90c', 'Active', 'Admin', 'src/images/prof/1746760827231_profile_2655785629195771464.jpg'),
 (9, 'Albert', 'Larrobis', 'Albertolarrobis05@gmail.com', '09234345324', 'Albert', 'b9a1302ce79a47a645bf4ba8fae23ae149360dee9d7381ae6c8f3cf2ac88025a', 'Active', 'User', 'src/images/prof/default.png');
-
--- --------------------------------------------------------
-
---
--- Structure for view `active_rentals_view`
---
-DROP TABLE IF EXISTS `active_rentals_view`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `active_rentals_view`  AS SELECT `r`.`rental_id` AS `rental_id`, `r`.`customer_name` AS `customer_name`, `r`.`customer_phone` AS `customer_phone`, `c`.`clothname` AS `item_name`, `r`.`rental_date` AS `rental_date`, `r`.`return_date` AS `return_date`, `r`.`total_amount` AS `total_amount`, `r`.`status` AS `status` FROM (`rentals` `r` join `clothes` `c` on(`r`.`clothes_id` = `c`.`clothesid`)) WHERE `r`.`status` = 'active' ;
-
--- --------------------------------------------------------
-
---
--- Structure for view `available_items_view`
---
-DROP TABLE IF EXISTS `available_items_view`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `available_items_view`  AS SELECT `clothes`.`clothesid` AS `clothesid`, `clothes`.`clothname` AS `name`, `clothes`.`description` AS `description`, `clothes`.`sizes` AS `size`, `clothes`.`category` AS `category`, `clothes`.`price` AS `daily_rate`, `clothes`.`photo_path` AS `image_path` FROM `clothes` WHERE `clothes`.`availability` = 'Available' ;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `clothes`
---
-ALTER TABLE `clothes`
-  ADD PRIMARY KEY (`clothesid`);
-
---
--- Indexes for table `forget_pass`
---
-ALTER TABLE `forget_pass`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_forget_pass_user_otp` (`u_id`,`otp`),
-  ADD KEY `idx_forget_pass_expires` (`expires_at`);
-
---
--- Indexes for table `logs`
---
-ALTER TABLE `logs`
-  ADD PRIMARY KEY (`log_id`),
-  ADD KEY `u_id` (`u_id`);
-
---
--- Indexes for table `rentals`
---
-ALTER TABLE `rentals`
-  ADD PRIMARY KEY (`rental_id`),
-  ADD KEY `clothes_id` (`clothesid`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`u_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `clothes`
---
-ALTER TABLE `clothes`
-  MODIFY `clothesid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
-
---
--- AUTO_INCREMENT for table `forget_pass`
---
-ALTER TABLE `forget_pass`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT for table `logs`
---
-ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
-
---
--- AUTO_INCREMENT for table `rentals`
---
-ALTER TABLE `rentals`
-  MODIFY `rental_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `forget_pass`
---
-ALTER TABLE `forget_pass`
-  ADD CONSTRAINT `forget_pass_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `logs`
---
-ALTER TABLE `logs`
-  ADD CONSTRAINT `u_id` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`);
-
---
--- Constraints for table `rentals`
---
-ALTER TABLE `rentals`
-  ADD CONSTRAINT `rentals_ibfk_1` FOREIGN KEY (`clothesid`) REFERENCES `clothes` (`clothesid`);
-
-DELIMITER $$
---
--- Events
---
-CREATE DEFINER=`root`@`localhost` EVENT `cleanup_otps_event` ON SCHEDULE EVERY 1 DAY STARTS '2025-05-20 00:50:23' ON COMPLETION NOT PRESERVE ENABLE DO CALL cleanup_expired_otps()$$
-
-DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
