@@ -30,7 +30,7 @@ public class addRental extends javax.swing.JFrame {
        private JPanel clothesPanel;
     private config connect = new config();
    
-    public addRental() {
+     public addRental() {
         initComponents();
         setTitle("Add Rental");
         setupClothesPanel();
@@ -66,7 +66,13 @@ private void loadAvailableClothes() {
             return;
         }
 
-        String query = "SELECT clothesid, clothname, sizes, price, photo_path FROM clothes WHERE availability = 'available' ORDER BY clothesid ASC";
+        // Modified query to exclude clothes with active rentals
+        String query = "SELECT c.clothesid, c.clothname, c.sizes, c.price, c.photo_path, c.category " +
+                       "FROM clothes c " +
+                       "LEFT JOIN rentals r ON c.clothesid = r.clothesid AND r.status = 'active' " +
+                       "WHERE c.availability = 'available' AND r.rental_id IS NULL " +
+                       "ORDER BY c.clothesid ASC";
+
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
 
@@ -78,6 +84,7 @@ private void loadAvailableClothes() {
             String size = rs.getString("sizes");
             double rate = rs.getDouble("price");
             String imagePath = rs.getString("photo_path");
+            String category = rs.getString("category");
 
             JPanel itemPanel = new JPanel(new BorderLayout(5, 5));
             Color defaultColor = new Color(30, 30, 30); // dark gray
@@ -115,7 +122,19 @@ private void loadAvailableClothes() {
             itemPanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    // Set the selected cloth details including ID
+                    admin.managerental.ClothSelection.setSelectedCloth(
+                        imagePath,
+                        name,
+                        category,
+                        String.valueOf(rate),
+                        clothesId // Pass the clothing ID
+                    );
+                    
+                    // Open the RentCloth form
                     new RentCloth().setVisible(true);
+                    // Close the current addRental form
+                    dispose();
                 }
 
                 @Override
@@ -142,6 +161,7 @@ private void loadAvailableClothes() {
         JOptionPane.showMessageDialog(this, "Error loading clothes: " + e.getMessage());
     }
 }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

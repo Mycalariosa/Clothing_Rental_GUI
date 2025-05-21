@@ -13,18 +13,59 @@ import admin.manageuser.Users;
 import admin.manageclothes.Clothes;
 import Authentication.Login;
 import javax.swing.JOptionPane;
-
+import config.config;
+import java.awt.BorderLayout;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Component;
+import java.awt.Dimension;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.awt.print.Printable;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.print.PageFormat;
+import java.sql.PreparedStatement;
+import java.util.Date;
+import javax.swing.BorderFactory;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
 /**
  *
  * @author Administrator
  */
 public class Rental extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Rental
-     */
+   
+    
     public Rental() {
         initComponents();
+        
+        setTitle("Rental Management");
+        setupRentalTable();
+        loadRentalData();
+     
     }
 
     /**
@@ -43,7 +84,7 @@ public class Rental extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         Manage = new javax.swing.JLabel();
         Name = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        rentaltable = new javax.swing.JScrollPane();
         settings = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
@@ -134,7 +175,7 @@ public class Rental extends javax.swing.JFrame {
         Name.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         Name.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 120, 20));
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 510, 260));
+        jPanel1.add(rentaltable, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 510, 260));
 
         settings.setBackground(new java.awt.Color(0, 0, 0,80));
         settings.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
@@ -412,11 +453,6 @@ public class Rental extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
         jLabel8.setText("ADD");
-        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel2MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -550,9 +586,167 @@ public class Rental extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jPanel2MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
+    
+private JTable rentalTable; // declare this at class level
+private void setupRentalTable() {
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Makes table non-editable
+            }
+        };
+
+        model.addColumn("Rental ID");
+        model.addColumn("Customer Name");
+        model.addColumn("Phone");
+        model.addColumn("Rental Date");
+        model.addColumn("Return Date");
+        model.addColumn("Total Amount");
+        model.addColumn("Status");
+
+        rentalTable = new JTable(model);
+        rentaltable.setViewportView(rentalTable);
+
+        // Row click event to show receipt
+        rentalTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = rentalTable.getSelectedRow();
+                if (selectedRow != -1) {
+                    int rentalId = Integer.parseInt(rentalTable.getValueAt(selectedRow, 0).toString());
+                    String customerName = rentalTable.getValueAt(selectedRow, 1).toString();
+                    String customerPhone = rentalTable.getValueAt(selectedRow, 2).toString();
+                    Date rentalDate = (Date) rentalTable.getValueAt(selectedRow, 3);
+                    Date returnDate = (Date) rentalTable.getValueAt(selectedRow, 4);
+                    String totalAmount = rentalTable.getValueAt(selectedRow, 5).toString();
+                    String status = rentalTable.getValueAt(selectedRow, 6).toString();
+
+                    int clothesId = getClothesIdByRentalId(rentalId);
+
+                    showPrintableReceipt(rentalId, customerName, customerPhone,
+                            rentalDate, returnDate, totalAmount, status, clothesId);
+                }
+            }
+        });
+    }
+
+    // Load data into the table
+    private void loadRentalData() {
+        try {
+            config connect = new config();
+            Connection conn = connect.getConnection();
+            if (conn == null) {
+                JOptionPane.showMessageDialog(this, "Database connection failed!");
+                return;
+            }
+
+            DefaultTableModel model = (DefaultTableModel) rentalTable.getModel();
+            model.setRowCount(0); // Clear previous data
+
+            String query = "SELECT rental_id, customer_name, customer_phone, rental_date, return_date, total_amount, status FROM rentals ORDER BY rental_date DESC";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getInt("rental_id"),
+                    rs.getString("customer_name"),
+                    rs.getString("customer_phone"),
+                    rs.getDate("rental_date"),
+                    rs.getDate("return_date"),
+                    String.format("₱%.2f", rs.getDouble("total_amount")),
+                    rs.getString("status")
+                };
+                model.addRow(row);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error loading rental data: " + e.getMessage());
+        }
+    }
+
+    // Get clothes ID for receipt
+    private int getClothesIdByRentalId(int rentalId) {
+        int clothesId = -1;
+        try {
+            config connect = new config();
+            Connection conn = connect.getConnection();
+            if (conn != null) {
+                String query = "SELECT clothesid FROM rentals WHERE rental_id = ?";
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                pstmt.setInt(1, rentalId);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    clothesId = rs.getInt("clothesid");
+                }
+                rs.close();
+                pstmt.close();
+                conn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error fetching clothes ID: " + e.getMessage());
+        }
+        return clothesId;
+    }
+
+    // Show printable receipt
+    private void showPrintableReceipt(int rentalId, String customerName, String customerPhone,
+                                  Date rentalDate, Date returnDate, String totalAmount,
+                                  String status, int clothesId) {
+
+    String receiptHTML = "<html><body style='font-family:sans-serif;'>"
+        + "<h2 style='text-align:center;'>RENTAL RECEIPT</h2>"
+        + "<hr>"
+        + "<p><strong>Rental ID:</strong> " + rentalId + "</p>"
+        + "<p><strong>Customer Name:</strong> " + customerName + "</p>"
+        + "<p><strong>Phone:</strong> " + customerPhone + "</p>"
+        + "<p><strong>Rental Date:</strong> " + rentalDate + "</p>"
+        + "<p><strong>Return Date:</strong> " + returnDate + "</p>"
+        + "<p><strong>Total Amount:</strong> " + totalAmount + "</p>"
+        + "<p><strong>Status:</strong> " + status + "</p>"
+        + "<p><strong>Clothes ID:</strong> " + clothesId + "</p>"
+        + "<hr>"
+        + "<p style='text-align:center;'>Thank you for renting with us!</p>"
+        + "</body></html>";
+
+    // Use JTextPane to support HTML formatting
+    JTextPane receiptPane = new JTextPane();
+    receiptPane.setContentType("text/html");
+    receiptPane.setText(receiptHTML);
+    receiptPane.setEditable(false);
+
+    JScrollPane scrollPane = new JScrollPane(receiptPane);
+    scrollPane.setPreferredSize(new Dimension(400, 400));
+
+    // Create print button
+    JButton printBtn = new JButton("Print Receipt");
+    printBtn.addActionListener(e -> {
+        try {
+            boolean complete = receiptPane.print(); // Opens print dialog
+            if (!complete) {
+                JOptionPane.showMessageDialog(null, "Print was canceled.");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error printing receipt: " + ex.getMessage());
+        }
+    });
+
+    // Panel to hold everything
+    JPanel panel = new JPanel(new BorderLayout(10, 10));
+    panel.add(scrollPane, BorderLayout.CENTER);
+    panel.add(printBtn, BorderLayout.SOUTH);
+
+    // Show in dialog
+    JOptionPane.showMessageDialog(null, panel, "Rental Receipt", JOptionPane.PLAIN_MESSAGE);
+}
+
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -615,7 +809,7 @@ public class Rental extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane rentaltable;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables
 }

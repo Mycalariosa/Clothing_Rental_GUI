@@ -1,10 +1,25 @@
 
 package admin.managerental;
 
+import admin.manageclothes.Clothes;
+import config.config;
 import java.awt.Image;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import user.user;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import admin.managerental.Rental;
 
 
 public class RentCloth extends javax.swing.JFrame {
@@ -14,7 +29,49 @@ public class RentCloth extends javax.swing.JFrame {
         initComponents();
     }
 
-   
+   private void loadClothDetails() {
+        // Get the selected cloth details
+        String imagePath = ClothSelection.selectedImagePath;
+        String selectedName = ClothSelection.selectedName;
+        String selectedCategory = ClothSelection.selectedCategory;
+        String selectedPrice = ClothSelection.selectedPrice;
+
+        // Validate that we have all required data
+        if (imagePath == null || selectedName == null || selectedCategory == null || selectedPrice == null) {
+            JOptionPane.showMessageDialog(this, 
+                "No cloth selected. Please select a cloth first.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            // Go back to the previous screen
+            new user().setVisible(true);
+            this.dispose();
+            return;
+        }
+
+        // Set the text of the ClothID label
+        ClothID.setText("ID: " + ClothSelection.selectedClothId);
+
+        // Format cloth details for the info label (excluding ID)
+        String clothDetailsText = "<html><b>Name:</b> " + selectedName + "<br>" 
+                                + "<b>Category:</b> " + selectedCategory + "<br>" 
+                                + "<b>Price:</b> " + selectedPrice + "/day</html>";
+        
+        // Set the text for the info JLabel
+        info.setText(clothDetailsText);
+
+        // Load and display the image
+        File imageFile = new File(imagePath);
+        if (imageFile.exists()) {
+            ImageIcon icon = new ImageIcon(imagePath);
+            Image scaledImage = icon.getImage().getScaledInstance(photo1.getWidth(), photo1.getHeight(), Image.SCALE_SMOOTH);
+            photo1.setIcon(new ImageIcon(scaledImage));
+        } else {
+            System.out.println("Image not found: " + imagePath);
+            photo1.setText("No Image");
+            photo1.setForeground(Color.WHITE);
+            photo1.setFont(new Font("Consolas", Font.PLAIN, 12));
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -24,22 +81,353 @@ public class RentCloth extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel2 = new javax.swing.JPanel();
+        rentedclothes = new javax.swing.JPanel();
+        photo1 = new javax.swing.JLabel();
+        cphone = new javax.swing.JTextField();
+        returndate = new javax.swing.JTextField();
+        rentaldate = new javax.swing.JTextField();
+        addclothes = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        backbutton = new javax.swing.JLabel();
+        cname = new javax.swing.JTextField();
+        ammount = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        ClothID = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        info = new javax.swing.JLabel();
+        back = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 653, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        rentedclothes.setBackground(new java.awt.Color(0, 0, 0,80));
+        rentedclothes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
+        javax.swing.GroupLayout rentedclothesLayout = new javax.swing.GroupLayout(rentedclothes);
+        rentedclothes.setLayout(rentedclothesLayout);
+        rentedclothesLayout.setHorizontalGroup(
+            rentedclothesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(photo1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 423, Short.MAX_VALUE)
+        rentedclothesLayout.setVerticalGroup(
+            rentedclothesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(photo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
         );
+
+        jPanel2.add(rentedclothes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 160, 190));
+
+        cphone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cphoneActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 150, 20));
+        jPanel2.add(returndate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, 150, -1));
+        jPanel2.add(rentaldate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 150, -1));
+
+        addclothes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addclothesMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
+        jLabel1.setText("ADD ");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addclothesLayout = new javax.swing.GroupLayout(addclothes);
+        addclothes.setLayout(addclothesLayout);
+        addclothesLayout.setHorizontalGroup(
+            addclothesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addclothesLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        addclothesLayout.setVerticalGroup(
+            addclothesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addclothesLayout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addComponent(jLabel1))
+        );
+
+        jPanel2.add(addclothes, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 300, 60, 20));
+
+        jLabel14.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel14.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Customer name");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, -1, 20));
+
+        jLabel15.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Customer phone");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 90, 20));
+
+        jLabel18.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Rental Date");
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, -1, 20));
+
+        jLabel23.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setText("Return Date");
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, -1, 20));
+
+        jLabel24.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Total Ammount");
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 80, 20));
+
+        backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        backbutton.setForeground(new java.awt.Color(255, 255, 255));
+        backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
+        backbutton.setText("back");
+        backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backbuttonMouseClicked(evt);
+            }
+        });
+        jPanel2.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
+
+        cname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cnameActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cname, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 150, 20));
+
+        ammount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ammountActionPerformed(evt);
+            }
+        });
+        jPanel2.add(ammount, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 150, 20));
+
+        jLabel3.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("RENTAL DETAILS");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, -1, -1));
+
+        ClothID.setBackground(new java.awt.Color(255, 255, 255));
+        ClothID.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        ClothID.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(ClothID, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 60, 40));
+
+        info.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 160, 60));
+
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/f.png"))); // NOI18N
+        jPanel2.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 400));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cphoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cphoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cphoneActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void addclothesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addclothesMouseClicked
+
+        // Collect rental details from the text fields using the correct variable names
+        String customerName = cname.getText().trim();
+        String customerPhone = cphone.getText().trim();
+        String rentalDateStr = rentaldate.getText().trim();
+        String returnDateStr = returndate.getText().trim();
+        // String totalAmountText = ammount.getText().trim(); // We will auto-calculate this
+        int clothesId = ClothSelection.selectedClothId;
+        String clothPriceStr = ClothSelection.selectedPrice;
+
+        // Validate other required fields
+        if (customerName.isEmpty() || customerPhone.isEmpty() || rentalDateStr.isEmpty() || returnDateStr.isEmpty() || clothesId == -1) {
+            JOptionPane.showMessageDialog(this, "Please fill in all rental details and ensure a cloth is selected.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validate mobile number (must be 11 digits)
+        if (!customerPhone.matches("\\d{11}")) {
+            JOptionPane.showMessageDialog(this, "Mobile number must be exactly 11 digits.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        double clothPrice = 0.0;
+
+        // Validate and parse cloth price
+        if (clothPriceStr == null || clothPriceStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Cloth price is not available.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            clothPrice = Double.parseDouble(clothPriceStr);
+            if (clothPrice < 0) {
+                JOptionPane.showMessageDialog(this, "Invalid cloth price.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid format for Cloth Price.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Date and Amount Validation and Calculation
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Define your desired date format
+        dateFormat.setLenient(false); // Make date parsing strict
+
+        Date rentalDate = null;
+        Date returnDate = null;
+
+        // Validate and parse dates
+        try {
+            rentalDate = dateFormat.parse(rentalDateStr);
+            returnDate = dateFormat.parse(returnDateStr);
+
+            Date today = new Date();
+            // Clear the time part for comparison
+            SimpleDateFormat justDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date todayFormatted = justDateFormat.parse(justDateFormat.format(today));
+
+            if (rentalDate.before(todayFormatted)) {
+                JOptionPane.showMessageDialog(this, "Rental Date cannot be in the past.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (returnDate.before(rentalDate)) {
+                JOptionPane.showMessageDialog(this, "Return Date cannot be before Rental Date.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid date format. Please use yyyy-MM-dd.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Calculate the number of days and the total amount
+        long diffInMillies = Math.abs(returnDate.getTime() - rentalDate.getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        // Add one day to include the return day in the rental period
+        long numberOfDays = diff + 1;
+
+        double totalAmount = numberOfDays * clothPrice;
+
+        // Set the calculated total amount in the ammount text field
+        ammount.setText(String.format("%.2f", totalAmount)); // Format to 2 decimal places
+
+        // Basic validation for other fields after date and amount calculation
+        if (customerName.isEmpty() || customerPhone.isEmpty() || clothesId == -1) {
+            JOptionPane.showMessageDialog(this, "Please fill in customer details and ensure a cloth is selected.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Database insertion logic
+        Connection con = null;
+        PreparedStatement pst = null;
+
+        try {
+            config connect = new config();
+            con = connect.getConnection(); // Get database connection
+
+            String sql = "INSERT INTO rentals (customer_name, customer_phone, clothesid, rental_date, return_date, total_amount, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            pst = con.prepareStatement(sql);
+
+            pst.setString(1, customerName);
+            pst.setString(2, customerPhone);
+            pst.setInt(3, clothesId);
+            pst.setString(4, rentalDateStr); // Use rentalDateStr
+            pst.setString(5, returnDateStr); // Use returnDateStr
+            pst.setDouble(6, totalAmount); // Use calculated totalAmount
+            pst.setString(7, "active"); // Set status to 'active' for new rentals
+
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Rental added successfully!");
+                // Clear input fields
+                cname.setText("");
+                cphone.setText("");
+                rentaldate.setText("");
+                returndate.setText("");
+                ammount.setText("");
+                // Clear the cloth selection
+                ClothSelection.clearSelection();
+                // Navigate back to the Rental page
+                new Rental().setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to add rental.", "Database Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Close resources
+            try {
+                if (pst != null) pst.close();
+                if (con != null) con.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_addclothesMouseClicked
+
+    private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
+        new Clothes().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backbuttonMouseClicked
+
+    private void cnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cnameActionPerformed
+
+    private void ammountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ammountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ammountActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+         loadClothDetails();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -77,5 +465,26 @@ public class RentCloth extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ClothID;
+    private javax.swing.JPanel addclothes;
+    private javax.swing.JTextField ammount;
+    private javax.swing.JLabel back;
+    private javax.swing.JLabel backbutton;
+    private javax.swing.JTextField cname;
+    private javax.swing.JTextField cphone;
+    private javax.swing.JLabel info;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel photo1;
+    private javax.swing.JTextField rentaldate;
+    private javax.swing.JPanel rentedclothes;
+    private javax.swing.JTextField returndate;
     // End of variables declaration//GEN-END:variables
 }
