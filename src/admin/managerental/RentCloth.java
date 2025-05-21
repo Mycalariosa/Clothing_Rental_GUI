@@ -137,7 +137,7 @@ public class RentCloth extends javax.swing.JFrame {
                 cphoneActionPerformed(evt);
             }
         });
-        jPanel2.add(cphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 150, 20));
+        jPanel2.add(cphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 150, -1));
         jPanel2.add(returndate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 150, -1));
         jPanel2.add(rentaldate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 150, -1));
 
@@ -215,14 +215,14 @@ public class RentCloth extends javax.swing.JFrame {
                 cnameActionPerformed(evt);
             }
         });
-        jPanel2.add(cname, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 150, 20));
+        jPanel2.add(cname, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 150, -1));
 
         ammount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ammountActionPerformed(evt);
             }
         });
-        jPanel2.add(ammount, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 150, 20));
+        jPanel2.add(ammount, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 150, -1));
 
         jLabel3.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -264,6 +264,14 @@ public class RentCloth extends javax.swing.JFrame {
         jLabel16.setText("Customer name");
         jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, 20));
         jPanel2.add(userid, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 50, -1));
+        
+        // Add focus listener to userid field
+        userid.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                fetchUserDetails();
+            }
+        });
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/f.png"))); // NOI18N
         jPanel2.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
