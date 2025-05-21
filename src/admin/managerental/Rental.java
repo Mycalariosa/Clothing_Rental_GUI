@@ -685,7 +685,7 @@ public class Rental extends javax.swing.JFrame {
             }
 
             // Check rental status and dates
-            String checkQuery = "SELECT r.status, r.clothesid, c.clothname, r.rental_date, r.return_date, r.total_amount " +
+            String checkQuery = "SELECT r.status, r.clothesid, c.clothname, r.rental_date, r.return_date, r.total_amount, c.price " +
                               "FROM rentals r " +
                               "JOIN clothes c ON r.clothesid = c.clothesid " +
                               "WHERE r.rental_id = ?";
@@ -704,6 +704,7 @@ public class Rental extends javax.swing.JFrame {
             Date rentalDate = rs.getDate("rental_date");
             Date returnDate = rs.getDate("return_date");
             double totalAmount = rs.getDouble("total_amount");
+            double dailyPrice = rs.getDouble("price"); // Get daily price
             Date currentDate = new Date(); // Get current date
 
             // Check if the item is actually rented
@@ -737,9 +738,9 @@ public class Rental extends javax.swing.JFrame {
             if (isLate) {
                 returnMessage = "\nWARNING: This return is late! Return date was: " + returnDate;
             } else if (isEarly) {
-                // Calculate 50% refund for early return
-                refundAmount = totalAmount * 0.5;
-                returnMessage = "\nEarly Return: 50% refund of ₱" + String.format("%.2f", refundAmount) + " will be issued.";
+                // Calculate 50% refund of one day's price only
+                refundAmount = dailyPrice * 0.5;
+                returnMessage = "\nEarly Return: 50% refund of one day's price (₱" + String.format("%.2f", refundAmount) + ") will be issued.";
             }
 
             // Confirm return

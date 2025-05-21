@@ -77,7 +77,7 @@ public class Clothes extends javax.swing.JFrame {
                 tableModel.addRow(new Object[]{
                     rs.getInt("clothesid"),
                     rs.getString("clothname"),
-                    rs.getDouble("price"),
+                    String.format("%.2f", rs.getDouble("price")),
                     rs.getString("category"),
                     rs.getString("sizes"),
                     rs.getString("availability"),
