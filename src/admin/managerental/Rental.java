@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Frame;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -705,53 +706,147 @@ private void setupRentalTable() {
     private void showPrintableReceipt(int rentalId, String customerName, String customerPhone,
                                   Date rentalDate, Date returnDate, String totalAmount,
                                   String status, int clothesId) {
-
-    String receiptHTML = "<html><body style='font-family:sans-serif;'>"
-        + "<h2 style='text-align:center;'>RENTAL RECEIPT</h2>"
-        + "<hr>"
-        + "<p><strong>Rental ID:</strong> " + rentalId + "</p>"
-        + "<p><strong>Customer Name:</strong> " + customerName + "</p>"
-        + "<p><strong>Phone:</strong> " + customerPhone + "</p>"
-        + "<p><strong>Rental Date:</strong> " + rentalDate + "</p>"
-        + "<p><strong>Return Date:</strong> " + returnDate + "</p>"
-        + "<p><strong>Total Amount:</strong> " + totalAmount + "</p>"
-        + "<p><strong>Status:</strong> " + status + "</p>"
-        + "<p><strong>Clothes ID:</strong> " + clothesId + "</p>"
-        + "<hr>"
-        + "<p style='text-align:center;'>Thank you for renting with us!</p>"
-        + "</body></html>";
-
-    // Use JTextPane to support HTML formatting
-    JTextPane receiptPane = new JTextPane();
-    receiptPane.setContentType("text/html");
-    receiptPane.setText(receiptHTML);
-    receiptPane.setEditable(false);
-
-    JScrollPane scrollPane = new JScrollPane(receiptPane);
-    scrollPane.setPreferredSize(new Dimension(400, 400));
-
-    // Create print button
-    JButton printBtn = new JButton("Print Receipt");
-    printBtn.addActionListener(e -> {
         try {
-            boolean complete = receiptPane.print(); // Opens print dialog
-            if (!complete) {
-                JOptionPane.showMessageDialog(null, "Print was canceled.");
+            config connect = new config();
+            Connection conn = connect.getConnection();
+            if (conn == null) {
+                JOptionPane.showMessageDialog(this, "Database connection failed!");
+                return;
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error printing receipt: " + ex.getMessage());
+
+            // Get clothing details
+            String query = "SELECT c.*, r.user_id FROM clothes c " +
+                          "JOIN rentals r ON c.clothesid = r.clothesid " +
+                          "WHERE r.rental_id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, rentalId);
+            ResultSet rs = pstmt.executeQuery();
+
+            String clothName = "";
+            String description = "";
+            String size = "";
+            String category = "";
+            String color = "";
+            double price = 0.0;
+            int userId = 0;
+
+            if (rs.next()) {
+                clothName = rs.getString("clothname");
+                description = rs.getString("description");
+                size = rs.getString("sizes");
+                category = rs.getString("category");
+                color = rs.getString("color");
+                price = rs.getDouble("price");
+                userId = rs.getInt("user_id");
+            }
+
+            rs.close();
+            pstmt.close();
+            conn.close();
+
+            // Calculate number of days
+            long diffInMillies = returnDate.getTime() - rentalDate.getTime();
+            long diffInDays = diffInMillies / (24 * 60 * 60 * 1000);
+
+            // Create a more professional receipt with clothing details
+            String receiptHTML = "<html><body style='font-family: Consolas, monospace; max-width: 400px; margin: 0 auto;'>"
+                + "<div style='text-align: center; border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 10px;'>"
+                + "<h1 style='color: #000; margin: 0; font-size: 16px;'>MB ATELIER</h1>"
+                + "<p style='color: #666; margin: 3px 0; font-size: 10px;'>Rental Receipt</p>"
+                + "</div>"
+                
+                + "<div style='margin-bottom: 10px;'>"
+                + "<h2 style='color: #000; font-size: 12px; margin: 0 0 5px 0;'>Rental Details</h2>"
+                + "<table style='width: 100%; border-collapse: collapse; font-size: 10px;'>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666; width: 40%;'>Rental ID:</td><td style='padding: 2px; color: #000; text-align: left;'>" + rentalId + "</td></tr>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Status:</td><td style='padding: 2px; color: #000; text-align: left;'>" + status + "</td></tr>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Rental Date:</td><td style='padding: 2px; color: #000; text-align: left;'>" + rentalDate + "</td></tr>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Return Date:</td><td style='padding: 2px; color: #000; text-align: left;'>" + returnDate + "</td></tr>"
+                + "</table>"
+                + "</div>"
+
+                + "<div style='margin-bottom: 10px;'>"
+                + "<h2 style='color: #000; font-size: 12px; margin: 0 0 5px 0;'>Customer Information</h2>"
+                + "<table style='width: 100%; border-collapse: collapse; font-size: 10px;'>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666; width: 40%;'>User ID:</td><td style='padding: 2px; color: #000; text-align: left;'>" + userId + "</td></tr>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Name:</td><td style='padding: 2px; color: #000; text-align: left;'>" + customerName + "</td></tr>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Phone:</td><td style='padding: 2px; color: #000; text-align: left;'>" + customerPhone + "</td></tr>"
+                + "</table>"
+                + "</div>"
+
+                + "<div style='margin-bottom: 10px;'>"
+                + "<h2 style='color: #000; font-size: 12px; margin: 0 0 5px 0;'>Clothing Details</h2>"
+                + "<table style='width: 100%; border-collapse: collapse; font-size: 10px;'>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666; width: 40%;'>Name:</td><td style='padding: 2px; color: #000; text-align: left;'>" + clothName + "</td></tr>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Category:</td><td style='padding: 2px; color: #000; text-align: left;'>" + category + "</td></tr>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Size:</td><td style='padding: 2px; color: #000; text-align: left;'>" + size + "</td></tr>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Color:</td><td style='padding: 2px; color: #000; text-align: left;'>" + color + "</td></tr>"
+                + "</table>"
+                + "</div>"
+
+                + "<div style='margin-bottom: 10px;'>"
+                + "<h2 style='color: #000; font-size: 12px; margin: 0 0 5px 0;'>Payment Information</h2>"
+                + "<table style='width: 100%; border-collapse: collapse; font-size: 10px;'>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666; width: 40%;'>Daily Rate:</td><td style='padding: 2px; color: #000; text-align: left;'>₱" + String.format("%.2f", price) + "</td></tr>"
+                + "<tr><td style='padding: 2px 15px 2px 2px; color: #666;'>Number of Days:</td><td style='padding: 2px; color: #000; text-align: left;'>" + diffInDays + " days</td></tr>"
+                + "<tr style='font-weight: bold;'><td style='padding: 2px 15px 2px 2px; color: #000;'>Total Amount:</td><td style='padding: 2px; color: #000; text-align: left;'>" + totalAmount + "</td></tr>"
+                + "</table>"
+                + "</div>"
+
+                + "<div style='text-align: center; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px;'>"
+                + "<p style='color: #666; margin: 3px 0; font-size: 9px;'>Thank you for choosing MB ATELIER!</p>"
+                + "<p style='color: #666; margin: 3px 0; font-size: 9px;'>Please return the item on or before the return date.</p>"
+                + "</div>"
+                + "</body></html>";
+
+            // Use JTextPane to support HTML formatting
+            JTextPane receiptPane = new JTextPane();
+            receiptPane.setContentType("text/html");
+            receiptPane.setText(receiptHTML);
+            receiptPane.setEditable(false);
+
+            JScrollPane scrollPane = new JScrollPane(receiptPane);
+            scrollPane.setPreferredSize(new Dimension(400, 500));
+
+            // Create print button with improved styling
+            JButton printBtn = new JButton("Print Receipt");
+            printBtn.setFont(new Font("Arial", Font.BOLD, 12));
+            printBtn.setBackground(Color.BLACK);
+            printBtn.setForeground(Color.WHITE);
+            printBtn.setFocusPainted(false);
+            printBtn.setBorderPainted(false);
+            printBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+            printBtn.addActionListener(e -> {
+                try {
+                    boolean complete = receiptPane.print();
+                    if (!complete) {
+                        JOptionPane.showMessageDialog(null, "Print was canceled.");
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error printing receipt: " + ex.getMessage());
+                }
+            });
+
+            // Panel to hold everything with improved styling
+            JPanel panel = new JPanel(new BorderLayout(10, 10));
+            panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            panel.add(scrollPane, BorderLayout.CENTER);
+            panel.add(printBtn, BorderLayout.SOUTH);
+
+            // Show in dialog with custom title
+            JDialog dialog = new JDialog((Frame) null, "Rental Receipt", true);
+            dialog.setContentPane(panel);
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error generating receipt: " + e.getMessage());
         }
-    });
-
-    // Panel to hold everything
-    JPanel panel = new JPanel(new BorderLayout(10, 10));
-    panel.add(scrollPane, BorderLayout.CENTER);
-    panel.add(printBtn, BorderLayout.SOUTH);
-
-    // Show in dialog
-    JOptionPane.showMessageDialog(null, panel, "Rental Receipt", JOptionPane.PLAIN_MESSAGE);
-}
+    }
 
 
     public static void main(String args[]) {

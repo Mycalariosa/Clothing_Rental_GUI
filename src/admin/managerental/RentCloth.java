@@ -1,4 +1,3 @@
-
 package admin.managerental;
 
 import admin.manageclothes.Clothes;
@@ -20,13 +19,14 @@ import java.util.concurrent.TimeUnit;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import admin.managerental.Rental;
-
+import java.sql.ResultSet;
 
 public class RentCloth extends javax.swing.JFrame {
 
     
     public RentCloth() {
         initComponents();
+        setupDateFieldPlaceholders();
     }
 
    private void loadClothDetails() {
@@ -101,6 +101,8 @@ public class RentCloth extends javax.swing.JFrame {
         ClothID = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         info = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        userid = new javax.swing.JTextField();
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -134,9 +136,9 @@ public class RentCloth extends javax.swing.JFrame {
                 cphoneActionPerformed(evt);
             }
         });
-        jPanel2.add(cphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 150, 20));
-        jPanel2.add(returndate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, 150, -1));
-        jPanel2.add(rentaldate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 150, -1));
+        jPanel2.add(cphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 150, 20));
+        jPanel2.add(returndate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 150, -1));
+        jPanel2.add(rentaldate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 150, -1));
 
         addclothes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -168,33 +170,33 @@ public class RentCloth extends javax.swing.JFrame {
                 .addComponent(jLabel1))
         );
 
-        jPanel2.add(addclothes, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 300, 60, 20));
+        jPanel2.add(addclothes, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, 60, 20));
 
         jLabel14.setBackground(new java.awt.Color(255, 255, 255));
         jLabel14.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Customer name");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, -1, 20));
+        jLabel14.setText("Customer ID");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, 20));
 
         jLabel15.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Customer phone");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 90, 20));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 90, 20));
 
         jLabel18.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Rental Date");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, -1, 20));
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, 20));
 
         jLabel23.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Return Date");
-        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, -1, 20));
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, 20));
 
         jLabel24.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Total Ammount");
-        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 80, 20));
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 80, 20));
 
         backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         backbutton.setForeground(new java.awt.Color(255, 255, 255));
@@ -212,14 +214,14 @@ public class RentCloth extends javax.swing.JFrame {
                 cnameActionPerformed(evt);
             }
         });
-        jPanel2.add(cname, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 150, 20));
+        jPanel2.add(cname, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 150, 20));
 
         ammount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ammountActionPerformed(evt);
             }
         });
-        jPanel2.add(ammount, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 150, 20));
+        jPanel2.add(ammount, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 150, 20));
 
         jLabel3.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -251,6 +253,26 @@ public class RentCloth extends javax.swing.JFrame {
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 160, 60));
 
+        jLabel16.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel16.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Customer name");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, 20));
+        jPanel2.add(userid, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 50, -1));
+
+        // Add event listeners for userid textfield
+        userid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fetchUserDetails();
+            }
+        });
+        
+        userid.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fetchUserDetails();
+            }
+        });
+
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/f.png"))); // NOI18N
         jPanel2.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
 
@@ -268,20 +290,117 @@ public class RentCloth extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void addclothesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addclothesMouseClicked
+    private boolean isUserActive(String customerName) {
+        config connect = new config();
+        String sql = "SELECT status FROM user WHERE CONCAT(fname, ' ', lname) = ?";
+        try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
+            pst.setString(1, customerName);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    String status = rs.getString("status");
+                    return "Active".equals(status);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 
+    private boolean hasActiveRentals(String customerName) {
+        config connect = new config();
+        String sql = "SELECT COUNT(*) FROM rentals WHERE customer_name = ? AND status = 'active'";
+        try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
+            pst.setString(1, customerName);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean isUserRole(String customerName) {
+        config connect = new config();
+        String sql = "SELECT role FROM user WHERE CONCAT(fname, ' ', lname) = ?";
+        try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
+            pst.setString(1, customerName);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    String role = rs.getString("role");
+                    return "User".equals(role);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    private void fetchUserDetails() {
+        String userId = userid.getText().trim();
+        if (!userId.isEmpty()) {
+            config connect = new config();
+            String sql = "SELECT fname, lname FROM user WHERE u_id = ?";
+            try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
+                pst.setString(1, userId);
+                try (ResultSet rs = pst.executeQuery()) {
+                    if (rs.next()) {
+                        String firstName = rs.getString("fname");
+                        String lastName = rs.getString("lname");
+                        cname.setText(firstName + " " + lastName);
+                    } else {
+                        cname.setText("");
+                        JOptionPane.showMessageDialog(this, 
+                            "No user found with ID: " + userId,
+                            "User Not Found",
+                            JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, 
+                    "Error fetching user details: " + ex.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void addclothesMouseClicked(java.awt.event.MouseEvent evt) {
         // Collect rental details from the text fields using the correct variable names
+        String userId = userid.getText().trim();
         String customerName = cname.getText().trim();
         String customerPhone = cphone.getText().trim();
         String rentalDateStr = rentaldate.getText().trim();
         String returnDateStr = returndate.getText().trim();
-        // String totalAmountText = ammount.getText().trim(); // We will auto-calculate this
         int clothesId = ClothSelection.selectedClothId;
         String clothPriceStr = ClothSelection.selectedPrice;
 
         // Validate other required fields
         if (customerName.isEmpty() || customerPhone.isEmpty() || rentalDateStr.isEmpty() || returnDateStr.isEmpty() || clothesId == -1) {
             JOptionPane.showMessageDialog(this, "Please fill in all rental details and ensure a cloth is selected.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Check if user exists and is active
+        if (!isUserActive(customerName)) {
+            JOptionPane.showMessageDialog(this, "User is not registered or not active. Please register first.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Check if user is not an admin
+        if (!isUserRole(customerName)) {
+            JOptionPane.showMessageDialog(this, "Admin users are not allowed to rent clothes.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Check if user has any active rentals
+        if (hasActiveRentals(customerName)) {
+            JOptionPane.showMessageDialog(this, "You have an active rental. Please return the current item before renting another one.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -311,8 +430,8 @@ public class RentCloth extends javax.swing.JFrame {
         }
 
         // Date and Amount Validation and Calculation
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Define your desired date format
-        dateFormat.setLenient(false); // Make date parsing strict
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
 
         Date rentalDate = null;
         Date returnDate = null;
@@ -337,26 +456,18 @@ public class RentCloth extends javax.swing.JFrame {
                 return;
             }
 
+            // Calculate the number of days between rental and return dates
+            long diffInMillies = returnDate.getTime() - rentalDate.getTime();
+            long numberOfDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+            // Calculate total amount (number of days * price per day)
+            double totalAmount = numberOfDays * clothPrice;
+
+            // Set the calculated total amount in the ammount text field
+            ammount.setText(String.format("%.2f", totalAmount));
+
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Invalid date format. Please use yyyy-MM-dd.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Calculate the number of days and the total amount
-        long diffInMillies = Math.abs(returnDate.getTime() - rentalDate.getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-
-        // Add one day to include the return day in the rental period
-        long numberOfDays = diff + 1;
-
-        double totalAmount = numberOfDays * clothPrice;
-
-        // Set the calculated total amount in the ammount text field
-        ammount.setText(String.format("%.2f", totalAmount)); // Format to 2 decimal places
-
-        // Basic validation for other fields after date and amount calculation
-        if (customerName.isEmpty() || customerPhone.isEmpty() || clothesId == -1) {
-            JOptionPane.showMessageDialog(this, "Please fill in customer details and ensure a cloth is selected.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -366,18 +477,36 @@ public class RentCloth extends javax.swing.JFrame {
 
         try {
             config connect = new config();
-            con = connect.getConnection(); // Get database connection
+            con = connect.getConnection();
 
-            String sql = "INSERT INTO rentals (customer_name, customer_phone, clothesid, rental_date, return_date, total_amount, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            // First get the user_id from the user table
+            String userIdQuery = "SELECT u_id FROM user WHERE CONCAT(fname, ' ', lname) = ?";
+            int customerUserId = -1;
+            try (PreparedStatement userIdStmt = con.prepareStatement(userIdQuery)) {
+                userIdStmt.setString(1, customerName);
+                try (ResultSet rs = userIdStmt.executeQuery()) {
+                    if (rs.next()) {
+                        customerUserId = rs.getInt("u_id");
+                    }
+                }
+            }
+
+            if (customerUserId == -1) {
+                JOptionPane.showMessageDialog(this, "Could not find user ID for the customer.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String sql = "INSERT INTO rentals (customer_name, customer_phone, clothesid, rental_date, return_date, total_amount, status, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             pst = con.prepareStatement(sql);
 
             pst.setString(1, customerName);
             pst.setString(2, customerPhone);
             pst.setInt(3, clothesId);
-            pst.setString(4, rentalDateStr); // Use rentalDateStr
-            pst.setString(5, returnDateStr); // Use returnDateStr
-            pst.setDouble(6, totalAmount); // Use calculated totalAmount
-            pst.setString(7, "active"); // Set status to 'active' for new rentals
+            pst.setString(4, rentalDateStr);
+            pst.setString(5, returnDateStr);
+            pst.setDouble(6, Double.parseDouble(ammount.getText()));
+            pst.setString(7, "active");
+            pst.setInt(8, customerUserId);
 
             int rowsAffected = pst.executeUpdate();
 
@@ -410,7 +539,7 @@ public class RentCloth extends javax.swing.JFrame {
                 ex.printStackTrace();
             }
         }
-    }//GEN-LAST:event_addclothesMouseClicked
+    }
 
     private void backbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backbuttonMouseClicked
         new Clothes().setVisible(true);
@@ -428,6 +557,53 @@ public class RentCloth extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
          loadClothDetails();
     }//GEN-LAST:event_formWindowActivated
+
+    private void setupDateFieldPlaceholders() {
+        // Set placeholder text
+        rentaldate.setText("YYYY-MM-DD");
+        returndate.setText("YYYY-MM-DD");
+        
+        // Set placeholder color
+        rentaldate.setForeground(new Color(128, 128, 128));
+        returndate.setForeground(new Color(128, 128, 128));
+        
+        // Add focus listeners
+        rentaldate.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (rentaldate.getText().equals("YYYY-MM-DD")) {
+                    rentaldate.setText("");
+                    rentaldate.setForeground(Color.BLACK);
+                }
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (rentaldate.getText().isEmpty()) {
+                    rentaldate.setText("YYYY-MM-DD");
+                    rentaldate.setForeground(new Color(128, 128, 128));
+                }
+            }
+        });
+        
+        returndate.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (returndate.getText().equals("YYYY-MM-DD")) {
+                    returndate.setText("");
+                    returndate.setForeground(Color.BLACK);
+                }
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (returndate.getText().isEmpty()) {
+                    returndate.setText("YYYY-MM-DD");
+                    returndate.setForeground(new Color(128, 128, 128));
+                }
+            }
+        });
+    }
 
     /**
      * @param args the command line arguments
@@ -476,6 +652,7 @@ public class RentCloth extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -486,5 +663,6 @@ public class RentCloth extends javax.swing.JFrame {
     private javax.swing.JTextField rentaldate;
     private javax.swing.JPanel rentedclothes;
     private javax.swing.JTextField returndate;
+    private javax.swing.JTextField userid;
     // End of variables declaration//GEN-END:variables
 }

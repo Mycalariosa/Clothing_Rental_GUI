@@ -22,6 +22,11 @@ public class EmailSender {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.ssl.trust", "*"); // Trust all SSL certificates
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2"); // Use TLS 1.2
+        props.put("mail.smtp.connectiontimeout", "5000"); // 5 seconds timeout
+        props.put("mail.smtp.timeout", "5000"); // 5 seconds timeout
+        props.put("mail.smtp.writetimeout", "5000"); // 5 seconds timeout
 
         return Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
