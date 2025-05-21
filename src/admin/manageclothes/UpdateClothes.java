@@ -55,7 +55,7 @@ public class UpdateClothes extends javax.swing.JFrame {
 
             if (rs.next()) {
                 clothname.setText(rs.getString("clothname"));
-                price.setText(String.valueOf(rs.getDouble("price")));
+                price.setText(String.format("%.2f", rs.getDouble("price")));
                 category.setText(rs.getString("category"));
                 description.setText(rs.getString("description"));
                 size.setSelectedItem(rs.getString("sizes"));
@@ -416,6 +416,8 @@ public class UpdateClothes extends javax.swing.JFrame {
             if (priceValue <= 0) {
                 errorMessage.append("Price must be a positive number.\n");
             }
+            // Format price to 2 decimal places
+            priceValue = Math.round(priceValue * 100.0) / 100.0;
         } catch (NumberFormatException e) {
             errorMessage.append("Invalid price format.\n");
         }
@@ -434,25 +436,39 @@ public class UpdateClothes extends javax.swing.JFrame {
         try {
             Connection con = connect.getConnection();
             
-            // Check for active rentals if trying to set availability to Available
-            if (selectedAvailability.equals("Available")) {
-                PreparedStatement checkRental = con.prepareStatement(
-                    "SELECT COUNT(*) FROM rental WHERE clothesid = ? AND status = 'Rented'"
-                );
-                checkRental.setInt(1, clothingId);
-                ResultSet rs = checkRental.executeQuery();
+            // First check current availability
+            PreparedStatement checkCurrentStatus = con.prepareStatement(
+                "SELECT availability FROM clothes WHERE clothesid = ?"
+            );
+            checkCurrentStatus.setInt(1, clothingId);
+            ResultSet currentStatusRs = checkCurrentStatus.executeQuery();
+            
+            if (currentStatusRs.next()) {
+                String currentAvailability = currentStatusRs.getString("availability");
                 
-                if (rs.next() && rs.getInt(1) > 0) {
-                    JOptionPane.showMessageDialog(this, 
-                        "Cannot set availability to Available while item is still rented out.", 
-                        "Validation Error", 
-                        JOptionPane.ERROR_MESSAGE);
-                    checkRental.close();
-                    con.close();
-                    return;
+                // If currently unavailable, check if it has been returned
+                if (currentAvailability.equals("Unavailable")) {
+                    PreparedStatement checkReturnStatus = con.prepareStatement(
+                        "SELECT COUNT(*) FROM rentals WHERE clothesid = ? AND status = 'Returned'"
+                    );
+                    checkReturnStatus.setInt(1, clothingId);
+                    ResultSet returnStatusRs = checkReturnStatus.executeQuery();
+                    
+                    if (returnStatusRs.next() && returnStatusRs.getInt(1) > 0) {
+                        // If returned, automatically set availability to Available
+                        selectedAvailability = "Available";
+                        availability.setSelectedItem("Available");
+                    } else {
+                        JOptionPane.showMessageDialog(this, 
+                            "This clothes has not been returned yet. Please wait for the return before updating.", 
+                            "Update Restricted - Clothes Not Returned", 
+                            JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                    checkReturnStatus.close();
                 }
-                checkRental.close();
             }
+            checkCurrentStatus.close();
             
             // Start transaction
             con.setAutoCommit(false);
@@ -491,7 +507,7 @@ public class UpdateClothes extends javax.swing.JFrame {
                 // If availability is changed to "Available", update rental status
                 if (selectedAvailability.equals("Available")) {
                     PreparedStatement updateRental = con.prepareStatement(
-                        "UPDATE rental SET status = 'Returned' WHERE clothesid = ? AND status = 'Rented'"
+                        "UPDATE rentals SET status = 'Returned' WHERE clothesid = ? AND status = 'active'"
                     );
                     updateRental.setInt(1, clothingId);
                     updateRental.executeUpdate();
