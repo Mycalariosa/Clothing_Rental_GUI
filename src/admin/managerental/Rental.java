@@ -1058,7 +1058,7 @@ public class Rental extends javax.swing.JFrame {
             receiptPane.setBackground(Color.WHITE);
 
             JScrollPane scrollPane = new JScrollPane(receiptPane);
-            scrollPane.setPreferredSize(new Dimension(450, 600));
+            scrollPane.setPreferredSize(new Dimension(350, 500));
             scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
             // Create print button with modern styling
