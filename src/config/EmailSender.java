@@ -5,13 +5,18 @@ import java.util.Random;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeBodyPart;
 import java.io.UnsupportedEncodingException;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 
 public class EmailSender {
 
-    private static final String FROM_EMAIL = "dentalflow2025@gmail.com"; // your sender email
-    private static final String FROM_PASSWORD = "mpds vlzw cnqh dwco";   // your Gmail app password
-    private static final String SENDER_NAME = "Clothing Rental";
+    private static final String FROM_EMAIL = "clothingrental2024@gmail.com"; // Clothing Rental sender email
+    private static final String FROM_PASSWORD = "fxpc lhat jano eoyj";   // Gmail app password
+    private static final String SENDER_NAME = "Clothing Rental System";
 
     /**
      * Create and return a configured mail session.
@@ -22,13 +27,15 @@ public class EmailSender {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.ssl.trust", "*"); // Trust all SSL certificates
-        props.put("mail.smtp.ssl.protocols", "TLSv1.2"); // Use TLS 1.2
-        props.put("mail.smtp.connectiontimeout", "5000"); // 5 seconds timeout
-        props.put("mail.smtp.timeout", "5000"); // 5 seconds timeout
-        props.put("mail.smtp.writetimeout", "5000"); // 5 seconds timeout
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        props.put("mail.smtp.connectiontimeout", "5000");
+        props.put("mail.smtp.timeout", "5000");
+        props.put("mail.smtp.writetimeout", "5000");
+        props.put("mail.smtp.quitwait", "false");
 
         return Session.getInstance(props, new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(FROM_EMAIL, FROM_PASSWORD);
             }
@@ -60,18 +67,57 @@ public class EmailSender {
             message.setSubject("Password Reset Verification PIN");
 
             String htmlBody = "<html>" +
-                "<body style='font-family:Arial, sans-serif;'>" +
-                "<h2 style='color:#007BFF;'>Clothing Rental - Password Reset Verification</h2>" +
+                "<head>" +
+                "<style>" +
+                "body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }" +
+                ".container { max-width: 600px; margin: 0 auto; padding: 20px; }" +
+                ".logo { text-align: center; margin-bottom: 20px; }" +
+                ".header { color: #007BFF; text-align: center; margin-bottom: 20px; }" +
+                ".pin-box { background-color: #f8f9fa; padding: 15px; border-radius: 5px; text-align: center; margin: 20px 0; }" +
+                ".pin { color: #28A745; font-size: 24px; font-weight: bold; letter-spacing: 2px; }" +
+                ".footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; color: #666; }" +
+                "</style>" +
+                "</head>" +
+                "<body>" +
+                "<div class='container'>" +
+                "<div class='logo'>" +
+                "<img src='cid:logo' alt='Clothing Rental Logo' style='width: 100px; height: auto;'>" +
+                "</div>" +
+                "<div class='header'>" +
+                "<h2>Password Reset Verification</h2>" +
+                "</div>" +
                 "<p>Dear <b>" + userName + "</b>,</p>" +
                 "<p>You have requested to reset your password. Please use the PIN below to verify your identity:</p>" +
-                "<h3 style='color:#28A745; background-color:#f8f9fa; padding:10px; border-radius:5px; text-align:center;'>" + pinString + "</h3>" +
-                "<p>This PIN is valid for 5 minutes. Do not share it with anyone.</p>" +
-                "<p>If you didn't request this password reset, please ignore this email.</p>" +
-                "<br><p>Sincerely,<br><b>Clothing Rental Team</b></p>" +
+                "<div class='pin-box'>" +
+                "<div class='pin'>" + pinString + "</div>" +
+                "</div>" +
+                "<p><b>Important:</b> This PIN is valid for 5 minutes only. Do not share it with anyone.</p>" +
+                "<p>If you didn't request this password reset, please ignore this email and ensure your account is secure.</p>" +
+                "<div class='footer'>" +
+                "<p>Sincerely,<br><b>Clothing Rental Team</b></p>" +
+                "</div>" +
+                "</div>" +
                 "</body>" +
                 "</html>";
 
-            message.setContent(htmlBody, "text/html");
+            // Create a multipart message
+            MimeMultipart multipart = new MimeMultipart("related");
+            
+            // Create the HTML part
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setContent(htmlBody, "text/html");
+            multipart.addBodyPart(messageBodyPart);
+            
+            // Add the logo image
+            messageBodyPart = new MimeBodyPart();
+            DataSource fds = new FileDataSource("src/images/logos50.png");
+            messageBodyPart.setDataHandler(new DataHandler(fds));
+            messageBodyPart.setHeader("Content-ID", "<logo>");
+            multipart.addBodyPart(messageBodyPart);
+            
+            // Set the content
+            message.setContent(multipart);
+            
             Transport.send(message);
 
             return pinString;

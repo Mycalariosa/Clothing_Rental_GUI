@@ -179,7 +179,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_iusernameActionPerformed
 
     private void ForgotPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ForgotPasswordActionPerformed
-        // TODO add your handling code here:
+        new Forgotpass().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ForgotPasswordActionPerformed
 
     private void RegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterMouseClicked

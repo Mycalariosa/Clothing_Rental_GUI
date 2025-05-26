@@ -90,6 +90,7 @@ public class changepass extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CHANGE PASSWORD");
 
         reset.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -123,6 +124,7 @@ public class changepass extends javax.swing.JFrame {
                 .addComponent(jLabel2))
         );
 
+        user.setForeground(new java.awt.Color(255, 255, 255));
         user.setText("username");
 
         newpass.addActionListener(new java.awt.event.ActionListener() {
@@ -131,8 +133,10 @@ public class changepass extends javax.swing.JFrame {
             }
         });
 
+        npass.setForeground(new java.awt.Color(255, 255, 255));
         npass.setText("New Password");
 
+        cpass.setForeground(new java.awt.Color(255, 255, 255));
         cpass.setText("Confirm Password");
 
         javax.swing.GroupLayout conLayout = new javax.swing.GroupLayout(con);

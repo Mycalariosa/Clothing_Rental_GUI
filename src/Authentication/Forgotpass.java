@@ -28,6 +28,9 @@ public class Forgotpass extends javax.swing.JFrame {
     private String generatedOTP;
     private int userId;
     private String userEmail;
+    private javax.swing.JLabel timerLabel;
+    private javax.swing.Timer timer;
+    private int remainingTime = 300; // 5 minutes in seconds
 
     /**
      * Creates new form Forgotpass
@@ -37,6 +40,47 @@ public class Forgotpass extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         user.setText("Email");
         npass.setText("Enter OTP sent to your email");
+        
+        // Disable verify button initially
+        verify.setEnabled(false);
+        verify.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        
+        // Initialize timer label
+        timerLabel = new javax.swing.JLabel();
+        timerLabel.setFont(new java.awt.Font("Consolas", 0, 10));
+        timerLabel.setForeground(new java.awt.Color(102, 102, 102));
+        timerLabel.setText(" 05:00");
+        timerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        timerLabel.setVisible(false); // Make timer initially invisible
+        
+        // Add timer label to the panel
+        con.add(timerLabel);
+        timerLabel.setBounds(28, 220, 80, 15);
+        
+        // Initialize timer
+        timer = new javax.swing.Timer(1000, new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remainingTime--;
+                if (remainingTime <= 0) {
+                    timer.stop();
+                    sendotp.setEnabled(true);
+                    sendotp.setBackground(new java.awt.Color(204, 204, 204));
+                    jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+                    timerLabel.setText("Expired");
+                    timerLabel.setVisible(false); // Hide timer when expired
+                    // Disable verify button when OTP expires
+                    verify.setEnabled(false);
+                    verify.setBackground(new java.awt.Color(153, 153, 153));
+                    jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+                } else {
+                    int minutes = remainingTime / 60;
+                    int seconds = remainingTime % 60;
+                    timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
+                }
+            }
+        });
     }
 
     /**
@@ -261,10 +305,26 @@ public class Forgotpass extends javax.swing.JFrame {
                     String insertSql = "INSERT INTO forget_pass (u_id, email, otp, expires_at) VALUES (?, ?, ?, ?)";
                     PreparedStatement insertStmt = connect.prepareStatement(insertSql);
                     insertStmt.setInt(1, userId);
-                    insertStmt.setString(2, email); // Store email instead of mobile number
+                    insertStmt.setString(2, email);
                     insertStmt.setString(3, generatedOTP);
                     insertStmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now().plusMinutes(5)));
                     insertStmt.executeUpdate();
+
+                    // Disable the send OTP button after successful OTP generation
+                    sendotp.setEnabled(false);
+                    sendotp.setBackground(new java.awt.Color(153, 153, 153));
+                    jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+
+                    // Enable verify button after OTP is sent
+                    verify.setEnabled(true);
+                    verify.setBackground(new java.awt.Color(204, 204, 204));
+                    jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+
+                    // Reset and start the timer
+                    remainingTime = 300;
+                    timer.start();
+                    timerLabel.setText("OTP expires in: 05:00");
+                    timerLabel.setVisible(true); // Make timer visible when OTP is sent
 
                     JOptionPane.showMessageDialog(this, "OTP has been sent to your email address", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } catch (MessagingException ex) {
