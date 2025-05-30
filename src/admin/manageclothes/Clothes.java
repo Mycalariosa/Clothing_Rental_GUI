@@ -525,12 +525,6 @@ public class Clothes extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                addMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                addMouseExited(evt);
-            }
         });
 
         jLabel9.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
@@ -541,9 +535,9 @@ public class Clothes extends javax.swing.JFrame {
         addLayout.setHorizontalGroup(
             addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel9)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         addLayout.setVerticalGroup(
             addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -552,17 +546,11 @@ public class Clothes extends javax.swing.JFrame {
                 .addComponent(jLabel9))
         );
 
-        getContentPane().add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 60, 20));
+        getContentPane().add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 60, 20));
 
         update.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 updateMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                updateMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                updateMouseExited(evt);
             }
         });
 
@@ -585,17 +573,11 @@ public class Clothes extends javax.swing.JFrame {
                 .addComponent(jLabel12))
         );
 
-        getContentPane().add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 60, 20));
+        getContentPane().add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, 60, 20));
 
         Archieve.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ArchieveMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ArchieveMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ArchieveMouseExited(evt);
             }
         });
 
@@ -618,7 +600,7 @@ public class Clothes extends javax.swing.JFrame {
                 .addComponent(archieve))
         );
 
-        getContentPane().add(Archieve, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 350, 60, 20));
+        getContentPane().add(Archieve, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 60, 20));
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/c.png"))); // NOI18N
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

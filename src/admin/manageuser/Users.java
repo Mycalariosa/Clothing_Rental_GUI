@@ -734,7 +734,7 @@ private void styleTable(JTable table) {
         jPanel1.add(Dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 210, 30));
 
         jLabel8.setText("Search name:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, -1, -1));
         jPanel1.add(admintable, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 480, 260));
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/c.png"))); // NOI18N
@@ -762,7 +762,51 @@ private void styleTable(JTable table) {
     }//GEN-LAST:event_formWindowActivated
 
     private void SearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchMouseClicked
-      
+        String searchText = search.getText().trim();
+        if (searchText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a name to search.", "Search Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            config connect = new config();
+            Connection conn = connect.getConnection();
+            
+            String query = "SELECT u_id, fname, lname, role, username, status FROM user WHERE fname LIKE ? OR lname LIKE ? ORDER BY u_id ASC";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, "%" + searchText + "%");
+            pstmt.setString(2, "%" + searchText + "%");
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            // Clear existing table data
+            DefaultTableModel model = (DefaultTableModel) ((JTable) admintable.getViewport().getView()).getModel();
+            model.setRowCount(0);
+            
+            // Add search results to table
+            while (rs.next()) {
+                String fullName = rs.getString("fname") + " " + rs.getString("lname");
+                model.addRow(new Object[]{
+                    rs.getInt("u_id"),
+                    fullName,
+                    rs.getString("role"),
+                    rs.getString("username"),
+                    rs.getString("status")
+                });
+            }
+            
+            if (model.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "No users found matching the search criteria.", "Search Results", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            rs.close();
+            pstmt.close();
+            conn.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error searching users: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_SearchMouseClicked
 
     private void SearchbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchbMouseClicked
@@ -771,8 +815,10 @@ private void styleTable(JTable table) {
     }//GEN-LAST:event_SearchbMouseClicked
 
     private void RefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RefreshMouseClicked
-      
-    loadUsers();
+        // Clear the search field
+        search.setText("");
+        // Reload the users table
+        loadUsers();
     }//GEN-LAST:event_RefreshMouseClicked
     private int getSelectedUserId() {
      JTable table = (JTable) admintable.getViewport().getView();

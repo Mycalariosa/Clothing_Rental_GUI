@@ -144,7 +144,7 @@ public class UpdateClothes extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        description = new javax.swing.JTextField();
+        description = new javax.swing.JTextArea();
         jLabel24 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         color = new javax.swing.JTextField();
@@ -182,12 +182,6 @@ public class UpdateClothes extends javax.swing.JFrame {
         addphoto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addphotoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                addphoto.setBackground(new java.awt.Color(200, 200, 200));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                addphoto.setBackground(new java.awt.Color(255, 255, 255));
             }
         });
 
@@ -238,12 +232,6 @@ public class UpdateClothes extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 updateclothesMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                updateclothes.setBackground(new java.awt.Color(200, 200, 200));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                updateclothes.setBackground(new java.awt.Color(255, 255, 255));
-            }
         });
 
         jLabel1.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
@@ -285,7 +273,7 @@ public class UpdateClothes extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Prize");
+        jLabel18.setText("Price");
         jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, 20));
 
         jLabel23.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
@@ -298,8 +286,13 @@ public class UpdateClothes extends javax.swing.JFrame {
         jLabel22.setText("Description");
         jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 80, 20));
 
+        description = new javax.swing.JTextArea();
         description.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
-        jPanel2.add(description, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 150, 50));
+        description.setLineWrap(true);
+        description.setWrapStyleWord(true);
+        javax.swing.JScrollPane descriptionScroll = new javax.swing.JScrollPane(description);
+        descriptionScroll.setPreferredSize(new java.awt.Dimension(150, 50));
+        jPanel2.add(descriptionScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 150, 50));
 
         jLabel24.setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
@@ -316,7 +309,7 @@ public class UpdateClothes extends javax.swing.JFrame {
         backbutton.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         backbutton.setForeground(new java.awt.Color(255, 255, 255));
         backbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
-        backbutton.setText("Exit");
+        backbutton.setText("back");
         backbutton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backbuttonMouseClicked(evt);
@@ -610,7 +603,7 @@ public class UpdateClothes extends javax.swing.JFrame {
     private javax.swing.JTextField category;
     private javax.swing.JTextField clothname;
     private javax.swing.JTextField color;
-    private javax.swing.JTextField description;
+    private javax.swing.JTextArea description;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;

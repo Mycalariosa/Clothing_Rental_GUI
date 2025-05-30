@@ -1,4 +1,3 @@
-
 package admin.managerental;
 
 import config.config;
@@ -21,6 +20,9 @@ import java.io.File;
 import javax.swing.JOptionPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
 
 /**
  *
@@ -37,10 +39,12 @@ public class addRental extends javax.swing.JFrame {
         loadAvailableClothes();
     }
    private void setupClothesPanel() {
-    clothesPanel = new JPanel(new GridLayout(0, 4, 10, 10)); // 4 columns
-    clothesPanel.setBackground(Color.DARK_GRAY); // black background
+    // 4 columns, 16px gap, black background
+    clothesPanel = new JPanel(new GridLayout(0, 4, 16, 16));
+    clothesPanel.setBackground(Color.BLACK);
     clothesPanel.setOpaque(true);
     clothespanel.setViewportView(clothesPanel);
+    clothespanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 }
 
 private ImageIcon loadImage(String imagePath) {
@@ -67,7 +71,7 @@ private void loadAvailableClothes() {
         }
 
         // Modified query to exclude clothes with active rentals
-        String query = "SELECT c.clothesid, c.clothname, c.sizes, c.price, c.photo_path, c.category " +
+        String query = "SELECT c.clothesid, c.clothname, c.sizes, c.price, c.photo_path, c.category, c.description " +
                        "FROM clothes c " +
                        "LEFT JOIN rentals r ON c.clothesid = r.clothesid AND r.status = 'active' " +
                        "WHERE c.availability = 'available' AND r.rental_id IS NULL " +
@@ -85,71 +89,113 @@ private void loadAvailableClothes() {
             double rate = rs.getDouble("price");
             String imagePath = rs.getString("photo_path");
             String category = rs.getString("category");
+            String description = rs.getString("description");
 
-            JPanel itemPanel = new JPanel(new BorderLayout(5, 5));
-            Color defaultColor = new Color(30, 30, 30); // dark gray
-            Color hoverColor = new Color(70, 70, 70);
+            // Minimalist card panel
+            JPanel itemPanel = new JPanel(new BorderLayout(0, 8));
+            itemPanel.setBackground(new Color(40, 40, 40));
+            itemPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(70, 70, 70), 1, true),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+            ));
+            itemPanel.setPreferredSize(new Dimension(160, 280));
 
-            itemPanel.setBackground(defaultColor);
-            itemPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-
+            // Image panel
+            JPanel imagePanel = new JPanel();
+            imagePanel.setBackground(new Color(40, 40, 40));
+            imagePanel.setPreferredSize(new Dimension(140, 160));
             JLabel imageLabel = new JLabel();
-            imageLabel.setPreferredSize(new Dimension(150, 150));
             imageLabel.setHorizontalAlignment(JLabel.CENTER);
-
             ImageIcon icon = loadImage(imagePath);
             if (icon != null) {
-                Image scaled = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                Image scaled = icon.getImage().getScaledInstance(120, 140, Image.SCALE_SMOOTH);
                 imageLabel.setIcon(new ImageIcon(scaled));
             } else {
                 imageLabel.setText("No Image");
-                imageLabel.setForeground(Color.WHITE);
+                imageLabel.setForeground(new Color(120, 120, 120));
                 imageLabel.setFont(new Font("Consolas", Font.PLAIN, 12));
             }
+            imagePanel.add(imageLabel);
 
-            JLabel infoLabel = new JLabel("<html><center>" +
-                    name + "<br>" +
-                    "Size: " + size + "<br>" +
-                    "₱" + rate + "/day</center></html>");
-            infoLabel.setForeground(Color.WHITE);
-            infoLabel.setFont(new Font("Consolas", Font.PLAIN, 12));
-            infoLabel.setHorizontalAlignment(JLabel.CENTER);
+            // Info panel
+            JPanel infoPanel = new JPanel();
+            infoPanel.setBackground(new Color(40, 40, 40));
+            infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+            JLabel nameLabel = new JLabel(name);
+            nameLabel.setFont(new Font("Consolas", Font.BOLD, 14));
+            nameLabel.setForeground(Color.WHITE);
+            nameLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+            JLabel sizeLabel = new JLabel("Size: " + size);
+            sizeLabel.setFont(new Font("Consolas", Font.PLAIN, 12));
+            sizeLabel.setForeground(new Color(180, 180, 180));
+            sizeLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+            JLabel priceLabel = new JLabel("₱" + String.format("%.2f", rate) + " / day");
+            priceLabel.setFont(new Font("Consolas", Font.BOLD, 13));
+            priceLabel.setForeground(Color.WHITE);
+            priceLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+            infoPanel.add(nameLabel);
+            infoPanel.add(sizeLabel);
+            infoPanel.add(priceLabel);
 
-            itemPanel.add(imageLabel, BorderLayout.CENTER);
-            itemPanel.add(infoLabel, BorderLayout.SOUTH);
-
-            itemPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            itemPanel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    // Set the selected cloth details including ID
-                    admin.managerental.ClothSelection.setSelectedCloth(
-                        imagePath,
-                        name,
-                        category,
-                        String.valueOf(rate),
-                        clothesId // Pass the clothing ID
-                    );
-                    
-                    // Open the RentCloth form
-                    new RentCloth().setVisible(true);
-                    // Close the current addRental form
-                    dispose();
-                }
-
+            // Button panel
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setBackground(new Color(40, 40, 40));
+            JButton rentBtn = new JButton("Rent Product");
+            rentBtn.setBackground(new Color(40, 40, 40));
+            rentBtn.setForeground(Color.WHITE);
+            rentBtn.setFocusPainted(false);
+            rentBtn.setFont(new Font("Consolas", Font.BOLD, 12));
+            rentBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            rentBtn.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1, true));
+            rentBtn.setContentAreaFilled(false);
+            rentBtn.setOpaque(true);
+            rentBtn.addActionListener(e -> {
+                admin.managerental.ClothSelection.setSelectedCloth(
+                    imagePath,
+                    name,
+                    category,
+                    String.valueOf(rate),
+                    clothesId
+                );
+                new RentCloth().setVisible(true);
+                dispose();
+            });
+            rentBtn.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    itemPanel.setBackground(hoverColor);
-                    itemPanel.repaint();
+                    rentBtn.setBackground(Color.WHITE);
+                    rentBtn.setForeground(Color.BLACK);
                 }
-
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    itemPanel.setBackground(defaultColor);
-                    itemPanel.repaint();
+                    rentBtn.setBackground(new Color(40, 40, 40));
+                    rentBtn.setForeground(Color.WHITE);
                 }
             });
+            buttonPanel.add(rentBtn);
 
+            // Add panels to card
+            itemPanel.add(imagePanel, BorderLayout.NORTH);
+            itemPanel.add(infoPanel, BorderLayout.CENTER);
+            itemPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+            // Card hover effect
+            itemPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    itemPanel.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(Color.WHITE, 2, true),
+                        BorderFactory.createEmptyBorder(10, 10, 10, 10)
+                    ));
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    itemPanel.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(new Color(70, 70, 70), 1, true),
+                        BorderFactory.createEmptyBorder(10, 10, 10, 10)
+                    ));
+                }
+            });
             clothesPanel.add(itemPanel);
         }
 

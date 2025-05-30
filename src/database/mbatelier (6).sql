@@ -3,11 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2025 at 05:59 PM
+-- Generation Time: May 30, 2025 at 06:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -39,9 +38,6 @@ DELIMITER ;
 --
 -- Table structure for table `clothes`
 --
--- Creation: May 19, 2025 at 01:01 PM
--- Last update: May 21, 2025 at 03:42 PM
---
 
 CREATE TABLE `clothes` (
   `clothesid` int(11) NOT NULL,
@@ -57,17 +53,13 @@ CREATE TABLE `clothes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELATIONSHIPS FOR TABLE `clothes`:
---
-
---
 -- Dumping data for table `clothes`
 --
 
 INSERT INTO `clothes` (`clothesid`, `clothname`, `description`, `sizes`, `price`, `category`, `photo_path`, `created_at`, `availability`, `color`) VALUES
-(1, 'Glittery Gown', 'glitter gown, detachable off shoulder strap and corset bodice', 'Small', 1200.00, 'Gown', 'src/images/clothes/clothes_1747660902472.png', '2025-05-19 13:23:12', 'Available', 'Pink'),
+(1, 'Glittery Gown', 'glitter gown, detachable off shoulder strap and corset bodice', 'Small', 1200.00, 'Gown', 'src/images/clothes/clothes_1747660902472.png', '2025-05-19 13:23:12', 'Unavailable', 'Pink'),
 (52, 'Suit', 'White suit, usually worn by groom in a wedding', 'Small', 1000.00, 'Male Suit', 'src/images/clothes/clothes_1747703326495.png', '2025-05-20 01:09:38', 'Available', 'White'),
-(53, 'Wedding Dress', 'intricate lace patterns, often incorporating delicate floral or vine designs, and are embellished with sparkling stones like crystals or pearls for added shimmer', 'Medium', 2000.00, 'Wedding Gown', 'src/images/clothes/clothes_1747703629582.png', '2025-05-20 01:15:26', 'Unavailable', 'White'),
+(53, 'Wedding Dress', 'intricate lace patterns, often incorporating delicate floral or vine designs, and are embellished with sparkling stones like crystals or pearls for added shimmer', 'Medium', 2000.00, 'Wedding Gown', 'src/images/clothes/clothes_1747703629582.png', '2025-05-20 01:15:26', 'Available', 'White'),
 (54, 'Batman Costume', 'a dark gray bodysuit with a black bat emblem, includes accessories like a black or blue cape, cowl, gloves, and boots, all serving various purposes such as protection, stealth, and intimidation.', 'Small', 900.00, 'Kids Custome', 'src/images/clothes/clothes_1747704213748.png', '2025-05-20 01:25:17', 'Available', 'Black'),
 (59, 'Barong', 'a formal shirt that is a vibrant and unique choice for celebrating Filipino culture with style. It combines traditional Filipino craftsmanship with modern elegance, making it suitable for formal occasions, weddings, and cultural events.', 'Small', 600.00, 'Barong', 'src/images/clothes/clothes_1747795186404.jpg', '2025-05-21 02:40:25', 'Available', 'NavyBlue');
 
@@ -75,9 +67,6 @@ INSERT INTO `clothes` (`clothesid`, `clothname`, `description`, `sizes`, `price`
 
 --
 -- Table structure for table `forget_pass`
---
--- Creation: May 19, 2025 at 03:19 PM
--- Last update: May 21, 2025 at 02:40 PM
 --
 
 CREATE TABLE `forget_pass` (
@@ -89,12 +78,6 @@ CREATE TABLE `forget_pass` (
   `is_used` tinyint(1) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELATIONSHIPS FOR TABLE `forget_pass`:
---   `u_id`
---       `user` -> `u_id`
---
 
 --
 -- Dumping data for table `forget_pass`
@@ -134,15 +117,22 @@ INSERT INTO `forget_pass` (`id`, `u_id`, `email`, `otp`, `expires_at`, `is_used`
 (31, 1, 'Myca.lariosa12@gmail.com', '796826', '2025-05-21 12:16:11', 0, '2025-05-21 12:11:11'),
 (32, 1, 'myca.lariosa12@gmail.com', '580397', '2025-05-21 14:23:13', 1, '2025-05-21 14:22:24'),
 (33, 1, 'myca.lariosa12@gmail.com', '151475', '2025-05-21 14:44:38', 0, '2025-05-21 14:39:38'),
-(34, 1, 'myca.lariosa12@gmail.com', '357905', '2025-05-21 14:40:40', 1, '2025-05-21 14:40:24');
+(34, 1, 'myca.lariosa12@gmail.com', '357905', '2025-05-21 14:40:40', 1, '2025-05-21 14:40:24'),
+(35, 1, 'Myca.lariosa12@gmail.com', '944204', '2025-05-26 09:49:52', 1, '2025-05-26 09:49:27'),
+(36, 1, 'Myca.lariosa12@gmail.com', '789717', '2025-05-26 09:56:38', 0, '2025-05-26 09:51:38'),
+(37, 1, 'myca.lariosa12@gmail.com', '355682', '2025-05-26 09:57:58', 0, '2025-05-26 09:52:58'),
+(38, 1, 'Myca.lariosa12@gmail.com', '271950', '2025-05-26 09:59:37', 0, '2025-05-26 09:54:37'),
+(39, 1, 'Myca.lariosa12@gmail.com', '598418', '2025-05-26 10:03:42', 0, '2025-05-26 09:58:42'),
+(40, 1, 'Myca.lariosa12@gmail.com', '417371', '2025-05-26 10:41:24', 0, '2025-05-26 10:36:24'),
+(41, 1, 'myca.lariosa12@gmail.com', '113733', '2025-05-26 10:40:30', 1, '2025-05-26 10:39:25'),
+(42, 1, 'Myca.lariosa12@gmail.com', '359188', '2025-05-26 13:55:21', 0, '2025-05-26 13:50:21'),
+(43, 1, 'Myca.lariosa12@gmail.com', '961868', '2025-05-26 15:37:42', 0, '2025-05-26 15:32:42'),
+(44, 1, 'Myca.lariosa12@gmail.com', '869473', '2025-05-26 16:41:43', 0, '2025-05-26 16:36:43');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `logs`
---
--- Creation: Apr 20, 2025 at 03:19 PM
--- Last update: May 21, 2025 at 03:52 PM
 --
 
 CREATE TABLE `logs` (
@@ -152,12 +142,6 @@ CREATE TABLE `logs` (
   `log_timestamp` datetime NOT NULL,
   `u_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELATIONSHIPS FOR TABLE `logs`:
---   `u_id`
---       `user` -> `u_id`
---
 
 --
 -- Dumping data for table `logs`
@@ -302,15 +286,82 @@ INSERT INTO `logs` (`log_id`, `log_event`, `log_description`, `log_timestamp`, `
 (136, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-21 23:44:46', 1),
 (137, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-21 23:48:01', 1),
 (138, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-21 23:50:39', 1),
-(139, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-21 23:52:19', 1);
+(139, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-21 23:52:19', 1),
+(140, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-22 06:58:22', 1),
+(141, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-22 07:01:17', 1),
+(142, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-22 07:02:55', 1),
+(143, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-22 07:05:37', 1),
+(144, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-22 07:14:06', 1),
+(145, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-22 15:20:35', 1),
+(146, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-22 15:24:18', 1),
+(147, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-26 21:52:06', 1),
+(148, 'Failed Login', 'Invalid password attempt for user: Admin', '2025-05-26 23:34:07', 1),
+(149, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-26 23:34:10', 1),
+(150, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-27 17:54:38', 1),
+(151, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-27 18:00:37', 1),
+(152, 'Failed Login', 'Invalid password attempt for user: Admin', '2025-05-27 18:25:53', 1),
+(153, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-27 18:26:01', 1),
+(154, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-27 18:36:20', 1),
+(155, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-27 21:50:04', 1),
+(156, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-27 22:12:09', 1),
+(157, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-27 22:14:02', 1),
+(158, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 19:33:37', 1),
+(159, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 19:50:34', 1),
+(160, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 20:12:57', 1),
+(161, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 20:43:20', 1),
+(162, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 20:44:58', 1),
+(163, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 20:45:28', 1),
+(164, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 20:57:19', 1),
+(165, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 21:04:02', 1),
+(166, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 21:05:51', 1),
+(167, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 21:20:43', 1),
+(168, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 21:21:58', 1),
+(169, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 21:32:38', 1),
+(170, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:24:42', 1),
+(171, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:27:05', 1),
+(172, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:28:51', 1),
+(173, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:33:10', 1),
+(174, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:37:15', 1),
+(175, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:39:25', 1),
+(176, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:41:45', 1),
+(177, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:43:05', 1),
+(178, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:44:27', 1),
+(179, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:46:55', 1),
+(180, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:48:35', 1),
+(181, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:52:43', 1),
+(182, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:53:19', 1),
+(183, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 22:59:33', 1),
+(184, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 23:04:18', 1),
+(185, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 23:29:24', 1),
+(186, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-30 23:54:29', 1),
+(187, 'Failed Login', 'Invalid password attempt for user: Admin', '2025-05-31 00:02:27', 1),
+(188, 'Successful Login', 'User Admin logged in successfully as Admin', '2025-05-31 00:02:31', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `refunds`
+--
+
+CREATE TABLE `refunds` (
+  `refund_id` int(11) NOT NULL,
+  `rental_id` int(11) DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `refund_date` date DEFAULT NULL,
+  `reason` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `refunds`
+--
+
+INSERT INTO `refunds` (`refund_id`, `rental_id`, `amount`, `refund_date`, `reason`) VALUES
+(1, 3, 2100.00, '2025-05-30', 'Late return penalty - 1 day + 5%');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rentals`
---
--- Creation: May 21, 2025 at 12:53 PM
--- Last update: May 21, 2025 at 03:33 PM
 --
 
 CREATE TABLE `rentals` (
@@ -326,27 +377,18 @@ CREATE TABLE `rentals` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELATIONSHIPS FOR TABLE `rentals`:
---   `user_id`
---       `user` -> `u_id`
---   `clothesid`
---       `clothes` -> `clothesid`
---
-
---
 -- Dumping data for table `rentals`
 --
 
 INSERT INTO `rentals` (`rental_id`, `user_id`, `customer_name`, `customer_phone`, `clothesid`, `rental_date`, `return_date`, `total_amount`, `status`) VALUES
-(3, 3, 'Mica Larrobis', '09678654567', 53, '2025-05-24', '2025-05-25', 2000.00, 'active');
+(3, 3, 'Mica Larrobis', '09678654567', 53, '2025-05-24', '2025-05-25', 2000.00, 'returned'),
+(4, 6, 'lanie lariosa', '09875483543', 1, '2025-05-30', '2025-05-31', 1200.00, 'active'),
+(5, 3, 'Mica Larrobis', '09999332321', 53, '2025-05-30', '2025-05-30', 0.00, 'active');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `user`
---
--- Creation: Mar 30, 2025 at 09:55 AM
--- Last update: May 21, 2025 at 02:41 PM
 --
 
 CREATE TABLE `user` (
@@ -363,15 +405,11 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- RELATIONSHIPS FOR TABLE `user`:
---
-
---
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`u_id`, `fname`, `lname`, `email`, `contact`, `username`, `password`, `status`, `role`, `profile_image`) VALUES
-(1, 'Mica', 'Lariosa', 'myca.lariosa12@gmail.com', '09999221439', 'Admin', 'f1e96f1b320b3b8c120243fb511c5ba4e81cf319f079633f827188b5ae68a6ce', 'Active', 'Admin', 'src\\images\\prof\\ppp.png'),
+(1, 'Mica', 'Lariosa', 'myca.lariosa12@gmail.com', '09999221439', 'Admin', 'f1e96f1b320b3b8c120243fb511c5ba4e81cf319f079633f827188b5ae68a6ce', 'Active', 'Admin', 'src\\images\\prof\\pic.png'),
 (2, 'Bush', 'Sellote', 'Bushsellote15@gmail.com', '09912086690', 'Bushyy', '7c9aa883641b1ef4b76f8b141bd1d0308bc83eeebe38a60f70fdcff0aec5b90c', 'Active', 'User', 'src\\images\\prof\\back.png'),
 (3, 'Mica', 'Larrobis', 'lariosa.myca21@gmail.com', '09999332321', 'Mica', '3cff66f2b2e4503a93de76e337dd84b7db16ed2dae7657dcfeb1ac50644505c7', 'Active', 'User', NULL),
 (4, 'Glenda', 'Lariosa', 'Glenda@gmail.com', '09992221234', 'Glenda', '1b73621b32887f122108b2496300a9dbef772e1324909f1cc7e8d4e73fc5614c', 'Active', 'User', NULL),
@@ -407,6 +445,13 @@ ALTER TABLE `logs`
   ADD KEY `u_id` (`u_id`);
 
 --
+-- Indexes for table `refunds`
+--
+ALTER TABLE `refunds`
+  ADD PRIMARY KEY (`refund_id`),
+  ADD KEY `rental_id` (`rental_id`);
+
+--
 -- Indexes for table `rentals`
 --
 ALTER TABLE `rentals`
@@ -434,19 +479,25 @@ ALTER TABLE `clothes`
 -- AUTO_INCREMENT for table `forget_pass`
 --
 ALTER TABLE `forget_pass`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+
+--
+-- AUTO_INCREMENT for table `refunds`
+--
+ALTER TABLE `refunds`
+  MODIFY `refund_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rentals`
 --
 ALTER TABLE `rentals`
-  MODIFY `rental_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `rental_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -471,48 +522,17 @@ ALTER TABLE `logs`
   ADD CONSTRAINT `u_id` FOREIGN KEY (`u_id`) REFERENCES `user` (`u_id`);
 
 --
+-- Constraints for table `refunds`
+--
+ALTER TABLE `refunds`
+  ADD CONSTRAINT `refunds_ibfk_1` FOREIGN KEY (`rental_id`) REFERENCES `rentals` (`rental_id`);
+
+--
 -- Constraints for table `rentals`
 --
 ALTER TABLE `rentals`
   ADD CONSTRAINT `fk_user_rental` FOREIGN KEY (`user_id`) REFERENCES `user` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `rentals_ibfk_1` FOREIGN KEY (`clothesid`) REFERENCES `clothes` (`clothesid`);
-
-
---
--- Metadata
---
-USE `phpmyadmin`;
-
---
--- Metadata for table clothes
---
-
---
--- Metadata for table forget_pass
---
-
---
--- Metadata for table logs
---
-
---
--- Metadata for table rentals
---
-
---
--- Metadata for table user
---
-
---
--- Dumping data for table `pma__table_uiprefs`
---
-
-INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
-('root', 'mbatelier', 'user', '{\"CREATE_TIME\":\"2025-03-23 01:08:47\",\"sorted_col\":\"`status` ASC\"}', '2025-05-20 10:25:47');
-
---
--- Metadata for database mbatelier
---
 
 DELIMITER $$
 --
@@ -521,7 +541,6 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` EVENT `cleanup_otps_event` ON SCHEDULE EVERY 1 DAY STARTS '2025-05-20 00:50:23' ON COMPLETION NOT PRESERVE ENABLE DO CALL cleanup_expired_otps()$$
 
 DELIMITER ;
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

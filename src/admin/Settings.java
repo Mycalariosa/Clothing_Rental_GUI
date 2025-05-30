@@ -55,19 +55,16 @@ public class Settings extends javax.swing.JFrame {
         Messages = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        Logout1 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        logout = new javax.swing.JPanel();
         Logout4 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        history = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        term = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        about = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
 
@@ -378,32 +375,21 @@ public class Settings extends javax.swing.JFrame {
 
         getContentPane().add(Messages, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 210, 30));
 
-        jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Logout");
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, -1));
-
-        Logout1.setBackground(new java.awt.Color(0, 0, 0));
-        Logout1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Logout1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Logout1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Logout1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Logout1MouseExited(evt);
-            }
-        });
-
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-logout-24.png"))); // NOI18N
-        Logout1.add(jLabel20);
-
-        getContentPane().add(Logout1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 30, 40));
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logos50.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 220, 250));
+
+        logout.setBackground(new java.awt.Color(255, 255, 255));
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logoutMouseExited(evt);
+            }
+        });
 
         Logout4.setBackground(new java.awt.Color(0, 0, 0));
         Logout4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -426,103 +412,133 @@ public class Settings extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel19.setText("Logout");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout logoutLayout = new javax.swing.GroupLayout(logout);
+        logout.setLayout(logoutLayout);
+        logoutLayout.setHorizontalGroup(
+            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logoutLayout.createSequentialGroup()
                 .addContainerGap(93, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutLayout.createSequentialGroup()
                         .addComponent(Logout4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(91, 91, 91))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutLayout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(131, 131, 131))))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        logoutLayout.setVerticalGroup(
+            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logoutLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutLayout.createSequentialGroup()
                         .addComponent(Logout4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(61, 61, 61))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutLayout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(72, 72, 72))))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 290, 260, 60));
+        getContentPane().add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 290, 260, 60));
+
+        history.setBackground(new java.awt.Color(255, 255, 255));
+        history.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                historyMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                historyMouseExited(evt);
+            }
+        });
 
         jLabel25.setBackground(new java.awt.Color(0, 0, 0));
         jLabel25.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel25.setText("HISTORY");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout historyLayout = new javax.swing.GroupLayout(history);
+        history.setLayout(historyLayout);
+        historyLayout.setHorizontalGroup(
+            historyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(historyLayout.createSequentialGroup()
                 .addGap(95, 95, 95)
                 .addComponent(jLabel25)
                 .addContainerGap(123, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        historyLayout.setVerticalGroup(
+            historyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(historyLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel25)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 210, 260, 60));
+        getContentPane().add(history, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 210, 260, 60));
+
+        term.setBackground(new java.awt.Color(255, 255, 255));
+        term.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                termMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                termMouseExited(evt);
+            }
+        });
 
         jLabel26.setBackground(new java.awt.Color(0, 0, 0));
         jLabel26.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel26.setText("TERMS AND CONDITIONS");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout termLayout = new javax.swing.GroupLayout(term);
+        term.setLayout(termLayout);
+        termLayout.setHorizontalGroup(
+            termLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(termLayout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addComponent(jLabel26)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+        termLayout.setVerticalGroup(
+            termLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, termLayout.createSequentialGroup()
                 .addContainerGap(24, Short.MAX_VALUE)
                 .addComponent(jLabel26)
                 .addGap(22, 22, 22))
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 260, 60));
+        getContentPane().add(term, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 260, 60));
+
+        about.setBackground(new java.awt.Color(255, 255, 255));
+        about.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                aboutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                aboutMouseExited(evt);
+            }
+        });
 
         jLabel27.setBackground(new java.awt.Color(0, 0, 0));
         jLabel27.setFont(new java.awt.Font("Consolas", 1, 11)); // NOI18N
         jLabel27.setText("ABOUT US");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout aboutLayout = new javax.swing.GroupLayout(about);
+        about.setLayout(aboutLayout);
+        aboutLayout.setHorizontalGroup(
+            aboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(aboutLayout.createSequentialGroup()
                 .addGap(99, 99, 99)
                 .addComponent(jLabel27)
                 .addContainerGap(115, Short.MAX_VALUE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        aboutLayout.setVerticalGroup(
+            aboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(aboutLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel27)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, -1, 60));
+        getContentPane().add(about, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, -1, 60));
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/c.png"))); // NOI18N
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -626,23 +642,6 @@ public class Settings extends javax.swing.JFrame {
         Messages.setBackground(new java.awt.Color(0,0,0));
     }//GEN-LAST:event_MessagesMouseExited
 
-    private void Logout1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout1MouseClicked
-        int a=JOptionPane.showConfirmDialog(null,"Do you really want to logout?","Select", JOptionPane.YES_NO_OPTION);
-        if(a==0)
-        {
-            setVisible(false);
-            new Login().setVisible(true);
-            this.dispose();}
-    }//GEN-LAST:event_Logout1MouseClicked
-
-    private void Logout1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Logout1MouseEntered
-
-    private void Logout1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Logout1MouseExited
-
     private void MessagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MessagesMouseClicked
          new Rental().setVisible(true);
          this.dispose();
@@ -664,6 +663,78 @@ public class Settings extends javax.swing.JFrame {
     private void Logout4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Logout4MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_Logout4MouseExited
+
+    private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
+        logout.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_jPanel3MouseEntered
+
+    private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
+        logout.setBackground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_jPanel3MouseExited
+
+    private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
+        history.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_jPanel4MouseEntered
+
+    private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
+        history.setBackground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_jPanel4MouseExited
+
+    private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
+        term.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_jPanel5MouseEntered
+
+    private void jPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseExited
+        term.setBackground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_jPanel5MouseExited
+
+    private void jPanel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseEntered
+        about.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_jPanel6MouseEntered
+
+    private void jPanel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseExited
+        about.setBackground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_jPanel6MouseExited
+
+    private void aboutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutMouseEntered
+          about.setOpaque(true);
+   about.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_aboutMouseEntered
+
+    private void aboutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutMouseExited
+        about.setBackground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_aboutMouseExited
+
+    private void termMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_termMouseEntered
+         term.setOpaque(true);
+        term.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_termMouseEntered
+
+    private void termMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_termMouseExited
+        term.setBackground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_termMouseExited
+
+    private void historyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historyMouseEntered
+        history.setOpaque(true);
+        history.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_historyMouseEntered
+
+    private void historyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historyMouseExited
+        history.setBackground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_historyMouseExited
+
+    private void logoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseEntered
+          logout.setOpaque(true);
+        logout.setBackground(new java.awt.Color(102,102,102));
+    }//GEN-LAST:event_logoutMouseEntered
+
+    private void logoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseExited
+        logout.setBackground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_logoutMouseExited
+
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logoutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -702,30 +773,25 @@ public class Settings extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Dashboard;
-    private javax.swing.JPanel Logout1;
-    private javax.swing.JPanel Logout2;
-    private javax.swing.JPanel Logout3;
     private javax.swing.JPanel Logout4;
     private javax.swing.JLabel Manage;
     private javax.swing.JPanel Messages;
     private javax.swing.JPanel Productmanagement;
     private javax.swing.JPanel Profile;
     private javax.swing.JPanel Rentalmanagement;
+    private javax.swing.JPanel about;
     private javax.swing.JPanel accountmanagement;
     private javax.swing.JLabel back;
+    private javax.swing.JPanel history;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -737,12 +803,8 @@ public class Settings extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel logout;
     private javax.swing.JPanel settings;
+    private javax.swing.JPanel term;
     // End of variables declaration//GEN-END:variables
 }

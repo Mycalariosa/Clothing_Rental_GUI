@@ -344,16 +344,19 @@ public class RentCloth extends javax.swing.JFrame {
         String userId = userid.getText().trim();
         if (!userId.isEmpty()) {
             config connect = new config();
-            String sql = "SELECT fname, lname FROM user WHERE u_id = ?";
+            String sql = "SELECT fname, lname, contact FROM user WHERE u_id = ?";
             try (PreparedStatement pst = connect.getConnection().prepareStatement(sql)) {
                 pst.setString(1, userId);
                 try (ResultSet rs = pst.executeQuery()) {
                     if (rs.next()) {
                         String firstName = rs.getString("fname");
                         String lastName = rs.getString("lname");
+                        String phone = rs.getString("contact");
                         cname.setText(firstName + " " + lastName);
+                        cphone.setText(phone);
                     } else {
                         cname.setText("");
+                        cphone.setText("");
                         JOptionPane.showMessageDialog(this, 
                             "No user found with ID: " + userId,
                             "User Not Found",
